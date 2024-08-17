@@ -42,9 +42,9 @@ export default function ListCities() {
   return (
     <div>
       <div className="flex gap-2 flex-wrap mt-6">
-        {countriesList.map((country) => (
+        {countriesList.map((country, index) => (
           <button
-            key={country}
+            key={index}
             onClick={() => setSelectedCountry(country)}
             className={`px-4 py-[6px] ${
               selectedCountry === country
@@ -57,9 +57,9 @@ export default function ListCities() {
         ))}
       </div>
       <div className="grid grid-cols-3 md:grid-cols-5 gap-2 mt-6 px-3">
-        {cities.map((city) => (
-          <Link href={`/map?city=${city}`}>
-            <div className="text-[1.rem] hover:underline" key={city}>
+        {cities.map((city, index) => (
+          <Link key={index} href={`/map?city=${city}`}>
+            <div className="text-[1.rem] hover:underline">
               {city}
             </div>
           </Link>

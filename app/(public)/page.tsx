@@ -69,7 +69,7 @@ const clientReviews = [
     description:
       "I had a great experience at the salon. The staff was friendly and professional.",
     client_name: "Cameron Diaz",
-    client_adress: "Springfield, IL",
+    client_address: "Springfield, IL",
     client_image:
       "	https://www.fresha.com/assets/_next/static/images/lucy@2x-df65c7d8267eabc81b315c3d43f5d78c.webp",
   },
@@ -78,7 +78,7 @@ const clientReviews = [
     description:
       "I had a great experience at the salon. The staff was friendly and professional.",
     client_name: "John Doe",
-    client_adress: "Dubai, UAE",
+    client_address: "Dubai, UAE",
     client_image:
       "	https://www.fresha.com/assets/_next/static/images/dale@2x-d5a9f0f5c21818e519754ee336da226a.webp",
   },
