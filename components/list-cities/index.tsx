@@ -48,9 +48,9 @@ export default function ListCities() {
             onClick={() => setSelectedCountry(country)}
             className={`px-4 py-[6px] ${
               selectedCountry === country
-                ? "bg-gray-900 hover:bg-gray-800"
+                ? "bg-gray-900 hover:bg-gray-800 text-white"
                 : "text-gray-800 hover:bg-gray-100"
-            } text-white font-semibold rounded-full`}
+            } font-semibold rounded-full`}
           >
             {country}
           </button>

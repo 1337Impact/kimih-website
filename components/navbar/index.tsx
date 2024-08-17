@@ -63,7 +63,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed bg-white z-[100] w-full h-[80px] mx-auto text-slate-700">
-      <div className="relative flex h-full w-full items-center justify-between px-4 max-w-[1200px] mx-auto">
+      <div className="relative flex h-full w-full items-center justify-between px-4 max-w-[1300px] mx-auto">
         <Link href="/#" className="flex items-center gap-1">
           <img alt="logo" src="/logo.svg" className="h-9" />
           <h1 className="text-xl font-bold text-black">Kimih</h1>

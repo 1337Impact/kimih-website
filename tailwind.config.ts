@@ -16,7 +16,7 @@ const config: Config = {
       },
       dropShadow: {
         'strong-black': '0 8px 16px rgba(0, 0, 0, 0.85)',
-        'md-black': '0 1px 1px rgba(0, 0, 0, 0.85)',
+        'md-vilot': '0 4px 10px rgba(221, 63, 235, .6)',
       },
       backgroundImage: {
         "bg-gradiant": "linear-gradient(180deg, transparent 0%, transparent 50%,  rgba(58, 55, 236, .5) 75%, #DD3FEB 100%)",
