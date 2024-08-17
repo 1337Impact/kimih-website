@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import Image from "next/image";
 
 function BusinessReviewCard({
   title,
@@ -16,7 +17,9 @@ function BusinessReviewCard({
   return (
     <div className="bg-gray-100 shadow-lg min-w-[300px] min-h-[320px] rounded-2xl overflow-hidden p-4 hover-scale">
       <div className="flex flex-col items-center">
-        <img
+        <Image
+            width={300}
+            height={300}
           src={client_image}
           alt={client_name}
           className="h-32 w-32 rounded-full"

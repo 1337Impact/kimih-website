@@ -113,12 +113,12 @@ export default async function Home() {
         </div>
       </section>
       <section id="discover-kimih" className="relative mt-20 xl:mt-32">
-        <div className={`${styles.discoverKimih} flex max-md:flex-col max-md:items-center justify-between`}>
-          <div className="max-w-[500px]">
-            <h1 className="text-3xl font-bold md:mt-20">
+        <div className={`${styles.discoverKimih} flex max-lg:flex-col max-lg:items-center justify-between`}>
+          <div className="max-w-[520px] lg:mt-20 lg:pl-10 xl:mt-32 xl:pl-14">
+            <h1 className="text-3xl font-bold">
               Discover Kimih: Your Beauty & Wellness Hub
             </h1>
-            <p className="text-lg mt-2">
+            <p className="text-lg mt-3">
               Kimih is the first platform of its kind in the Middle East,
               offering seamless booking for local beauty and wellness services.
               With an easy-to-use interface, Kimih connects you with top-rated

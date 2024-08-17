@@ -1,5 +1,6 @@
 import { Star } from "lucide-react";
 import SwiperBusinessReview from "./swiper-business-review";
+import Image from "next/image";
 
 function ReviewCard({
   title,
@@ -36,7 +37,9 @@ function ReviewCard({
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center">
-            <img
+            <Image
+              width={300}
+              height={300}
               src={client_image}
               alt={client_name}
               className="h-12 w-12 rounded-full"

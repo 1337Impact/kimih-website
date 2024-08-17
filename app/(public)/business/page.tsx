@@ -1,7 +1,6 @@
 import Image from "next/image";
 import styles from "../styles.module.css";
-import ReviewCard, { SwiperBusinessReview } from "@/components/review-card";
-import ListCities from "@/components/list-cities";
+import { SwiperBusinessReview } from "@/components/review-card";
 import Link from "next/link";
 import BusinessFeatureCard from "@/components/business-feature-card";
 import { FaCheck } from "react-icons/fa";
@@ -81,15 +80,15 @@ export default async function Home() {
         id="main"
         className="w-full min-h-[70vh] flex flex-col items-center justify-center"
       >
-        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20">
+        <h1 className="text-center text-4xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20">
           #1 booking software with no subscription fees!
         </h1>
         <Link href={"/signup"} className="mt-6">
-          <button className="text-xl border-[2.4px] border-themeVilot text-themeVilot rounded-full font-bold py-2 px-6">
-            Join for free
+          <button className="text-lg uppercase text-white px-10 py-2 lg:py-3 bg-black hover:opacity-80 rounded-full">
+            Get started for free
           </button>
         </Link>
-        <div className="w-full">
+        <div className="w-full mt-4">
           <Image
             src="/assets/images/business-landing-hero.png"
             alt="landing-page-hero"
@@ -150,7 +149,7 @@ export default async function Home() {
             <p className="text-lg mt-2">
               Drive sales with seamless online client acquisition. Increase
               visibility and brand presence by creating a standout profile on
-              our marketplace. Integrate unlimited "Book Now" buttons on your
+              our marketplace. Integrate unlimited &quot;Book Now&ldquo; buttons on your
               social media for instant client bookings.
             </p>
             <ul className="mt-4 flex flex-col gap-1">

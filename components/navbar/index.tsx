@@ -3,6 +3,7 @@ import { use, useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 
 const links = [
   {
@@ -33,8 +34,8 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname.includes("/blog")) {
-      setActiveSection("blog");
+    if (pathname.includes("/business")) {
+      setActiveSection("business");
       return;
     }
     const sections = document.querySelectorAll("section");
@@ -65,7 +66,13 @@ export default function Navbar() {
     <header className="fixed bg-white z-[100] w-full h-[80px] mx-auto text-slate-700">
       <div className="relative flex h-full w-full items-center justify-between px-4 max-w-[1300px] mx-auto">
         <Link href="/#" className="flex items-center gap-1">
-          <img alt="logo" src="/logo.svg" className="h-9" />
+          <Image
+            width="300"
+            height="300"
+            alt="logo"
+            src="/logo.svg"
+            className="h-9 w-9"
+          />
           <h1 className="text-xl font-bold text-black">Kimih</h1>
         </Link>
         <nav
