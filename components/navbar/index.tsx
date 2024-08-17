@@ -134,10 +134,10 @@ export default function Navbar() {
               Log in
             </div>
           </Link>
-          <Link href={"/#contact"} className="max-md:hidden">
+          <Link href={"/signup"} className="max-md:hidden">
             <div
               onClick={() => setIsMenuOpen(false)}
-              className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:from-themeVilot hover:to-themeBlue text-white px-4 py-2 rounded-xl cursor-pointer"
+              className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:opacity-90 text-white px-4 py-2 rounded-xl cursor-pointer"
             >
               Sign up
             </div>

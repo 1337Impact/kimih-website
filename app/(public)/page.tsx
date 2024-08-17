@@ -2,6 +2,9 @@ import Image from "next/image";
 import styles from "./styles.module.css";
 import BookNowCard from "@/components/book-now-card";
 import SalonCard from "@/components/salon-card";
+import ReviewCard from "@/components/review-card";
+import getCities from "@/utils/getCities";
+import ListCities from "@/components/list-cities";
 
 const tempData = [
   {
@@ -61,7 +64,29 @@ const tempData = [
   },
 ];
 
-export default function Home() {
+const clientReviews = [
+  {
+    title: "Great service!",
+    description:
+      "I had a great experience at the salon. The staff was friendly and professional.",
+    client_name: "Cameron Diaz",
+    client_adress: "Springfield, IL",
+    client_image:
+      "	https://www.fresha.com/assets/_next/static/images/lucy@2x-df65c7d8267eabc81b315c3d43f5d78c.webp",
+  },
+  {
+    title: "The best saolon so far!",
+    description:
+      "I had a great experience at the salon. The staff was friendly and professional.",
+    client_name: "John Doe",
+    client_adress: "Dubai, UAE",
+    client_image:
+      "	https://www.fresha.com/assets/_next/static/images/dale@2x-d5a9f0f5c21818e519754ee336da226a.webp",
+  },
+];
+
+export default async function Home() {
+  await getCities("Morocco");
   return (
     <main className="container max-w-[1200px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-28">
       <div className={styles.background} />
@@ -89,8 +114,8 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <section id="discover-kimih" className="relative mt-20">
-          <div className={styles.gradiantBackground} />
+      <section id="discover-kimih" className="relative mt-20 xl:mt-32">
+        <div className={styles.gradiantBackground} />
         <div className="flex max-md:flex-col max-md:items-center justify-between">
           <div className="max-w-[500px]">
             <h1 className="text-3xl font-bold md:mt-20">
@@ -113,9 +138,11 @@ export default function Home() {
           />
         </div>
       </section>
-      <section id="how-it-works" className="mt-20 w-full">
-        <h1 className="text-4xl text-black text-center font-bold">Getting Started</h1>
-        <div className="relative flex flex-col gap-8 justify-center items-center w-full px-32 pt-14 pb-8 rounded-3xl">
+      <section id="how-it-works" className="mt-20 w-[95%] xl:mt-40">
+        <h1 className="text-3xl text-black text-center font-bold">
+          Getting Started
+        </h1>
+        <div className="relative flex flex-col gap-8 justify-center items-center w-full mt-8 px-10 lg:px-32 py-16 rounded-3xl">
           <div className="rounded-xl w-full">
             <iframe
               className="m-auto w-full aspect-video rounded-2xl"
@@ -126,6 +153,18 @@ export default function Home() {
           </div>
           <div className="absolute w-full -z-10 h-full bg-landing-yoga bg-cover blur-[3px] rounded-3xl" />
         </div>
+      </section>
+      <section id="reviews" className="mt-20 lg:mt-32">
+        <h1 className="text-2xl text-black font-semibold">Client Reviews</h1>
+        <div className="w-full mt-6 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {clientReviews.map((review) => (
+            <ReviewCard key={review.title} {...review} />
+          ))}
+        </div>
+      </section>
+      <section id="browse-by-city" className="">
+        <h1 className="text-2xl font-bold mt-20">Browse by City</h1>
+        <ListCities />
       </section>
     </main>
   );

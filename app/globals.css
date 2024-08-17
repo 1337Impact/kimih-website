@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.hover-scale {
+  @apply hover:scale-[103%] ease-in-out duration-500;
+}
