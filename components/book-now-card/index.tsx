@@ -1,4 +1,5 @@
-import { AlignJustify, BookIcon, Calendar, Clock3, MapPin, Search } from "lucide-react";
+import { AlignJustify, BookIcon, Calendar, Clock3, MapPin, Search, SearchIcon } from "lucide-react";
+import "./styles.css";
 
 const servicesList = [
   {
@@ -113,13 +114,13 @@ const IconTitle = ({
 
 export default function BookNowCard() {
   return (
-    <div className="w-fullmx-auto">
-      <div className="bg-white rounded-lg shadow-md p-10">
+    <div className="w-full mx-auto">
+      <div className="bg-white card rounded-lg shadow-md p-10">
         <form action="#" method="GET">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="flex-1 min-w-[200px]">
               <div className="">
-                <IconTitle title="Any treatment or venue"><AlignJustify /></IconTitle>
+                <IconTitle title="Any treatment or venue"><SearchIcon /></IconTitle>
                 <select className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm">
                   <option value="">Please Select</option>
                   {servicesList.map((service) => (
@@ -171,7 +172,7 @@ export default function BookNowCard() {
           <div className="mt-6 text-center">
             <button
               type="submit"
-              className="font-bold px-12 py-3 bg-gradient-to-r from-purple-600 to-pink-500 text-white rounded-full shadow hover:from-purple-700 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+              className="font-bold px-12 py-3 bg-gradient-to-r from-purple-500 to-pink-400 text-white rounded-full shadow hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
             >
               Search <Search className="inline" size={20} />
             </button>

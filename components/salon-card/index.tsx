@@ -20,7 +20,7 @@ export default function SalonCard({
 }) {
   return (
     <Link href={url}>
-      <div className="bg-white shadow-md rounded-xl">
+      <div className="bg-white shadow-md rounded-xl hover-scale">
         <Image
           src={image}
           alt={title}

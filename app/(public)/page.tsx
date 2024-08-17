@@ -88,17 +88,17 @@ const clientReviews = [
 export default async function Home() {
   await getCities("Morocco");
   return (
-    <main className="container max-w-[1200px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-28">
+    <main className="container overflow-y-hidden max-w-[1200px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-20">
       <div className={styles.background} />
-      <section id="main" className="w-full">
-        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-white mt-10 lg:mt-20 drop-shadow-strong-black">
+      <section id="main" className="w-full min-h-[70vh] flex flex-col items-center justify-center">
+        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-gray-800 mt-10 lg:mt-20 drop-shadow-strong-black">
           Book beauty and wellness services
         </h1>
-        <div className="w-full mt-6 md:mt-14 lg:mt-28">
+        <div className="w-full px-10 mt-6 md:mt-14 lg:mt-28">
           <BookNowCard />
         </div>
       </section>
-      <section id="recommended-services" className="mt-20 lg:mt-28">
+      <section id="recommended-services" className="mt-20 lg:mt-32">
         <h1 className="text-2xl font-bold">Recommended</h1>
         <div className="w-full mt-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {tempData.map((salon) => (
@@ -115,8 +115,7 @@ export default async function Home() {
         </div>
       </section>
       <section id="discover-kimih" className="relative mt-20 xl:mt-32">
-        <div className={styles.gradiantBackground} />
-        <div className="flex max-md:flex-col max-md:items-center justify-between">
+        <div className={`${styles.discoverKimih} flex max-md:flex-col max-md:items-center justify-between`}>
           <div className="max-w-[500px]">
             <h1 className="text-3xl font-bold md:mt-20">
               Discover Kimih: Your Beauty & Wellness Hub
@@ -142,10 +141,10 @@ export default async function Home() {
         <h1 className="text-3xl text-black text-center font-bold">
           Getting Started
         </h1>
-        <div className="relative flex flex-col gap-8 justify-center items-center w-full mt-8 px-10 lg:px-32 py-16 rounded-3xl">
+        <div className="relative flex flex-col gap-8 justify-center items-center w-full mt-8 px-10 lg:px-32 py-16 rounded-3xl shadow-lg">
           <div className="rounded-xl w-full">
             <iframe
-              className="m-auto w-full aspect-video rounded-2xl"
+              className="m-auto w-full aspect-video rounded-2xl hover-scale"
               src="https://www.youtube.com/embed/A6XnZepxalE"
               title="Busy Life? Book Beauty &amp; Wellness in Seconds with Kimih!"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -156,14 +155,14 @@ export default async function Home() {
       </section>
       <section id="reviews" className="mt-20 lg:mt-32">
         <h1 className="text-2xl text-black font-semibold">Client Reviews</h1>
-        <div className="w-full mt-6 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="w-full mt-6 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {clientReviews.map((review) => (
             <ReviewCard key={review.title} {...review} />
           ))}
         </div>
       </section>
-      <section id="browse-by-city" className="">
-        <h1 className="text-2xl font-bold mt-20">Browse by City</h1>
+      <section id="browse-by-city" className="mt-20 lg:mt-32">
+        <h1 className="text-2xl font-bold">Browse by City</h1>
         <ListCities />
       </section>
     </main>

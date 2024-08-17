@@ -10,19 +10,31 @@
   background-size: cover;
   background-image: url("/assets/background.svg");
   filter: drop-shadow(5px 2px 15px #000);
-  background-repeat: no-repeat;
-  background-position: bottom;
-  background-size: cover;
-  background-image: url("/assets/background.svg");
-  filter: drop-shadow(5px 2px 15px #000);
+  filter: blur(100px);
+  opacity: 0.2;
 }
 
-.gradiantBackground {
+.discoverKimih {
+  position: relative;
+}
+
+.discoverKimih::before {
+  content: "";
   position: absolute;
-  width: 400px;
-  height: 400px;
+  z-index: -1;
+  top: -200px;
+  left: 200px;
+  width: 300px;
+  overflow: hidden;
+  height: 1000px;
   filter: blur(50px);
-  background: radial-gradient(circle, rgba(59, 130, 246, 1) 0%, rgba(221, 63, 235, .1) 50%, rgba(221, 63, 235, 0) 100%);
+  transform: rotate(120deg);
+  opacity: 0.4;
+  background: linear-gradient(
+    rgba(59, 130, 246, .7) 0%,
+    rgba(221, 63, 235, 0.5) 50%,
+    rgba(221, 63, 235, 0) 100%
+  );
   border-radius: 50%;
   /* filter: drop-shadow(5px 2px 15px #000); */
 }
