@@ -38,7 +38,7 @@ export default function Index({ reviews }: { reviews: any }) {
         clickable: true,
       }}
       modules={[FreeMode, Pagination, Mousewheel, Navigation]}
-      className="w-full !py-10"
+      className="w-full !mt-8 !pb-10 !py-2"
     >
       {reviews.map((review: any) => (
         <SwiperSlide key={review.id}>

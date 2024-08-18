@@ -73,10 +73,10 @@ export default function Footer() {
             <FaMapMarkerAlt className="text-white mr-2" />
             Office 43-44, Building of Dubai Municipality, UAE
           </p>
-          <p className="flex items-center mb-4">
+          {/* <p className="flex items-center mb-4">
             <FaPhone className="text-white mr-2" />
             +1 (555) 123-4567
-          </p>
+          </p> */}
           <p className="flex items-center mb-4">
             <FaEnvelope className="text-white mr-2" />
             Info@kimih.com
