@@ -174,7 +174,7 @@ export default function BookNowCard() {
               type="submit"
               className="font-bold px-12 py-3 bg-gradient-to-r from-purple-500 to-pink-400 text-white rounded-full shadow hover:from-purple-600 hover:to-pink-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
             >
-              Search <Search className="inline" size={20} />
+              Search <Search className="ml-1 inline" size={20} />
             </button>
           </div>
         </form>

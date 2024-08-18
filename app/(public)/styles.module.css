@@ -29,10 +29,10 @@
   height: 1000px;
   filter: blur(50px);
   transform: rotate(120deg);
-  opacity: 0.4;
+  opacity: 0.5;
   background: linear-gradient(
-    rgba(59, 130, 246, .7) 0%,
-    rgba(221, 63, 235, 0.5) 50%,
+    rgba(59, 130, 246, .6) 0%,
+    rgba(221, 63, 235, 0.6) 50%,
     rgba(221, 63, 235, 0) 100%
   );
   border-radius: 50%;
