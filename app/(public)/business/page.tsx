@@ -88,7 +88,7 @@ export default async function Home() {
             Get started for free
           </button>
         </Link>
-        <div className="w-full mt-4">
+        <div className="w-full mt-4 max-md:scale-110">
           <Image
             src="/assets/images/business-landing-hero.png"
             alt="landing-page-hero"
@@ -173,12 +173,12 @@ export default async function Home() {
           />
         </div>
       </section>
-      <section id="discover-kimih" className="w-full relative mt-20 lg:mt-32">
+      <section id="ai-powered-kimih" className="w-full relative mt-20 lg:mt-32">
         <div
           className={`w-full flex max-md:flex-col max-md:items-center justify-between md:px-6`}
         >
           <Image
-            className="w-[90%] md:w-[44%]"
+            className="w-[80%] md:w-[40%] drop-shadow-xl"
             src="/assets/images/business-bot.png"
             alt="image-with-many-photos-and-phone"
             width={1600}

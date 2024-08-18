@@ -66,19 +66,19 @@ export default function Footer() {
             Kimih Information Technology CO. L.L.C
           </p>
           <p className="flex items-center mb-4">
-            <FaCashRegister className="text-themeVilot mr-2" />
+            <FaCashRegister className="text-white mr-2" />
             Registration no: 2361735
           </p>
           <p className="flex items-center mb-4">
-            <FaMapMarkerAlt className="text-themeVilot mr-2" />
+            <FaMapMarkerAlt className="text-white mr-2" />
             Office 43-44, Building of Dubai Municipality, UAE
           </p>
           <p className="flex items-center mb-4">
-            <FaPhone className="text-themeVilot mr-2" />
+            <FaPhone className="text-white mr-2" />
             +1 (555) 123-4567
           </p>
           <p className="flex items-center mb-4">
-            <FaEnvelope className="text-themeVilot mr-2" />
+            <FaEnvelope className="text-white mr-2" />
             Info@kimih.com
           </p>
         </div>

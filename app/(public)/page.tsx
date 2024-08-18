@@ -86,10 +86,10 @@ const clientReviews = [
 
 export default async function Home() {
   return (
-    <main className="container overflow-y-hidden max-w-[1300px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-20">
+    <main className="container overflow-hidden max-w-[1300px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-20">
       <div className={styles.background} />
       <section id="main" className="w-full min-h-[70vh] flex flex-col items-center justify-center">
-        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20 drop-shadow-strong-black">
+        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20">
           Book beauty and wellness services
         </h1>
         <div className="w-full px-10 mt-6 md:mt-14 lg:mt-28">
