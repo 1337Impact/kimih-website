@@ -1,7 +1,6 @@
 .card {
   z-index: 5;
   position: relative;
-  width: 360px;
   height: auto;
   background-color: #ffffff;
   border-radius: 15px;

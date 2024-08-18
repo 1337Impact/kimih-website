@@ -96,21 +96,21 @@ export default function Contact() {
             className="h-28 font-normal rounded-md border-2 border-gray-600 bg-transparent p-2 focus:outline-none"
           />
         </div>
-        <p className="mt-1 text-gray-600 flex items-center gap-1">
+        <p className="mt-1 text-gray-600">
           <input className="mr-1" type="checkbox" required={true} />
           Accept <Link
             href="/privacy-policy"
-            className="text-themeBlue underline transition-all duration-300 ease-in-out hover:text-violet-600"
+            className="px-1 inline text-themeBlue underline transition-all duration-300 ease-in-out hover:text-violet-600"
           >
             Privacy Policy
           </Link>
           And
           <Link
             href="/terms-and-conditions"
-            className="text-themeBlue underline transition-all duration-300 ease-in-out hover:text-violet-600"
+            className="px-1 inline text-themeBlue underline transition-all duration-300 ease-in-out hover:text-violet-600"
           >
             Terms & Conditions
-          </Link>
+          </Link>.
         </p>
         <button
           type="submit"

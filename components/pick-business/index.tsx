@@ -36,7 +36,7 @@ export default function PickBusiness() {
             src={business.icon}
             alt={business.title}
           />
-          <h1 className="text-lg text-gray-800">{business.title}</h1>
+          <h1 className="text-lg text-center text-gray-800">{business.title}</h1>
         </div>
       ))}
     </div>

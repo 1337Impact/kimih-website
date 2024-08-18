@@ -101,7 +101,7 @@ export default async function Home() {
       <section id="business-stats" className="w-full mt-20 lg:mt-28">
         <div className="w-full flex max-md:flex-col justify-between gap-10 px-8">
           <div className="max-w-[600px]">
-            <h1 className="text-3xl font-bold mb-3">
+            <h1 className="text-2xl md:text-3xl font-bold mb-3">
               Effortlessly manage your Beauty & Wellness business
             </h1>
             <p className="text-gray-600">
@@ -174,7 +174,7 @@ export default async function Home() {
           />
         </div>
       </section>
-      <section id="ai-powered-kimih" className="w-full relative mt-20 lg:mt-32">
+      <section id="pricing" className="w-full relative mt-20 lg:mt-32">
         <div
           className={`w-full flex max-md:flex-col max-md:items-center justify-around gap-10 md:px-6`}
         >

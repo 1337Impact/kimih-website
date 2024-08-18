@@ -92,7 +92,7 @@ export default async function Home() {
         <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20">
           Book beauty and wellness services
         </h1>
-        <div className="w-full px-10 mt-6 md:mt-14 lg:mt-28">
+        <div className="w-full px-3 md:px-10 mt-6 md:mt-14 lg:mt-28">
           <BookNowCard />
         </div>
       </section>
@@ -127,7 +127,7 @@ export default async function Home() {
             </p>
           </div>
           <Image
-            className="md:w-1/2"
+            className="max-md:scale-105 md:w-1/2"
             src="/assets/images/image-with-many-photos-and-phone.png"
             alt="image-with-many-photos-and-phone"
             width={1600}
@@ -135,11 +135,11 @@ export default async function Home() {
           />
         </div>
       </section>
-      <section id="how-it-works" className="mt-20 w-[95%] xl:mt-40">
+      <section id="how-it-works" className="mt-20 md:w-[95%] xl:mt-40">
         <h1 className="text-3xl text-black text-center font-bold">
           Getting Started
         </h1>
-        <div className="relative flex flex-col gap-8 justify-center items-center w-full mt-8 px-10 lg:px-32 py-16 rounded-3xl shadow-lg">
+        <div className="relative flex flex-col gap-8 justify-center items-center w-full mt-8 px-6 md:px-10 lg:px-32 py-10 md:py-14 rounded-3xl shadow-lg">
           <div className="rounded-xl w-full">
             <iframe
               className="m-auto w-full aspect-video rounded-2xl hover-scale"
