@@ -6,7 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
+import styles from "./styles.module.css";
 const businessFaqs = [
   {
     question: "How do I set up my business on Kimih?",
@@ -29,21 +29,21 @@ const businessFaqs = [
                 Fill out the registration form with your business name and
                 website address.
               </li>
-              <li>Click "Continue."</li>
+              <li>Click &quot;Continue.&quot;</li>
             </ul>
           </li>
           <li>
             <strong>Services Selection</strong>:
             <ul className="list-decimal">
               <li>Choose the services you need.</li>
-              <li>Click "Continue."</li>
+              <li>Click &quot;Continue.&quot;</li>
             </ul>
           </li>
           <li>
             <strong>Team Size</strong>:
             <ul className="list-decimal">
               <li>Select your team size.</li>
-              <li>Click "Continue."</li>
+              <li>Click &quot;Continue.&quot;</li>
             </ul>
           </li>
           <li>
@@ -73,15 +73,15 @@ const businessFaqs = [
         <ul className="list-decimal">
           <li>Go to your dashboard.</li>
           <li>Click on your profile avatar.</li>
-          <li>Select "Profile."</li>
-          <li>Navigate to the "Business Details" tab.</li>
+          <li>Select &quot;Profile.&quot;</li>
+          <li>Navigate to the &quot;Business Details&quot; tab.</li>
           <li>Here, you can update or add your business location.</li>
         </ul>
       </>
     ),
   },
   {
-    question: "Can I customize my business profile",
+    question: "Can I customize my business profile?",
     answer: () => (
       <>
         <p>
@@ -90,8 +90,8 @@ const businessFaqs = [
         <ul className="list-decimal">
           <li>Go to your dashboard.</li>
           <li>Click on your profile avatar.</li>
-          <li>Select "Profile."</li>
-          <li>Navigate to the "Profile" tab.</li>
+          <li>Select &quot;Profile.&quot;</li>
+          <li>Navigate to the &quot;Profile&quot; tab.</li>
           <li>Here, you can update or add your business location.</li>
         </ul>
       </>
@@ -103,12 +103,13 @@ const businessFaqs = [
       <>
         <p>To add new services, follow these steps:</p>
         <ul className="list-decimal">
-          <li>Click on the "Catalogue" icon in the sidebar.</li>
-          <li>A dropdown menu will appear; select "Services."</li>
+          <li>Click on the &quot;Catalogue&quot; icon in the sidebar.</li>
+          <li>A dropdown menu will appear; select &quot;Services.&quot;</li>
           <li>
-            A new interface will be displayed with an "Add Services" button.
+            A new interface will be displayed with an &quot;Add Services&quot;
+            button.
           </li>
-          <li>Click on the "Add Services" button.</li>
+          <li>Click on the &quot;Add Services&quot; button.</li>
           <li>A form will appear; complete the form to add your services.</li>
         </ul>
       </>
@@ -120,10 +121,10 @@ const businessFaqs = [
       <>
         <p>To add a new team member, follow these steps:</p>
         <ul className="list-decimal">
-          <li>Click on the "Team" option in the sidebar.</li>
-          <li>A dropdown menu will appear; select "Team Members."</li>
+          <li>Click on the &quot;Team&quot; option in the sidebar.</li>
+          <li>A dropdown menu will appear; select &quot;Team Members.&quot;</li>
           <li>You will be navigated to the Team Members page.</li>
-          <li>Click on the "Add Team Member" button.</li>
+          <li>Click on the &quot;Add Team Member&quot; button.</li>
           <li>
             A form will appear; complete the form to add the new team member.
           </li>
@@ -137,8 +138,10 @@ const businessFaqs = [
       <>
         <p>To view and edit your appointments, follow these steps:</p>
         <ul className="list-decimal">
-          <li>Click on the "Sales" option in the sidebar.</li>
-          <li>Select the "Appointments" option from the dropdown menu.</li>
+          <li>Click on the &quot;Sales&quot; option in the sidebar.</li>
+          <li>
+            Select the &quot;Appointments&quot; option from the dropdown menu.
+          </li>
           <li>All your appointments will be displayed.</li>
           <li>You can edit appointments directly from this page.</li>
         </ul>
@@ -152,15 +155,17 @@ const businessFaqs = [
         <p>To book an appointment, follow these steps:</p>
         <ul className="list-decimal">
           <li>
-            On the front page, click on the "Store" to view available
+            On the front page, click on the &quot;Store&quot; to view available
             appointments.
           </li>
-          <li>Select the "Book Now" option.</li>
+          <li>Select the &quot;Book Now&quot; option.</li>
           <li>
             A modal will open; choose your desired appointment and click
-            "Continue."
+            &quot;Continue.&quot;
           </li>
-          <li>Select the date for your appointment and click "Continue."</li>
+          <li>
+            Select the date for your appointment and click &quot;Continue.&quot;
+          </li>
           <li>
             Complete the payment process to finalize your appointment booking.
           </li>
@@ -178,12 +183,12 @@ const businessFaqs = [
       <>
         <p>To view and manage your appointments, follow these steps:</p>
         <ul className="list-decimal">
-          <li>Click on the "Menu" from the navbar.</li>
-          <li>Select "My Appointments" from the dropdown.</li>
+          <li>Click on the &quot;Menu&quot; from the navbar.</li>
+          <li>Select &quot;My Appointments&quot; from the dropdown.</li>
           <li>All your booked appointments will be displayed.</li>
           <li>
-            To cancel an appointment, click on the "Cancel" option next to the
-            desired appointment.
+            To cancel an appointment, click on the &quot;Cancel&quot; option
+            next to the desired appointment.
           </li>
           <li>Confirm the cancellation when prompted.</li>
         </ul>
@@ -196,8 +201,8 @@ const businessFaqs = [
     answer: () => (
       <>
         <p>
-          A reminder message will be sent to the client's number 24 hours before
-          the scheduled appointment date.
+          A reminder message will be sent to the client&apos;s number 24 hours
+          before the scheduled appointment date.
         </p>
       </>
     ),
@@ -216,7 +221,7 @@ const businessFaqs = [
       <>
         <p>To view all your appointments on a calendar, follow these steps:</p>
         <ul className="list-decimal">
-          <li>Click on the "Calendar" option in the sidebar.</li>
+          <li>Click on the &quot;Calendar&quot; option in the sidebar.</li>
           <li>Your appointments will be displayed on the calendar.</li>
         </ul>
       </>
@@ -226,7 +231,7 @@ const businessFaqs = [
     question: "How do I reschedule appointments?",
     answer: () => (
       <>
-        <p>No currently not.</p>
+        <p>No, currently not.</p>
       </>
     ),
   },
@@ -237,15 +242,17 @@ const businessFaqs = [
         <p>To book an appointment, follow these steps:</p>
         <ul className="list-decimal">
           <li>
-            On the front page, click on the "Store" to view available
+            On the front page, click on the &quot;Store&quot; to view available
             appointments.
           </li>
-          <li>Select the "Book Now" option.</li>
+          <li>Select the &quot;Book Now&quot; option.</li>
           <li>
             A modal will open; choose your desired appointment and click
-            "Continue."
+            &quot;Continue.&quot;
           </li>
-          <li>Select the date for your appointment and click "Continue."</li>
+          <li>
+            Select the date for your appointment and click &quot;Continue.&quot;
+          </li>
           <li>
             Complete the payment process to finalize your appointment booking.
           </li>
@@ -263,95 +270,36 @@ const businessFaqs = [
       <>
         <p>To send marketing emails, follow these steps:</p>
         <ul className="list-decimal">
-          <li>Click on the "Marketing" option in the sidebar.</li>
-          <li>Select "Leads" from the dropdown menu and add your leads.</li>
+          <li>Click on the &quot;Marketing&quot; option in the sidebar.</li>
           <li>
-            Click on the "Email Marketing" option from the Marketing menu.
-          </li>
-          <li>Fill out the form and send emails to your clients.</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    question: "How do I add or remove staff members?",
-    answer: () => (
-      <>
-        <p>To remove a staff member, follow these steps:</p>
-        <ul className="list-decimal">
-          <li>Click on the "Team" option in the sidebar.</li>
-          <li>Select "Team Members" from the dropdown menu.</li>
-          <li>A list of all team members will be displayed.</li>
-          <li>From this list, select the staff member you wish to remove.</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    question: "Can I set different permissions for my staff?",
-    answer: () => (
-      <>
-        <p>To set permissions for staff, follow these steps:</p>
-        <ul className="list-decimal">
-          <li>Click on the "User Management" option in the sidebar.</li>
-          <li>Select the "Permissions" option.</li>
-          <li>
-            A list of roles with their associated permissions will be displayed.
+            Select &quot;Leads&quot; from the dropdown menu and add your leads.
           </li>
           <li>
-            You can change existing permissions or set new ones from this page.
+            Click on the &quot;Email Marketing&quot; option in the sidebar to
+            send marketing emails.
           </li>
         </ul>
       </>
     ),
   },
   {
-    question: "How do I add new clients to my database?",
+    question: "How do I integrate with third-party services?",
     answer: () => (
       <>
-        <p>To add new clients to your database, follow these steps:</p>
-        <ul className="list-decimal">
-          <li>Click on the "Clients" option in the sidebar.</li>
-          <li>A dropdown menu will appear; select "Clients List."</li>
-          <li>The list of your clients will be displayed.</li>
-          <li>Click on the "Add New Client" button.</li>
-          <li>Fill out the form to add a new client.</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    question: "Can I import client information from another system?",
-    answer: () => (
-      <>
-        <p>No currently not.</p>
-      </>
-    ),
-  },
-  {
-    question: "How do I manage client appointments?",
-    answer: () => (
-      <>
-        <p>To view and edit your client's appointments, follow these steps:</p>
-        <ul className="list-decimal">
-          <li>Click on the "Sales" option in the sidebar.</li>
-          <li>Select the "Appointments" option from the dropdown menu.</li>
-          <li>All your appointments will be displayed.</li>
-          <li>You can edit appointments directly from this page.</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    question: "How do I contact Kimih support?",
-    answer: () => (
-      <>
-        <p>To contact Kimih support, follow these steps:</p>
-        <ul className="list-decimal">
-          <li>Click on the "Help" option in the sidebar.</li>
-          <li>Select the "Contact Us" option from the dropdown menu.</li>
-          <li>Fill out the form and submit it to reach support.</li>
-        </ul>
+        <p>
+          To integrate with a third-party service, navigate to the{" "}
+          <a href="#settings" className="underline">
+            settings
+          </a>{" "}
+          page.
+        </p>
+        <p>
+          Click on the &quot;Integrations&quot; tab and select the service you
+          want to integrate.
+        </p>
+        <p>
+          Follow the on-screen instructions to complete the integration process.
+        </p>
       </>
     ),
   },
@@ -365,7 +313,9 @@ const clientFaqs = [
         <p>To book an appointment, follow these steps:</p>
         <ul className="list-decimal">
           <li>Visit the Kimih homepage and browse the services available.</li>
-          <li>Click on "Book Now" for the service you’re interested in.</li>
+          <li>
+            Click on &quot;Book Now&quot; for the service you’re interested in.
+          </li>
           <li>A modal will open; choose your preferred date and time.</li>
           <li>Enter your contact information and proceed to payment.</li>
           <li>
@@ -385,7 +335,7 @@ const clientFaqs = [
         <ul className="list-decimal">
           <li>Login to your Kimih account.</li>
           <li>Click on your profile avatar in the top right corner.</li>
-          <li>Select "My Appointments" from the dropdown menu.</li>
+          <li>Select &quot;My Appointments&quot; from the dropdown menu.</li>
           <li>
             Here, you’ll see a list of all your upcoming and past appointments.
           </li>
@@ -399,11 +349,13 @@ const clientFaqs = [
       <>
         <p>Yes, you can cancel or reschedule your appointment. Here’s how:</p>
         <ul className="list-decimal">
-          <li>Go to the "My Appointments" section in your profile.</li>
+          <li>
+            Go to the &quot;My Appointments&quot; section in your profile.
+          </li>
           <li>Find the appointment you wish to cancel or reschedule.</li>
           <li>
-            Click on "Cancel" to cancel or "Reschedule" to choose a new time and
-            date.
+            Click on &quot;Cancel&quot; to cancel or &quot;Reschedule&quot; to
+            choose a new time and date.
           </li>
           <li>Follow the prompts to confirm your changes.</li>
         </ul>
@@ -461,12 +413,12 @@ const clientFaqs = [
         <ul className="list-decimal">
           <li>Login to your account.</li>
           <li>Click on your profile avatar in the top right corner.</li>
-          <li>Select "Profile" from the dropdown menu.</li>
+          <li>Select &quot;Profile&quot; from the dropdown menu.</li>
           <li>
             Here, you can update your personal details, contact information, and
             preferences.
           </li>
-          <li>Click "Save" to confirm your changes.</li>
+          <li>Click &quot;Save&quot; to confirm your changes.</li>
         </ul>
       </>
     ),
@@ -505,8 +457,10 @@ const clientFaqs = [
           following these steps:
         </p>
         <ul className="list-decimal">
-          <li>Click on the "Help" option in the footer of the website.</li>
-          <li>Select "Contact Us" from the options provided.</li>
+          <li>
+            Click on the &quot;Help&quot; option in the footer of the website.
+          </li>
+          <li>Select &quot;Contact Us&quot; from the options provided.</li>
           <li>Fill out the form with your query and submit it.</li>
           <li>Our support team will get back to you as soon as possible.</li>
         </ul>
@@ -522,11 +476,13 @@ const clientFaqs = [
           steps:
         </p>
         <ul className="list-decimal">
-          <li>Go to the "My Appointments" section in your profile.</li>
+          <li>
+            Go to the &quot;My Appointments&quot; section in your profile.
+          </li>
           <li>Select the completed appointment you wish to review.</li>
-          <li>Click on "Leave a Review" and rate the service.</li>
+          <li>Click on &quot;Leave a Review&quot; and rate the service.</li>
           <li>You can also add comments about your experience.</li>
-          <li>Click "Submit" to post your review.</li>
+          <li>Click &quot;Submit&quot; to post your review.</li>
         </ul>
         <p>Your feedback helps others make informed decisions!</p>
       </>
@@ -542,8 +498,8 @@ const clientFaqs = [
         </p>
         <ul className="list-decimal">
           <li>
-            Check the "Offers" section on the homepage or in the "My Account"
-            area.
+            Check the &quot;Offers&quot; section on the homepage or in the
+            &quot;My Account&quot; area.
           </li>
           <li>
             You’ll see a list of available discounts or promotional codes.
@@ -562,7 +518,9 @@ const clientFaqs = [
       <>
         <p>To refer friends to Kimih, follow these steps:</p>
         <ul className="list-decimal">
-          <li>Click on the "Refer a Friend" option in your account menu.</li>
+          <li>
+            Click on the &quot;Refer a Friend&quot; option in your account menu.
+          </li>
           <li>
             You’ll receive a unique referral link that you can share with your
             friends.
@@ -609,14 +567,14 @@ export default function Faq() {
             business
           </button>
         </div>
-        <Accordion className="mt-4" type="single" collapsible>
+        <Accordion className={`${styles.faq} mt-4`} type="single" collapsible>
           {active === "client"
             ? clientFaqs.map((faq, index) => (
                 <AccordionItem key={index} value={faq.question}>
                   <AccordionTrigger className="text-lg">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent>
+                  <AccordionContent className="text-[1.1rem] text-gray-700">
                     <faq.answer />
                   </AccordionContent>
                 </AccordionItem>

@@ -43,7 +43,7 @@ export default function Page() {
           <li>
             <strong>Fee Changes:</strong> Kimih may update the fees from time to
             time. Partners will be notified of any changes with at least 30
-            days' notice.
+            days&apos; notice.
           </li>
         </ul>
       </section>

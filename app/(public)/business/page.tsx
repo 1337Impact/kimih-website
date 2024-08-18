@@ -186,7 +186,7 @@ export default async function Home() {
               Kimih is Free to Use, Only 2.5% Transaction Fee
             </h1>
             <p className="text-gray-600 mt-2">
-              Kimih's platform is completely free to use with a simple 2.5% fee
+              Kimih&apos;s platform is completely free to use with a simple 2.5% fee
               on transactions made on the platform.
             </p>
             <ul className="mt-4 flex flex-col gap-2">

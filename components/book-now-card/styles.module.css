@@ -4,16 +4,8 @@
   inherits: false;
 }
 
-:root {
-  --clr-1: #3A37EC;
-  --clr-2: #3A37EC;
-  --clr-3: #3A37EC;
-  --clr-4: #DD3FEB;
-  --clr-5: #DD3FEB;
-}
-
-
 .card {
+  background-color: white;
   position: relative;
 }
 

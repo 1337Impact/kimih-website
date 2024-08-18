@@ -141,7 +141,7 @@ export default function Page() {
           <li>You shall not use information to harass or harm others, misuse support services, or use the Services inconsistently with laws.</li>
           <li>You shall not engage in unauthorized framing or linking, upload or transmit disruptive material, or use automated systems.</li>
           <li>You shall not delete copyright notices, impersonate others, upload spyware, interfere with networks, or harass employees.</li>
-          <li>You shall not bypass access restrictions, copy or adapt the Services' software, decipher or reverse engineer software, or use unauthorized scripts.</li>
+          <li>You shall not bypass access restrictions, copy or adapt the Services software, decipher or reverse engineer software, or use unauthorized scripts.</li>
           <li>You shall not use agents for purchases, collect information for unsolicited emails, use the Services to compete with us, or advertise or sell goods.</li>
           <li>You shall not sell or transfer your profile or engage in any activity that could damage, disable, overburden, or impair the Services.</li>
         </ul>

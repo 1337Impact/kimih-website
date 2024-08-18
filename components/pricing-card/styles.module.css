@@ -1,0 +1,48 @@
+.card {
+  z-index: 5;
+  position: relative;
+  width: 360px;
+  height: auto;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 26px 20px;
+  box-shadow: 15px 15px 30px var(--main-color), -20px -15px 35px #66a6ff;
+  animation: shadow-box 2s linear infinite;
+}
+
+@keyframes shadow-box {
+  0% {
+    box-shadow: 15px 15px 30px var(--main-color), -20px -15px 35px #66edff;
+  }
+  50% {
+    box-shadow: 10px 0px 38px var(--main-color), -15px 0px 43px #66edff;
+  }
+  100% {
+    box-shadow: 15px 15px 30px var(--main-color), -20px -15px 35px #66edff;
+  }
+}
+
+.card:hover {
+  animation-play-state: paused;
+}
+
+.cardButton {
+  width: 100%;
+  margin-top: 15px;
+  height: 55px;
+  font-size: larger;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #66edff, var(--main-color));
+  border-radius: 8px;
+  letter-spacing: 1px;
+  text-shadow: 0px 0px 2px #34343430;
+  transition: all 0.3s ease-in-out;
+}
+
+.cardButton:hover {
+  opacity: 0.8;
+  transform: scale(1.02);
+}

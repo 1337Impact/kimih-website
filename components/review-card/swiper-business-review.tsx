@@ -40,8 +40,8 @@ export default function Index({ reviews }: { reviews: any }) {
       modules={[FreeMode, Pagination, Mousewheel, Navigation]}
       className="w-full !mt-8 !pb-10 !py-2"
     >
-      {reviews.map((review: any) => (
-        <SwiperSlide key={review.id}>
+      {reviews.map((review: any, index: number) => (
+        <SwiperSlide key={index}>
           <BusinessReviewCard
             title={review.title}
             description={review.description}

@@ -39,7 +39,7 @@ export default function Contact() {
       className="container overflow-hidden max-w-[1300px] mx-auto px-4 flex flex-col items-center pt-20 md:px-10 lg:px-20"
     >
       <div className="flex flex-col items-center my-10 md:my-14">
-        <h1 className="text-4xl md:text-5xl text-gray-700">
+        <h1 className="text-4xl md:text-5xl text-gray-800">
           How can we help you?
         </h1>
         <p className="mt-1 text-gray-600">
@@ -96,9 +96,21 @@ export default function Contact() {
             className="h-28 font-normal rounded-md border-2 border-gray-600 bg-transparent p-2 focus:outline-none"
           />
         </div>
-        <p className="mt-1 text-gray-600 flex items-center">
-          <input className="mr-2" type="checkbox" required={true} />
-          Accept Terms & Conditions And Privacy Policy.
+        <p className="mt-1 text-gray-600 flex items-center gap-1">
+          <input className="mr-1" type="checkbox" required={true} />
+          Accept <Link
+            href="/privacy-policy"
+            className="text-themeBlue underline transition-all duration-300 ease-in-out hover:text-violet-600"
+          >
+            Privacy Policy
+          </Link>
+          And
+          <Link
+            href="/terms-and-conditions"
+            className="text-themeBlue underline transition-all duration-300 ease-in-out hover:text-violet-600"
+          >
+            Terms & Conditions
+          </Link>
         </p>
         <button
           type="submit"
@@ -108,7 +120,7 @@ export default function Contact() {
         </button>
       </form>
       <Link
-        href="/#home"
+        href="/"
         className="mt-4 flex items-center justify-start gap-3 text-gray-600 hover:text-gray-800-100"
       >
         <h2 className="text-md">Go back home</h2>

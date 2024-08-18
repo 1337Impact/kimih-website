@@ -10,7 +10,7 @@ export default function BusinessFeatureCard({
   image: string;
 }) {
   return (
-    <div className="p-6 py-8 rounded-xl bg-gray-100 shadow-lg">
+    <div className="p-6 py-8 rounded-xl bg-gray-100 shadow-lg hover-scale">
       <div className="flex flex-col justify-center items-center">
         <Image
           className="w-20 h-20 drop-shadow-md-vilot"

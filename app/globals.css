@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.hover-scale {
+  @apply hover:scale-[103%] ease-in-out duration-500;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -29,6 +33,13 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    --clr-1: #3a37ec;
+    --clr-2: #3a37ec;
+    --clr-3: #3a37ec;
+    --clr-4: #dd3feb;
+    --clr-5: #dd3feb;
+    --main-color: #dd3feb;
   }
 
   .dark {

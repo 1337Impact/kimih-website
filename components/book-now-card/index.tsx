@@ -1,5 +1,5 @@
 import { AlignJustify, BookIcon, Calendar, Clock3, MapPin, Search, SearchIcon } from "lucide-react";
-import "./styles.css";
+import styles from "./styles.module.css";
 
 const servicesList = [
   {
@@ -115,7 +115,7 @@ const IconTitle = ({
 export default function BookNowCard() {
   return (
     <div className="w-full mx-auto">
-      <div className="bg-white card rounded-lg shadow-md p-10">
+      <div className={`${styles.card} bg-white rounded-lg shadow-md p-10`}>
         <form action="#" method="GET">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="flex-1 min-w-[200px]">
