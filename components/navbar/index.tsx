@@ -38,7 +38,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="fixed bg-white z-[100] w-full h-[80px] mx-auto text-slate-700">
+    <header className="fixed bg-white z-[100] w-full h-[80px] mx-auto text-slate-800">
       <div className="relative flex h-full w-full items-center justify-between px-4 max-w-[1300px] mx-auto">
         <Link href="/#" className="flex items-center gap-1">
           <Image

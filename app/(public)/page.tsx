@@ -71,7 +71,7 @@ const clientReviews = [
     client_name: "Cameron Diaz",
     client_address: "Springfield, IL",
     client_image:
-      "	https://www.fresha.com/assets/_next/static/images/lucy@2x-df65c7d8267eabc81b315c3d43f5d78c.webp",
+      "/assets/images/review-avatar-1.webp",
   },
   {
     title: "The best saolon so far!",
@@ -80,7 +80,7 @@ const clientReviews = [
     client_name: "John Doe",
     client_address: "Dubai, UAE",
     client_image:
-      "	https://www.fresha.com/assets/_next/static/images/dale@2x-d5a9f0f5c21818e519754ee336da226a.webp",
+      "/assets/images/review-avatar-2.webp",
   },
 ];
 

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .hover-scale {
-  @apply hover:scale-[103%] ease-in-out duration-500;
+  @apply hover:scale-[103%] transform-gpu ease-in-out duration-500;
 }
 
 @layer base {

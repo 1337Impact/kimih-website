@@ -166,10 +166,10 @@ export default async function Home() {
             </ul>
           </div>
           <Image
-            className="w-[90%] md:w-[44%]"
-            src="/assets/images/business-phone-view.png"
+            className="w-full md:w-1/2 drop-shadow-xl"
+            src="/assets/images/business-phone-view.svg"
             alt="image-with-many-photos-and-phone"
-            width={1600}
+            width={1200}
             height={900}
           />
         </div>
@@ -179,15 +179,15 @@ export default async function Home() {
           className={`w-full flex max-md:flex-col max-md:items-center justify-around gap-10 md:px-6`}
         >
           <div className="drop-shadow-xl">
-          <PricingCard />
+            <PricingCard />
           </div>
           <div className="max-w-[500px]">
             <h1 className="text-3xl font-bold mt-10 lg:mt-20">
               Kimih is Free to Use, Only 2.5% Transaction Fee
             </h1>
             <p className="text-gray-600 mt-2">
-              Kimih&apos;s platform is completely free to use with a simple 2.5% fee
-              on transactions made on the platform.
+              Kimih&apos;s platform is completely free to use with a simple 2.5%
+              fee on transactions made on the platform.
             </p>
             <ul className="mt-4 flex flex-col gap-2">
               {[

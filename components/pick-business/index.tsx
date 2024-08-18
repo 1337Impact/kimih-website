@@ -15,7 +15,7 @@ const businesses = [
     icon: "/assets/icons/hair-extensions.svg",
   },
   { title: "Hair removal", icon: "/assets/icons/hair-removal.svg" },
-  { title: "Tattoo & piercing", icon: "/assets/icons/tattoo.svg" },
+  { title: "Henna", icon: "/assets/icons/tattoo.svg" },
   { title: "Dental", icon: "/assets/icons/dental.svg" },
   { title: "Therapy", icon: "/assets/icons/therapy.png" },
   { title: "Spa", icon: "/assets/icons/spa.png" },
