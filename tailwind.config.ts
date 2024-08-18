@@ -1,13 +1,13 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
-	],
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -18,7 +18,20 @@ const config = {
       },
     },
     extend: {
+      dropShadow: {
+        "strong-black": "0 8px 16px rgba(0, 0, 0, 0.85)",
+        "md-vilot": "0 4px 10px rgba(221, 63, 235, .6)",
+      },
+      backgroundImage: {
+        "bg-gradiant":
+          "linear-gradient(180deg, transparent 0%, transparent 50%,  rgba(58, 55, 236, .5) 75%, #DD3FEB 100%)",
+        "landing-yoga": "url('/assets/images/yoga.png')",
+      },
       colors: {
+        themeBlue: "#3A37EC",
+        themeVilot: "#DD3FEB",
+        lightBlue: "rgba(58, 55, 236, .4)",
+        lightVilot: "rgba(221, 63, 235, .4)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,6 +88,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;
