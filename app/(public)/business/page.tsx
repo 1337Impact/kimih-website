@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "../styles.module.css";
+import styles from "./styles.module.css";
 import { SwiperBusinessReview } from "@/components/review-card";
 import Link from "next/link";
 import BusinessFeatureCard from "@/components/business-feature-card";

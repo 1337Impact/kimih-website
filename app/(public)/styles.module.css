@@ -11,7 +11,7 @@
   background-image: url("/assets/background.svg");
   filter: drop-shadow(5px 2px 15px #000);
   filter: blur(100px);
-  opacity: 0.2;
+  opacity: 0.4;
 }
 
 .discoverKimih {
@@ -36,7 +36,6 @@
     rgba(221, 63, 235, 0) 100%
   );
   border-radius: 50%;
-  /* filter: drop-shadow(5px 2px 15px #000); */
 }
 
 @media (max-width: 768px) {
