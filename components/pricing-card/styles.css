@@ -1,0 +1,100 @@
+:root {
+    --main-color: #DD3FEB;
+  }
+
+.card {
+  z-index: 5;
+  position: relative;
+  width: 360px;
+  height: auto;
+  background-color: #ffffff;
+  border-radius: 15px;
+  padding: 26px 20px;
+  box-shadow: 15px 15px 30px var(--main-color), -20px -15px 35px #66a6ff;
+  animation: shadow-box 2s linear infinite;
+}
+
+@keyframes shadow-box {
+  0% {
+    box-shadow: 15px 15px 30px var(--main-color), -20px -15px 35px #66edff;
+  }
+  50% {
+    box-shadow: 10px 0px 38px var(--main-color), -15px 0px 43px #66edff;
+  }
+  100% {
+    box-shadow: 15px 15px 30px var(--main-color), -20px -15px 35px #66edff;
+  }
+}
+
+.card:hover {
+  animation-play-state: paused;
+}
+
+.card-title {
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.card-description {
+  margin-top: 23px;
+  font-size: 18px;
+  opacity: 0.5;
+}
+
+.card-get_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 23px;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.5);
+  padding-bottom: 15px;
+}
+
+.card-get_list__item {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+.card-get_list__item::before {
+  content: "";
+  display: inline-block;
+  height: 20px;
+  margin-right: 10px;
+  width: 20px;
+  background-image: url(https://icons.veryicon.com/png/o/miscellaneous/zr_icon/checkbox-5.png);
+  background-size: cover;
+}
+
+.card-price {
+  display: flex;
+  width: max-content;
+  height: max-content;
+  align-items: center;
+  margin-top: 43px;
+  font-size: 16px;
+}
+
+.card-price_month {
+  font-size: 16px;
+}
+
+.card-main_button {
+  width: 100%;
+  margin-top: 15px;
+  height: 55px;
+  font-size: larger;
+  font-weight: 500;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(90deg, #66edff, var(--main-color));
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px var(--main-color), -2px -2px 5px #66edff;
+  letter-spacing: 1px;
+  text-shadow: 0px 0px 2px #34343430;
+  transition: all 0.3s ease-in-out;
+}
+
+.card-main_button:hover {
+  box-shadow: none;
+}

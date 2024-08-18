@@ -34,32 +34,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (pathname.includes("/business")) {
-      setActiveSection("business");
-      return;
-    }
-    const sections = document.querySelectorAll("section");
-    console.log("sections: ", sections);
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.4,
-    };
-
-    const observerCallback = (entries: any) => {
-      entries.forEach((entry: any) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-    sections.forEach((section) => observer.observe(section));
-    return () => observer.disconnect();
+    setActiveSection(pathname.replace("/", ""));
   }, [pathname]);
 
   return (

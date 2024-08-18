@@ -5,6 +5,7 @@ import Link from "next/link";
 import BusinessFeatureCard from "@/components/business-feature-card";
 import { FaCheck } from "react-icons/fa";
 import PickBusiness from "@/components/pick-business";
+import PricingCard from "@/components/pricing-card";
 
 const partnersReviews = [
   {
@@ -149,8 +150,8 @@ export default async function Home() {
             <p className="text-lg mt-2">
               Drive sales with seamless online client acquisition. Increase
               visibility and brand presence by creating a standout profile on
-              our marketplace. Integrate unlimited &quot;Book Now&ldquo; buttons on your
-              social media for instant client bookings.
+              our marketplace. Integrate unlimited &quot;Book Now&ldquo; buttons
+              on your social media for instant client bookings.
             </p>
             <ul className="mt-4 flex flex-col gap-1">
               {[
@@ -174,6 +175,41 @@ export default async function Home() {
         </div>
       </section>
       <section id="ai-powered-kimih" className="w-full relative mt-20 lg:mt-32">
+        <div
+          className={`w-full flex max-md:flex-col max-md:items-center justify-around gap-10 md:px-6`}
+        >
+          <div className="drop-shadow-xl">
+          <PricingCard />
+          </div>
+          <div className="max-w-[500px]">
+            <h1 className="text-3xl font-bold mt-10 lg:mt-20">
+              Kimih is Free to Use, Only 2.5% Transaction Fee
+            </h1>
+            <p className="text-gray-600 mt-2">
+              Kimih's platform is completely free to use with a simple 2.5% fee
+              on transactions made on the platform.
+            </p>
+            <ul className="mt-4 flex flex-col gap-2">
+              {[
+                "Experience a streamlined, user-friendly interface designed to meet your business needs.",
+                "No hidden costs—only pay when you make a sale.",
+                "Always free, always easy, and optimized for your success.",
+              ].map((item, index) => (
+                <li
+                  key={index}
+                  className="flex text-gray-700 items-start gap-2"
+                >
+                  <div>
+                    <FaCheck className="w-5 h-5 mt-1 text-green-500" />
+                  </div>
+                  <p>{item}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+      {/* <section id="ai-powered-kimih" className="w-full relative mt-20 lg:mt-32">
         <div
           className={`w-full flex max-md:flex-col max-md:items-center justify-between md:px-6`}
         >
@@ -206,7 +242,7 @@ export default async function Home() {
             </ul>
           </div>
         </div>
-      </section>
+      </section> */}
       <section id="reviews" className="w-full mt-20 lg:mt-32">
         <h1 className="text-3xl text-center text-black font-semibold">
           See what our partners say
