@@ -1,11 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
-
-const validateEmail = (email: string) => {
-  const re = /\S+@\S+\.\S+/;
-  return re.test(email);
-};
+import AuthWithEmail from "./AuthWithEmail";
 
 const loginWithFacebook = () => {
   console.log("Login with facebook");
@@ -16,36 +11,10 @@ const loginWithGoogle = () => {
 };
 
 export default function AuthForm() {
-  const [error, setError] = useState(false);
-  const handleFormSubmit = (e: any) => {
-    const email = e.target.email.value;
-    setError(false);
-    e.preventDefault();
-    if (!validateEmail(email)) {
-      setError(true);
-      return;
-    }
-    e.target.reset();
-    console.log(e.target.email.value);
-  };
+
   return (
     <div className="mt-10">
-      <form onSubmit={handleFormSubmit} className="">
-        <input
-          className="w-full rounded-lg p-2 border-2 border-gray-700"
-          placeholder="Enter your email"
-          name="email"
-        />
-        {error && (
-          <p className="text-red-500 text-sm">Please enter a valid email</p>
-        )}
-        <button
-          type="submit"
-          className="mt-3 w-full rounded-lg p-[9px] bg-gray-900 text-white border-2 border-gray-700 hover:bg-gray-800"
-        >
-          Continue
-        </button>
-      </form>
+      <AuthWithEmail />
       <br />
       <button
         onClick={loginWithFacebook}
