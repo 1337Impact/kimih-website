@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import createAccountSchema from "@/utils/zod/create-account-schema";
 import PhoneNumberInput from "@/components/phone-number-input";
 import Link from "next/link";
+import ACreateAccount from "@/actions/create-account";
 
 export default function CreateAccountForm() {
   const [data, setData] = useState({
@@ -50,7 +51,8 @@ export default function CreateAccountForm() {
     }
     try {
       //create account logic
-      console.log(data);
+      const res =await ACreateAccount(data);
+      console.log("res", res);
     } catch (error: any) {
       console.log(error);
     }
