@@ -3,7 +3,14 @@ import Image from "next/image";
 import AuthWithEmail from "./AuthWithEmail";
 import { createClient } from "@/utils/supabase/client";
 
-const loginWithFacebook = () => {
+const loginWithFacebook = async () => {
+  const supabase = createClient();
+  const data = await supabase.auth.signInWithOAuth({
+    provider: "facebook",
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_URL}/create-account`,
+    },
+  });
   console.log("Login with facebook");
 };
 
