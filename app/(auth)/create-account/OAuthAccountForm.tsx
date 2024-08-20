@@ -1,39 +1,47 @@
 "use client";
-import { useState } from "react";
-import createAccountSchema from "@/utils/zod/create-account-schema";
+import { useEffect, useState } from "react";
+import createAccountSchema, { OAuthCreateAccount } from "@/utils/zod/create-account-schema";
 import PhoneNumberInput from "@/components/phone-number-input";
 import Link from "next/link";
-import ACreateAccount from "@/actions/create-account";
+import ACreateAccount, { AUpdateAccount } from "@/actions/create-account";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MdErrorOutline } from "react-icons/md";
-import OAuthAccountForm from "./OAuthAccountForm";
+import { createClient } from "@/utils/supabase/client";
 
-
-export default function CreateAccountForm() {
-  const searchParams = useSearchParams();
+export default function OAuthAccountForm() {
   const router = useRouter();
-  const initialEmail = searchParams.get("email");
-  const isOAuth = !!searchParams.get("code");
+  const supabase = createClient();
 
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
-    email: initialEmail || "",
+    email:  "",
     phone: "",
-    password: "",
     terms: false,
   });
 
   const [error, setError] = useState({
     first_name: "",
     last_name: "",
-    email: "",
     phone: "",
-    password: "",
     terms: "",
     post_error: "",
   });
 
+  useEffect(() => {
+      const getUser = async () => {
+        const { data: userData, error } = await supabase.auth.getUser();
+        setData((prev) => ({
+          ...prev,
+          email: userData.user?.user_metadata.email,
+          first_name: userData.user?.user_metadata.full_name,
+          last_name: userData.user?.user_metadata.name,
+        }));
+        console.log("User data: ", userData);
+        if (error) console.error("Error fetching user:", error);
+      };
+      getUser();
+  }, []);
   const handleChange = (e: any) => {
     if (e.target.id === "terms") {
       setData({ ...data, terms: !data.terms });
@@ -47,13 +55,11 @@ export default function CreateAccountForm() {
     setError({
       first_name: "",
       last_name: "",
-      email: "",
       phone: "",
-      password: "",
       terms: "",
       post_error: "",
     });
-    const result = createAccountSchema.safeParse(data);
+    const result = OAuthCreateAccount.safeParse(data);
     if (!result.success) {
       result.error.errors.forEach((err) => {
         setError((prev) => ({ ...prev, [err.path[0]]: err.message }));
@@ -61,7 +67,7 @@ export default function CreateAccountForm() {
       return;
     }
     const { terms, ...signUpData } = data;
-    const { error, data: res } = await ACreateAccount({
+    const { error, data: res } = await AUpdateAccount({
       ...signUpData,
       role: "manager",
     });
@@ -70,10 +76,6 @@ export default function CreateAccountForm() {
       return;
     }
     router.push("/complete-profile");
-  }
-
-  if (isOAuth) {
-    return (<OAuthAccountForm />);
   }
 
   return (
@@ -136,19 +138,14 @@ export default function CreateAccountForm() {
           Email
         </label>
         <input
-          className="border-2 rounded w-full py-1 px-3 text-gray-600 border-gray-500 placeholder-gray-300"
+          className="border-2 rounded w-full py-1 px-3 text-gray-500 bg-gray-100 hover:cursor-not-allowed border-gray-500 placeholder-gray-300"
           id="email"
           type="email"
           required={false}
           placeholder="Email"
+          disabled
           value={data.email}
-          onChange={handleChange}
         />
-        {error.email && (
-          <p className="text-red-400 font-medium text-xs -mb-[8px]">
-            {error.email}
-          </p>
-        )}
       </div>
       <div className="mb-3">
         <label
@@ -161,28 +158,6 @@ export default function CreateAccountForm() {
         {error.phone && (
           <p className="text-red-400 font-medium text-xs -mb-[8px]">
             {error.phone}
-          </p>
-        )}
-      </div>
-      <div className="mb-3">
-        <label
-          className="block text-gray-600 text-sm font-bold mb-1"
-          htmlFor="phone"
-        >
-          Password
-        </label>
-        <input
-          className="border-2 rounded w-full py-1 px-3 text-gray-600 border-gray-500 placeholder-gray-300"
-          id="password"
-          type="password"
-          required={false}
-          placeholder="passowrd"
-          value={data.password}
-          onChange={handleChange}
-        />
-        {error.password && (
-          <p className="text-red-400 font-medium text-xs -mb-[8px]">
-            {error.password}
           </p>
         )}
       </div>
