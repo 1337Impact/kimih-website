@@ -44,7 +44,7 @@ export async function updateSession(request: NextRequest) {
     request.nextUrl.pathname.startsWith("/dashboard")
   ) {
     if (userData && userData.user) {
-      if (userData.user?.role === "admin") {
+      if (userData.user.user_metadata.user_role === 'manager') {
         return NextResponse.next();
       } else {
         const url = request.nextUrl.clone();

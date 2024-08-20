@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import createAccountSchema from "@/utils/zod/create-account-schema";
 import PhoneNumberInput from "@/components/phone-number-input";
 import Link from "next/link";
@@ -57,7 +57,7 @@ export default function CreateAccountForm() {
       return;
     }
     const { terms, ...signUpData } = data;
-    const { error, data: res } = await ACreateAccount(signUpData);
+    const { error, data: res } = await ACreateAccount({...signUpData, role: "manager"});
     if (error) {
       setError((prev) => ({ ...prev, ["post_error"]: error }));
       return;

@@ -8,9 +8,10 @@ export default async function ACreateAccount(signUpData: {
   email: string;
   phone: string;
   password: string;
+  role?: string;
 }) {
   const supabase = createClient();
-  const { first_name, last_name, email, password, phone } = signUpData;
+  const { first_name, last_name, email, password, phone, role } = signUpData;
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -20,6 +21,7 @@ export default async function ACreateAccount(signUpData: {
         last_name,
         phone,
         email,
+        user_role: role || "user",
       },
     },
   });

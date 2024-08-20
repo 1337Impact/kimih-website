@@ -15,10 +15,7 @@ export default function Page() {
       <div className="lg:w-1/2 flex mt-20 justify-center">
         <div className="w-[400px] flex flex-col">
           <div>
-            <Link
-              href={"/"}
-              className="flex justify-center items-center gap-2 mb-4 group"
-            >
+            <div className="flex justify-center items-center gap-2 mb-4 group">
               <Image
                 width={600}
                 height={600}
@@ -29,7 +26,7 @@ export default function Page() {
               <h1 className="text-4xl font-bold text-black w-0 opacity-0 group-hover:opacity-100 group-hover:w-[110px] transform duration-1000 ease-in-out">
                 Kimih
               </h1>
-            </Link>
+            </div>
           </div>
           <h1 className="text-2xl text-gray-900 font-bold text-center mt-5">
             Sign up/log in
