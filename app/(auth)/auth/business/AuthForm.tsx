@@ -8,7 +8,7 @@ const loginWithFacebook = async () => {
   const data = await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_URL}/create-account`,
+      redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/callback`,
     },
   });
   console.log("Login with facebook");
@@ -19,7 +19,7 @@ const loginWithGoogle = async () => {
   const data = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_URL}/create-account`,
+      redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/callback`,
     },
   });
   console.log("Login with google: ", data);

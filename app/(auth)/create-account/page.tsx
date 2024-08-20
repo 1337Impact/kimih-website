@@ -3,7 +3,7 @@ import Link from "next/link";
 import CreateAccountForm from "./CreateAccountForm";
 import { Suspense } from "react";
 
-export default function Page() {
+export default async function Page() {
   return (
     <main className="relative w-full flex justify-center min-h-screen">
       <Image

@@ -22,7 +22,7 @@ export default async function ACreateAccount(signUpData: {
         phone,
         email,
         user_role: role || "user",
-        isComplete: true,
+        isCompleted: true,
       },
     },
   });
@@ -48,7 +48,7 @@ export async function AUpdateAccount(signUpData: {
       phone,
       email,
       user_role: role || "user",
-      isComplete: true,
+      isCompleted: true,
     },
   });
   if (error) {

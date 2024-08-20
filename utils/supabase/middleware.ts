@@ -53,8 +53,8 @@ export async function updateSession(request: NextRequest) {
   }
   // handle user logged in
   if (userData.user) {
-    console.log("User data: ", userData.user.user_metadata);
-    if (!userData?.user?.user_metadata.isComplete) {
+    // console.log("User data: ", userData.user.user_metadata);
+    if (!userData?.user?.user_metadata.isCompleted) {
       // profile not complete and user try to access dashboard or profile
       if (
         request.nextUrl.pathname.startsWith("/dashboard") ||
