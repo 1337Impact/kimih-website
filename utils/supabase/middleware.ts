@@ -40,9 +40,19 @@ export async function updateSession(request: NextRequest) {
 
   // refreshing the auth token
   const { data: userData } = await supabase.auth.getUser();
-  if (
+  if (request.nextUrl.pathname.startsWith("/auth") && userData?.user) {
+    const url = request.nextUrl.clone();
+    if (userData.user.user_metadata.user_role === 'manager'){
+      url.pathname = "/dashboard";
+    } else {
+      url.pathname = "/profile";
+    }
+    return NextResponse.redirect(url);
+  }
+  else if (
     request.nextUrl.pathname.startsWith("/dashboard")
   ) {
+    console.log("dashboard: ", userData);
     if (userData && userData.user) {
       if (userData.user.user_metadata.user_role === 'manager') {
         return NextResponse.next();

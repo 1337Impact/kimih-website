@@ -1,17 +1,24 @@
 "use client";
 import Image from "next/image";
 import AuthWithEmail from "./AuthWithEmail";
+import { createClient } from "@/utils/supabase/client";
 
 const loginWithFacebook = () => {
   console.log("Login with facebook");
 };
 
-const loginWithGoogle = () => {
-  console.log("Login with google");
+const loginWithGoogle = async () => {
+  const supabase = createClient();
+  const data = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${process.env.NEXT_PUBLIC_URL}/create-account`,
+    },
+  });
+  console.log("Login with google: ", data);
 };
 
 export default function AuthForm() {
-
   return (
     <div className="mt-10">
       <AuthWithEmail />

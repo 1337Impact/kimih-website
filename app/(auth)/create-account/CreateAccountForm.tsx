@@ -1,16 +1,30 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import createAccountSchema from "@/utils/zod/create-account-schema";
 import PhoneNumberInput from "@/components/phone-number-input";
 import Link from "next/link";
 import ACreateAccount from "@/actions/create-account";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MdErrorOutline } from "react-icons/md";
+import { createClient } from "@/utils/supabase/client";
 
 export default function CreateAccountForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const initialEmail = searchParams.get("email");
+  const supabase = createClient();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      // if (data) setUser(data.user);
+      console.log("User data: ", data);
+      if (error) console.error("Error fetching user:", error);
+    };
+
+    getUser();
+  }, []);
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
