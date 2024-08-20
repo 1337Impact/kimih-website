@@ -25,7 +25,7 @@ export default async function ACreateAccount(signUpData: {
   });
   if (error) {
     console.log(error);
-    return "error";
+    return { error: error.message, data: null };
   }
-  return "success";
+  return { data, error: null };
 }

@@ -4,12 +4,17 @@ import createAccountSchema from "@/utils/zod/create-account-schema";
 import PhoneNumberInput from "@/components/phone-number-input";
 import Link from "next/link";
 import ACreateAccount from "@/actions/create-account";
+import { useRouter, useSearchParams } from "next/navigation";
+import { MdErrorOutline } from "react-icons/md";
 
 export default function CreateAccountForm() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const initialEmail = searchParams.get("email");
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
-    email: "",
+    email: initialEmail || "",
     phone: "",
     password: "",
     terms: false,
@@ -22,11 +27,12 @@ export default function CreateAccountForm() {
     phone: "",
     password: "",
     terms: "",
+    post_error: "",
   });
 
   const handleChange = (e: any) => {
     if (e.target.id === "terms") {
-      setData({ ...data, "terms": !data.terms });
+      setData({ ...data, terms: !data.terms });
       return;
     }
     setData({ ...data, [e.target.id]: e.target.value });
@@ -41,6 +47,7 @@ export default function CreateAccountForm() {
       phone: "",
       password: "",
       terms: "",
+      post_error: "",
     });
     const result = createAccountSchema.safeParse(data);
     if (!result.success) {
@@ -49,19 +56,25 @@ export default function CreateAccountForm() {
       });
       return;
     }
-    try {
-      //create account logic
-      const res =await ACreateAccount(data);
-      console.log("res", res);
-    } catch (error: any) {
-      console.log(error);
+    const { terms, ...signUpData } = data;
+    const { error, data: res } = await ACreateAccount(signUpData);
+    if (error) {
+      setError((prev) => ({ ...prev, ["post_error"]: error }));
+      return;
     }
+    router.push("/complete-profile");
   }
 
   return (
     <div>
       <div>
-        <div className="mb-3 w-full">
+        {error.post_error && (
+          <p className="flex items-center justify-center my-1 gap-1 text-red-400 text-lg font-medium text-center -mb-[8px]">
+            <MdErrorOutline />
+            {error.post_error}
+          </p>
+        )}
+        <div className="mt-2 mb-3 w-full">
           <label
             className="block text-gray-600 text-sm font-bold mb-1"
             htmlFor="first_name"
@@ -163,7 +176,12 @@ export default function CreateAccountForm() {
         )}
       </div>
       <div className="flex">
-        <input className="mr-1" id="terms" type="checkbox" onChange={handleChange} />
+        <input
+          className="mr-1"
+          id="terms"
+          type="checkbox"
+          onChange={handleChange}
+        />
         <p className="text-gray-600 text-sm">
           Accept{" "}
           <Link
@@ -182,11 +200,11 @@ export default function CreateAccountForm() {
           .
         </p>
       </div>
-        {error.terms && (
-          <p className="text-red-400 font-medium text-xs -mb-[8px]">
-            {error.terms}
-          </p>
-        )}
+      {error.terms && (
+        <p className="text-red-400 font-medium text-xs -mb-[8px]">
+          {error.terms}
+        </p>
+      )}
       <button
         className="w-full mt-3 bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
         onClick={handleSubmit}
