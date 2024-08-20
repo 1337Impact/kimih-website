@@ -4,7 +4,7 @@ import createAccountSchema, { OAuthCreateAccount } from "@/utils/zod/create-acco
 import PhoneNumberInput from "@/components/phone-number-input";
 import Link from "next/link";
 import ACreateAccount, { AUpdateAccount } from "@/actions/create-account";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { MdErrorOutline } from "react-icons/md";
 import { createClient } from "@/utils/supabase/client";
 
@@ -41,7 +41,7 @@ export default function OAuthAccountForm() {
         if (error) console.error("Error fetching user:", error);
       };
       getUser();
-  }, []);
+  }, [supabase]);
   const handleChange = (e: any) => {
     if (e.target.id === "terms") {
       setData({ ...data, terms: !data.terms });

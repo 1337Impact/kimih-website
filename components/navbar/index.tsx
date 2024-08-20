@@ -73,7 +73,7 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <Link href={"/login"} className="md:hidden">
+          <Link href={"/auth"} className="md:hidden">
             <div
               onClick={() => setIsMenuOpen(false)}
               className="float-right text-black hover:text-gray-700 font-bold px-4 py-2 rounded-md cursor-pointer"
@@ -81,7 +81,7 @@ export default function Navbar() {
               Log in
             </div>
           </Link>
-          <Link href={"/signup"} className="md:hidden">
+          <Link href={"/auth"} className="md:hidden">
             <div
               onClick={() => setIsMenuOpen(false)}
               className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:from-themeVilot hover:to-themeBlue text-white px-4 py-2 rounded-xl cursor-pointer"
@@ -108,7 +108,7 @@ export default function Navbar() {
               className={`${styles.line} ${isMenuOpen && styles.open}`}
             ></div>
           </button>
-          <Link href={"/login"} className="max-md:hidden">
+          <Link href={"/auth"} className="max-md:hidden">
             <div
               onClick={() => setIsMenuOpen(false)}
               className="float-right text-black hover:text-gray-700 font-bold px-4 py-2 rounded-md cursor-pointer"
@@ -116,7 +116,7 @@ export default function Navbar() {
               Log in
             </div>
           </Link>
-          <Link href={"/signup"} className="max-md:hidden">
+          <Link href={"/auth"} className="max-md:hidden">
             <div
               onClick={() => setIsMenuOpen(false)}
               className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:opacity-90 text-white px-4 py-2 rounded-xl cursor-pointer"

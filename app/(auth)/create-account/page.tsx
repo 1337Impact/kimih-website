@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CreateAccountForm from "./CreateAccountForm";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
@@ -33,9 +34,9 @@ export default function Page() {
           <h1 className="text-2xl text-gray-900 font-bold text-center mt-5">
             Create account
           </h1>
-          <div>
+          <Suspense>
             <CreateAccountForm />
-          </div>
+          </Suspense>
         </div>
         <div className="absolute bottom-4 text-center justify-center pt-4 border-t border-[rgba(255,255,255,0.1)] z-10">
           <p className="mb-1 text-sm">
