@@ -12,12 +12,12 @@ export default function Stepper({
           key={index}
           className={
             index == steps.length - 1
-              ? `flex items-center ${activeStep === index && "text-blue-600"}`
+              ? `flex items-center ${activeStep === index && "text-themeVilot"}`
               : `flex md:w-full justify-center items-center ${
                   activeStep === index
-                    ? "text-blue-600"
+                    ? "text-themeVilot"
                     : activeStep > index
-                    ? "text-gray-500"
+                    ? "text-violet-400"
                     : ""
                 } after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10`
           }
