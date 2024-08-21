@@ -8,6 +8,7 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -17,22 +18,37 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.get(name)?.value;
         },
         set(name: string, value: string, options: CookieOptions) {
-          request.cookies.set({ name, value, ...options });
+          // Ensure cookies are shared across subdomains
+          const cookieOptions = {
+            ...options,
+            // domain: process.env.NODE_ENV === "development" ? null : ".kimih.com", // Ensure cookies are removed from all subdomains
+            secure: process.env.NODE_ENV !== "development", // Use secure cookies in production set to true
+            sameSite: "Lax",
+          };
+
+          request.cookies.set({ name, value, ...cookieOptions });
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
-          response.cookies.set({ name, value, ...options });
+          response.cookies.set({ name, value, ...cookieOptions });
         },
         remove(name: string, options: CookieOptions) {
-          request.cookies.set({ name, value: "", ...options });
+          const cookieOptions = {
+            ...options,
+            // domain: process.env.NODE_ENV === "development" ? null : ".kimih.com", // Ensure cookies are removed from all subdomains
+            secure: process.env.NODE_ENV !== "development", // Use secure cookies in production set to true
+            sameSite: "Lax",
+          };
+
+          request.cookies.set({ name, value: "", ...cookieOptions });
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
-          response.cookies.set({ name, value: "", ...options });
+          response.cookies.set({ name, value: "", ...cookieOptions });
         },
       },
     }
