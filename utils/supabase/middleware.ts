@@ -79,6 +79,8 @@ export async function updateSession(request: NextRequest) {
         const url = request.nextUrl.clone();
         if (userData.user.user_metadata.user_role === "user") {
           url.pathname = "/profile";
+        }else {
+          url.pathname = "/";
         }
         return NextResponse.redirect(url);
       }
