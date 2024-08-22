@@ -35,9 +35,9 @@ export default function Page() {
             <AuthForm />
           </div>
           <h6 className="font-semibold text-sm text-center mt-2">
-            Are you a customer?{" "}
-            <Link href={"auth/customer"} className="text-blue-600 underline">
-              sign up as a customer
+            Are you a business?{" "}
+            <Link href={"https://app.kimih.com/auth"} className="text-blue-600 underline">
+            Sign up/log in as a business
             </Link>
           </h6>
         </div>

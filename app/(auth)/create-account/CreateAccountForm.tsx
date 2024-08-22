@@ -61,10 +61,7 @@ export default function CreateAccountForm() {
       return;
     }
     const { terms, ...signUpData } = data;
-    const { error, data: res } = await ACreateAccount({
-      ...signUpData,
-      role: "manager",
-    });
+    const { error, data: res } = await ACreateAccount(signUpData);
     if (error) {
       setError((prev) => ({ ...prev, ["post_error"]: error }));
       return;

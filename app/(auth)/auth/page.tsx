@@ -36,7 +36,7 @@ export default function Page() {
             <MdOutlineArrowForwardIos className="text-xl mt-2 transform group-hover:translate-x-2 ease-in-out duration-200" />
           </div>
         </Link>
-        <Link href={"/auth/business"}>
+        <Link href={"https://app.kimih.com/auth"}>
           <div className="w-full group mt-3 flex justify-between border-2 border-slate-500 rounded-lg p-5 hover:bg-gray-100">
             <div className="">
               <h1 className="text-lg font-semibold">For business</h1>

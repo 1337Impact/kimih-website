@@ -1,6 +1,3 @@
-import ScrollToTop from "@/components/back-to-top";
-import Footer from "@/components/footer";
-import Navbar from "@/components/navbar";
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 

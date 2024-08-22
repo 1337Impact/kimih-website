@@ -67,15 +67,12 @@ export default function OAuthAccountForm() {
       return;
     }
     const { terms, ...signUpData } = data;
-    const { error, data: res } = await AUpdateAccount({
-      ...signUpData,
-      role: "manager",
-    });
+    const { error, data: res } = await AUpdateAccount(signUpData);
     if (error) {
       setError((prev) => ({ ...prev, ["post_error"]: error }));
       return;
     }
-    router.push("/complete-profile");
+    router.push("/profile");
   }
 
   return (

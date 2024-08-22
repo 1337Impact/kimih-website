@@ -8,10 +8,9 @@ export default async function ACreateAccount(signUpData: {
   email: string;
   phone: string;
   password: string;
-  role?: string;
 }) {
   const supabase = createClient();
-  const { first_name, last_name, email, password, phone, role } = signUpData;
+  const { first_name, last_name, email, password, phone } = signUpData;
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -21,7 +20,7 @@ export default async function ACreateAccount(signUpData: {
         last_name,
         phone,
         email,
-        user_role: role || "user",
+        user_role: "user",
         isCompleted: true,
       },
     },
@@ -37,17 +36,16 @@ export async function AUpdateAccount(signUpData: {
   last_name: string;
   email: string;
   phone: string;
-  role?: string;
 }) {
   const supabase = createClient();
-  const { first_name, last_name, email, phone, role } = signUpData;
+  const { first_name, last_name, email, phone } = signUpData;
   const { data, error } = await supabase.auth.updateUser({
     data: {
       first_name,
       last_name,
       phone,
       email,
-      user_role: role || "user",
+      user_role: "user",
       isCompleted: true,
     },
   });
@@ -61,7 +59,7 @@ export async function AUpdateAccount(signUpData: {
       first_name,
       last_name,
       phone,
-      role: role || "user",
+      role: "user",
     })
     .eq("email", email);
   if (userError) {
