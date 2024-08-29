@@ -1,6 +1,9 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+// Define the routes you want to protect
+const protectedRoutes = ["/profile", "/appointments"];
+
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
     request: {
@@ -39,49 +42,40 @@ export async function updateSession(request: NextRequest) {
   );
 
   const { data: userData } = await supabase.auth.getUser();
+  const user = userData.user;
+  const url = request.nextUrl.clone();
+  const pathname = request.nextUrl.pathname;
 
-  // handle user not logged in
-  if (!userData.user) {
-    if (
-      request.nextUrl.pathname.startsWith("/dashboard") ||
-      request.nextUrl.pathname.startsWith("/profile")
-    ) {
-      const url = request.nextUrl.clone();
+  // Handle user not logged in
+  if (!user && protectedRoutes.some(route => pathname.startsWith(route))) {
+    url.pathname = "/auth";
+    return NextResponse.redirect(url);
+  }
+
+  // Handle user logged in
+  if (user) {
+    const isProfileComplete = user.user_metadata.isCompleted;
+    const userRole = user.user_metadata.user_role;
+
+    if (userRole !== "user") {
+      // Log the user out and redirect to /auth
+      await supabase.auth.signOut();
       url.pathname = "/auth";
       return NextResponse.redirect(url);
     }
-  }
-  // handle user logged in
-  if (userData.user) {
-    // console.log("User data: ", userData.user.user_metadata);
-    if (!userData?.user?.user_metadata.isCompleted) {
-      // profile not complete and user try to access dashboard or profile
-      if (
-        request.nextUrl.pathname.startsWith("/dashboard") ||
-        request.nextUrl.pathname.startsWith("/profile") ||
-        request.nextUrl.pathname.startsWith("/auth") ||
-        (request.nextUrl.pathname.startsWith("/create-account") &&
-          !request.nextUrl.searchParams.get("code"))
-      ) {
-        const url = request.nextUrl.clone();
+
+    if (!isProfileComplete) {
+      if (protectedRoutes.some(route => pathname.startsWith(route)) || pathname.startsWith("/auth")) {
         url.pathname = "/create-account";
         url.searchParams.set("code", "complete-profile");
         return NextResponse.redirect(url);
       }
     } else {
-      // profile complete and user try to access create account
-      if (request.nextUrl.pathname.startsWith("/create-account")) {
-        const url = request.nextUrl.clone();
+      if (pathname.startsWith("/create-account")) {
         url.pathname = "/profile";
         return NextResponse.redirect(url);
-      } else if (request.nextUrl.pathname.startsWith("/auth")) {
-        // profile complete and user try to access auth page
-        const url = request.nextUrl.clone();
-        if (userData.user.user_metadata.user_role === "user") {
-          url.pathname = "/profile";
-        }else {
-          url.pathname = "/";
-        }
+      } else if (pathname.startsWith("/auth")) {
+        url.pathname = user.user_metadata.user_role === "user" ? "/profile" : "/";
         return NextResponse.redirect(url);
       }
     }

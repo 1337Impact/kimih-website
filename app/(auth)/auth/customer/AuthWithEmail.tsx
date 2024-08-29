@@ -35,7 +35,7 @@ export default function AuthWithEmail() {
       }
       try {
         const user = await loginWithEmail(data.email, data.password);
-        router.push("/dashboard");
+        router.push("/profile");
       } catch (error) {
         console.error(error);
         setError({ email: false, password: true });

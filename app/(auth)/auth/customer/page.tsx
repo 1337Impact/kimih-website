@@ -13,7 +13,7 @@ export default function Page() {
         className="max-lg:hidden object-cover h-screen w-1/2"
       />
       <div className="lg:w-1/2 flex mt-20 justify-center">
-        <div className="w-[400px] flex flex-col">
+        <div className="mx-2 sm:w-[380px] sm:mx-auto flex flex-col">
           <div>
             <div className="flex justify-center items-center gap-2 mb-4 group">
               <Image

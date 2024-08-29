@@ -7,9 +7,12 @@ export default function Page() {
   return (
     <main className="w-full flex items-center justify-center min-h-[80vh]">
       {/* <div className=""></div> */}
-      <div className="w-[400px] flex flex-col">
+      <div className="mx-2 sm:w-[380px] sm:mx-auto flex flex-col">
         <div>
-          <Link href={"/"} className="flex justify-center items-center gap-2 mb-4 group">
+          <Link
+            href={"/"}
+            className="flex justify-center items-center gap-2 mb-4 group"
+          >
             <Image
               width={600}
               height={600}
