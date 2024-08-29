@@ -1,17 +1,21 @@
-import type { Metadata } from "next";
+"use client";
+import Navbar from "@/components/protected/navbar/navbar";
 import { Inter } from "next/font/google";
+import { UserProvider } from "../context/UserContext";
 
 const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Kimih",
-  description: "Kimih",
-};
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <div className={inter.className}>{children}</div>;
+  return (
+    <div className={inter.className}>
+      <UserProvider>
+        <Navbar />
+        {children}
+      </UserProvider>
+    </div>
+  );
 }
