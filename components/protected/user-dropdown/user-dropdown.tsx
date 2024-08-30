@@ -13,9 +13,9 @@ import { MdCardMembership } from "react-icons/md";
 import { useUser } from "@/app/context/UserContext";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
+import { UserData } from "@/lib/getUserData";
 
-export default function UserDropdownMenu() {
-  const { userData } = useUser();
+export default function UserDropdownMenu({userData}: {userData: UserData}) {
   const router = useRouter();
 
   const handleSignOut = async () => {

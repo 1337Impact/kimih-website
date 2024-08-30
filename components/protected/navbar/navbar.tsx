@@ -32,7 +32,7 @@ export default function Navbar() {
           <Image width={50} height={50} src={"/logo.svg"} alt="Logo" priority />
           <span className="max-sm:hidden">Kimih</span>
         </Link>
-        <UserDropdownMenu />
+        <UserDropdownMenu userData={userData!} />
       </div>
     </header>
   );

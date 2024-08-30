@@ -4,6 +4,9 @@ import styles from "./navbar.module.css";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
+import { createClient } from "@/utils/supabase/client";
+import { getUserData, UserData } from "@/lib/getUserData";
+import UserDropdownMenu from "../protected/user-dropdown/user-dropdown";
 
 const links = [
   {
@@ -29,16 +32,23 @@ const links = [
 ];
 
 export default function Navbar() {
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const pathname = usePathname();
+  const [userData, setUserData] = useState<UserData | null>();
+
+  useEffect(() => {
+    getUserData().then((data) => {
+      setUserData(data);
+    });
+  }, []);
 
   useEffect(() => {
     setActiveSection(pathname.replace("/", ""));
   }, [pathname]);
 
   return (
-    <header className="fixed bg-white z-[100] w-full h-[80px] mx-auto text-slate-800">
+    <header className="fixed bg-white z-[40] w-screen h-[80px] mx-auto text-slate-800">
       <div className="relative flex h-full w-full items-center justify-between px-4 max-w-[1300px] mx-auto">
         <Link href="/#" className="flex items-center gap-1">
           <Image
@@ -72,58 +82,72 @@ export default function Navbar() {
               />
             </Link>
           ))}
-
-          <Link href={"/auth"} className="md:hidden">
-            <div
-              onClick={() => setIsMenuOpen(false)}
-              className="float-right text-black hover:text-gray-700 font-bold px-4 py-2 rounded-md cursor-pointer"
-            >
-              Log in
-            </div>
-          </Link>
-          <Link href={"/auth"} className="md:hidden">
-            <div
-              onClick={() => setIsMenuOpen(false)}
-              className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:from-themeVilot hover:to-themeBlue text-white px-4 py-2 rounded-xl cursor-pointer"
-            >
-              Sign up
-            </div>
-          </Link>
+          {userData ? (
+            <Link href={"/profile"} className="md:hidden">
+              <div
+                onClick={() => setIsMenuOpen(false)}
+                className="float-right text-black hover:text-gray-700 font-bold px-4 py-2 rounded-md cursor-pointer"
+              >
+                Profile
+              </div>
+            </Link>
+          ) : (
+            <>
+              <Link href={"/auth"} className="md:hidden">
+                <div
+                  onClick={() => setIsMenuOpen(false)}
+                  className="float-right text-black hover:text-gray-700 font-bold px-4 py-2 rounded-md cursor-pointer"
+                >
+                  Log in
+                </div>
+              </Link>
+              <Link href={"/auth"} className="md:hidden">
+                <div
+                  onClick={() => setIsMenuOpen(false)}
+                  className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:from-themeVilot hover:to-themeBlue text-white px-4 py-2 rounded-xl cursor-pointer"
+                >
+                  Sign up
+                </div>
+              </Link>
+            </>
+          )}
         </nav>
-        <div className="flex items-center gap-6">
-          <button
-            name="menu"
-            type="button"
-            aria-label="menu"
-            className={`${styles.hamburger} md:hidden z-50`}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <div
-              className={`${styles.line} ${isMenuOpen && styles.open}`}
-            ></div>
-            <div
-              className={`${styles.line} ${isMenuOpen && styles.open}`}
-            ></div>
-            <div
-              className={`${styles.line} ${isMenuOpen && styles.open}`}
-            ></div>
-          </button>
-          <Link href={"/auth"} className="max-md:hidden">
-            <div
-              onClick={() => setIsMenuOpen(false)}
-              className="float-right text-black hover:text-gray-700 font-bold px-4 py-2 rounded-md cursor-pointer"
-            >
-              Log in
+        <button
+          name="menu"
+          type="button"
+          aria-label="menu"
+          className={`${styles.hamburger} md:hidden z-50`}
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <div className={`${styles.line} ${isMenuOpen && styles.open}`}></div>
+          <div className={`${styles.line} ${isMenuOpen && styles.open}`}></div>
+          <div className={`${styles.line} ${isMenuOpen && styles.open}`}></div>
+        </button>
+        <div className="max-md:hidden">
+          {userData ? (
+            <div className="px-4 relative">
+              <UserDropdownMenu userData={userData} />
             </div>
-          </Link>
-          <Link href={"/auth"} className="max-md:hidden">
-            <div
-              onClick={() => setIsMenuOpen(false)}
-              className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:opacity-90 text-white px-4 py-2 rounded-xl cursor-pointer"
-            >
-              Sign up
+          ) : (
+            <div className="flex items-center gap-6">
+              <Link href={"/auth"}>
+                <div
+                  onClick={() => setIsMenuOpen(false)}
+                  className="float-right text-black hover:text-gray-700 font-bold px-4 py-2 rounded-md cursor-pointer"
+                >
+                  Log in
+                </div>
+              </Link>
+              <Link href={"/auth"}>
+                <div
+                  onClick={() => setIsMenuOpen(false)}
+                  className="float-right bg-gradient-to-tr from-themeBlue to-themeVilot hover:opacity-90 text-white px-4 py-2 rounded-xl cursor-pointer"
+                >
+                  Sign up
+                </div>
+              </Link>
             </div>
-          </Link>
+          )}
         </div>
       </div>
     </header>
