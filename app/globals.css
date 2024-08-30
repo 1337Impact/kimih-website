@@ -5,6 +5,9 @@
 .hover-scale {
   @apply hover:scale-[103%] transform-gpu ease-in-out duration-500;
 }
+.hover-scale-2 {
+  @apply hover:scale-[102%] transform-gpu ease-in-out duration-500;
+}
 
 @layer base {
   :root {

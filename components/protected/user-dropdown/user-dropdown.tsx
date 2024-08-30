@@ -11,9 +11,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MdCardMembership } from "react-icons/md";
 import { useUser } from "@/app/context/UserContext";
+import { createClient } from "@/utils/supabase/client";
+import { useRouter } from "next/navigation";
 
 export default function UserDropdownMenu() {
   const { userData } = useUser();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -46,7 +56,7 @@ export default function UserDropdownMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="font-semibold text-red-500 hover:!text-red-600">
           <LogOut className="mr-2 h-6 w-4" />
-          <span>Log out</span>
+          <button onClick={handleSignOut}>Log out</button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
