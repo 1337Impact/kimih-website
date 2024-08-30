@@ -21,6 +21,11 @@ export function addMinutesToDate(dateStr: string, minutes: number): Date {
   date.setMinutes(date.getMinutes() + minutes);
   return date;
 }
+export function addDaysToDate(dateStr: string, days: number): Date {
+  const date = new Date(dateStr);
+  date.setHours(date.getHours() + (days * 24));
+  return date;
+}
 
 export function formatTime(date: Date): string {
   const hours = date.getHours();

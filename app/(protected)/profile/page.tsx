@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import ProfileCard from "./ProfileCard";
 import ListAppointments, { Appointment } from "./ListAppointments";
+import ListMemberships, { Membership } from "./ListMemberships";
 
 const getUserData = async () => {
   const supabase = createClient();
@@ -39,9 +40,34 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
   });
 };
 
+const getMembershipsData = async (): Promise<Membership[]> => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("memberships")
+    .select(
+      "id, ref, created_at, memberships_catalog(membership_name, price, valid_for_days), payments(amount), business(id, name)"
+    )
+    .order("created_at", { ascending: false });
+  if (error || !data) return [] as Membership[];
+  return data.map((appointment) => {
+    return {
+      id: appointment.id,
+      ref: appointment.ref,
+      created_at: appointment.created_at,
+      membership_name: appointment.memberships_catalog?.membership_name,
+      membership_price: appointment.memberships_catalog?.price,
+      membership_validity: appointment.memberships_catalog?.valid_for_days,
+      payment_amount: appointment.payments?.amount,
+      business_id: appointment.business?.id,
+      business_name: appointment.business?.name,
+    };
+  });
+};
+
 export default async function Page() {
   const userData = await getUserData();
   const appointmentsData = await getAppointmentsData();
+  const membershipsData = await getMembershipsData();
   if (!userData) {
     return <div>Loading...</div>;
   }
@@ -54,6 +80,9 @@ export default async function Page() {
         </div>
         <div className="col-span-7 lg:col-span-4">
           <ListAppointments appointments={appointmentsData} />
+        </div>
+        <div className="col-span-7">
+          <ListMemberships memberships={membershipsData} />
         </div>
       </div>
     </div>
