@@ -11,9 +11,6 @@ export type Appointment = {
   service_price: number | null | undefined;
   service_duration: number | null | undefined;
   payment_amount: number | null | undefined;
-  client_full_name: string | null | undefined;
-  client_email: string | null | undefined;
-  client_phone: string | null | undefined;
   team_member_name: string | null | undefined;
   team_member_color: string | null | undefined;
   business_id: string | null | undefined;

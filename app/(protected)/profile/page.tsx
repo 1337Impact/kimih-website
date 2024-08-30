@@ -19,7 +19,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), profiles(first_name, last_name, email, phone), team_members(first_name, last_name, email, color), business(id, name)"
+      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name)"
     )
     .order("created_at", { ascending: false });
   if (error || !data) return [] as Appointment[];
@@ -30,9 +30,6 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
       service_price: appointment.services?.price,
       service_duration: appointment.services?.duration,
       payment_amount: appointment.payments?.amount,
-      client_full_name: `${appointment.profiles?.first_name} ${appointment.profiles?.last_name}`,
-      client_email: appointment.profiles?.email,
-      client_phone: appointment.profiles?.phone,
       team_member_name: `${appointment.team_members?.first_name} ${appointment.team_members?.last_name}`,
       team_member_email: appointment.team_members?.email,
       team_member_color: appointment.team_members?.color,

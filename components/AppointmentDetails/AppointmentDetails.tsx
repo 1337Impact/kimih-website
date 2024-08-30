@@ -15,6 +15,8 @@ import lightenHexColor from "@/utils/formating-utils/lighten-color";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import BusinessMap from "./Map";
+import { FaMapMarked, FaPhone } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
 
 type Appointment = {
   id: string;
@@ -29,24 +31,19 @@ type Appointment = {
     price: number | null;
     duration: number | null;
   } | null;
-  profiles: {
-    first_name: string | null;
-    last_name: string | null;
-    email: string | null;
-    phone: string | null;
-  } | null;
   team_members: {
     first_name: string;
     last_name: string;
-    email: string | null;
-    phone: number | null;
     color: string | null;
   } | null;
   business: {
     id: string;
     name: string;
+    address: string | null | undefined;
     cordinates: number[] | null | undefined;
   } | null;
+  business_email: string | null | undefined;
+  business_phone: string | null | undefined;
 };
 
 const getAppointmentsData = async (
@@ -56,12 +53,22 @@ const getAppointmentsData = async (
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), profiles(first_name, last_name, email, phone), team_members(first_name, last_name, email, phone, color), business(id, name, cordinates)"
+      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id)"
     )
     .eq("id", appointment_id)
     .single();
-  if (error) return null;
-  return data;
+  if (error || !data) return null;
+  const { data: ownerData } = await supabase
+    .from("profiles")
+    .select("email, phone")
+    .eq("id", data?.business?.owner_id!)
+    .single();
+
+  return {
+    ...data,
+    business_email: ownerData?.email,
+    business_phone: ownerData?.phone,
+  };
 };
 
 export default function AppointmentDetails({
@@ -121,12 +128,6 @@ export default function AppointmentDetails({
               <h4 className="ml-2 font-semibold text-gray-700">
                 {data?.team_members?.first_name} {data?.team_members?.last_name}
               </h4>
-              <h4 className="ml-2 text-sm text-gray-600">
-                {data?.team_members?.email || "N/A"}
-              </h4>
-              <h4 className="ml-2 text-sm text-gray-600">
-                {data?.team_members?.phone || "N/A"}
-              </h4>
             </div>
           </div>
           <div className="mt-6">
@@ -137,6 +138,20 @@ export default function AppointmentDetails({
               </h4>
               <h4 className="ml-2 text-gray-700">
                 {data?.services?.price || "N/A"}AED
+              </h4>
+            </div>
+          </div>
+          <div className="mt-6">
+            <h1 className="text-lg font-semibold">Details:</h1>
+            <div className="ml-1 mt-1 flex flex-col gap-1 border-l-6 border-themeVilot">
+              <h4 className="flex gap-2 items-center ml-2 font-normal text-gray-700">
+                <FaMapMarked /> {data?.business?.address || "N/A"}
+              </h4>
+              <h4 className="flex gap-2 items-center ml-2 font-normal text-gray-700">
+                <FaPhone /> +{data?.business_phone || "N/A"}
+              </h4>
+              <h4 className="flex gap-2 items-center ml-2 font-normal text-gray-700">
+                <MdEmail /> {data?.business_email || "N/A"}
               </h4>
             </div>
           </div>
