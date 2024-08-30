@@ -20,6 +20,7 @@ export type Database = {
           ref: string
           scheduled_date: string
           services_id: string | null
+          status: string | null
           team_member_id: string | null
         }
         Insert: {
@@ -32,6 +33,7 @@ export type Database = {
           ref?: string
           scheduled_date: string
           services_id?: string | null
+          status?: string | null
           team_member_id?: string | null
         }
         Update: {
@@ -44,6 +46,7 @@ export type Database = {
           ref?: string
           scheduled_date?: string
           services_id?: string | null
+          status?: string | null
           team_member_id?: string | null
         }
         Relationships: [
@@ -93,6 +96,7 @@ export type Database = {
           images: string[] | null
           name: string
           owner_id: string
+          published: boolean
           website: string | null
         }
         Insert: {
@@ -103,6 +107,7 @@ export type Database = {
           images?: string[] | null
           name: string
           owner_id?: string
+          published?: boolean
           website?: string | null
         }
         Update: {
@@ -113,6 +118,7 @@ export type Database = {
           images?: string[] | null
           name?: string
           owner_id?: string
+          published?: boolean
           website?: string | null
         }
         Relationships: [
@@ -357,11 +363,11 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string | null
-          email: string | null
-          first_name: string | null
+          email: string
+          first_name: string
           id: string
           isCompleted: boolean
-          last_name: string | null
+          last_name: string
           phone: string | null
           role: string | null
           updated_at: string | null
@@ -369,11 +375,11 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           created_at?: string | null
-          email?: string | null
-          first_name?: string | null
+          email: string
+          first_name: string
           id: string
           isCompleted?: boolean
-          last_name?: string | null
+          last_name: string
           phone?: string | null
           role?: string | null
           updated_at?: string | null
@@ -381,11 +387,11 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           created_at?: string | null
-          email?: string | null
-          first_name?: string | null
+          email?: string
+          first_name?: string
           id?: string
           isCompleted?: boolean
-          last_name?: string | null
+          last_name?: string
           phone?: string | null
           role?: string | null
           updated_at?: string | null
