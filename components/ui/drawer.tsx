@@ -44,9 +44,9 @@ const DrawerContent = React.forwardRef<
       ref={ref}
       className={cn(
         dir === "right"
-          ? "outline-none fixed bottom-0 right-0 z-[9999] mt-24 flex h-full w-[400px] flex-col rounded-t-[10px] border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
-          : "outline-none bg-white  fixed inset-x-0 bottom-0 z-[9999] mt-24 flex h-auto flex-col rounded-t-[10px] border dark:border-slate-800 dark:bg-slate-950",
-        className,
+          ? "outline-none fixed bottom-0 right-0 z-[9999] mt-24 flex h-full w-[440px] flex-col rounded-t-[10px] border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950"
+          : "outline-none h-[90dvh] bg-white fixed inset-x-0 bottom-0 z-[9999] mt-24 flex flex-col rounded-t-[10px] border dark:border-slate-800 dark:bg-slate-950",
+        className
       )}
       {...props}
     >
@@ -87,7 +87,7 @@ const DrawerTitle = React.forwardRef<
     ref={ref}
     className={cn(
       "text-lg font-semibold leading-none tracking-tight",
-      className,
+      className
     )}
     {...props}
   />

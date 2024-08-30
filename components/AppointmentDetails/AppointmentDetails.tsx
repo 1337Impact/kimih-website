@@ -14,6 +14,7 @@ import formatDate from "@/utils/formating-utils/format-date";
 import lightenHexColor from "@/utils/formating-utils/lighten-color";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
+import BusinessMap from "./Map";
 
 type Appointment = {
   id: string;
@@ -41,16 +42,21 @@ type Appointment = {
     phone: number | null;
     color: string | null;
   } | null;
+  business: {
+    id: string;
+    name: string;
+    cordinates: number[] | null | undefined;
+  } | null;
 };
 
 const getAppointmentsData = async (
-  appointment_id: string,
+  appointment_id: string
 ): Promise<Appointment | null> => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), profiles(first_name, last_name, email, phone), team_members(first_name, last_name, email, phone, color)",
+      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), profiles(first_name, last_name, email, phone), team_members(first_name, last_name, email, phone, color), business(id, name, cordinates)"
     )
     .eq("id", appointment_id)
     .single();
@@ -92,7 +98,7 @@ export default function AppointmentDetails({
       <DrawerContent dir={size > 1024 ? "right" : "bottom"}>
         <DrawerHeader>
           <DrawerTitle className="text-xl">
-            {data?.services?.service_name || "Appointment Details"}
+            {data?.business?.name || "Appointment Details"}
           </DrawerTitle>
           <DrawerDescription>
             {data?.scheduled_date
@@ -100,26 +106,12 @@ export default function AppointmentDetails({
               : "No scheduled date available"}
           </DrawerDescription>
         </DrawerHeader>
-        <div className="space-y-4 p-4">
-          <div className="rounded-lg border border-gray-700 bg-gray-100 p-2">
-            <h1 className="text-lg font-semibold">Client:</h1>
-            <div className="mt-1 flex flex-col gap-1">
-              <h4 className="ml-2 font-semibold text-gray-700">
-                {data?.profiles?.first_name} {data?.profiles?.last_name}
-              </h4>
-              <h4 className="ml-2 text-sm text-gray-600">
-                {data?.profiles?.email || "N/A"}
-              </h4>
-              <h4 className="ml-2 text-sm text-gray-600">
-                {data?.profiles?.phone || "N/A"}
-              </h4>
-            </div>
-          </div>
+        <div className="space-y-4 p-4 overflow-y-auto">
           <div
             style={{
               backgroundColor: lightenHexColor(
                 data?.team_members?.color || "#fffffff",
-                0.7,
+                0.7
               ),
             }}
             className="rounded-lg border border-gray-700 p-2"
@@ -148,22 +140,25 @@ export default function AppointmentDetails({
               </h4>
             </div>
           </div>
+          {data?.business?.cordinates && (
+            <BusinessMap cordinates={data?.business?.cordinates} />
+          )}
+          <div className="border border-stroke rounded-lg p-2">
+            <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
+              <h1>Service price:</h1>
+              <h2>{data?.services?.price || "N/A"}AED</h2>
+            </div>
+            <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
+              <h1>Discount:</h1>
+              <h2>{0}AED</h2>
+            </div>
+            <div className="flex items-center justify-between pt-3">
+              <h1>Total payment:</h1>
+              <h2>{data?.payments?.amount || "N/A"}AED</h2>
+            </div>
+          </div>
         </div>
         <DrawerFooter>
-          <div className="border border-stroke rounded-lg p-2">
-          <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
-            <h1>Service price:</h1>
-            <h2>{data?.payments?.amount || "N/A"}AED</h2>
-          </div>
-          <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
-            <h1>Discount:</h1>
-            <h2>{0}AED</h2>
-          </div>
-          <div className="flex items-center justify-between pt-3">
-            <h1>Total payment:</h1>
-            <h2>{data?.payments?.amount || "N/A"}AED</h2>
-          </div>
-          </div>
           <DrawerClose>
             <Button className="w-full" variant="outline">
               Close

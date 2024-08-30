@@ -318,18 +318,21 @@ export type Database = {
         Row: {
           amount: number
           business_id: string | null
+          client_id: string | null
           created_at: string
           id: string
         }
         Insert: {
           amount: number
           business_id?: string | null
+          client_id?: string | null
           created_at?: string
           id?: string
         }
         Update: {
           amount?: number
           business_id?: string | null
+          client_id?: string | null
           created_at?: string
           id?: string
         }
@@ -339,6 +342,13 @@ export type Database = {
             columns: ["business_id"]
             isOneToOne: false
             referencedRelation: "business"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
