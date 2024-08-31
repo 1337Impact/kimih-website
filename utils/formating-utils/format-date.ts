@@ -23,7 +23,7 @@ export function addMinutesToDate(dateStr: string, minutes: number): Date {
 }
 export function addDaysToDate(dateStr: string, days: number): Date {
   const date = new Date(dateStr);
-  date.setHours(date.getHours() + (days * 24));
+  date.setHours(date.getHours() + days * 24);
   return date;
 }
 
@@ -38,4 +38,25 @@ export function formatTime(date: Date): string {
   const displayMinutes = minutes.toString().padStart(2, "0");
 
   return `${displayHours}:${displayMinutes}${ampm}`;
+}
+
+export function generateTimeSlots(
+  startTime: string,
+  endTime: string
+): string[] {
+  const timeSlots: string[] = [];
+  let start = new Date(`1970-01-01T${startTime}`);
+  const end = new Date(`1970-01-01T${endTime}`);
+
+  while (start <= end) {
+    const hours = start.getHours().toString().padStart(2, "0");
+    const minutes = start.getMinutes().toString().padStart(2, "0");
+
+    const formattedTime = `${hours}:${minutes}`;
+    timeSlots.push(formattedTime);
+
+    start = new Date(start.getTime() + 30 * 60000);
+  }
+
+  return timeSlots;
 }

@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Selected, Membership } from "./types";
 
 const MembershipItem = ({
+  business_id,
   membership,
   setSelected,
   selected,
 }: {
+  business_id: string;
   membership: Membership;
   selected: Selected[];
   setSelected: (memberships: Selected[]) => void;
@@ -33,7 +35,7 @@ const MembershipItem = ({
       ];
     }
     setSelected(updatedSelected);
-    localStorage.setItem("cart", JSON.stringify(updatedSelected));
+    localStorage.setItem(business_id, JSON.stringify(updatedSelected));
   };
 
   const handleRemove = () => {
@@ -49,7 +51,7 @@ const MembershipItem = ({
       updatedSelected = selected.filter((item) => item.id !== membership.id);
     }
     setSelected(updatedSelected);
-    localStorage.setItem("cart", JSON.stringify(updatedSelected));
+    localStorage.setItem(business_id, JSON.stringify(updatedSelected));
   };
 
   return (

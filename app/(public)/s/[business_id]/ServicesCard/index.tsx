@@ -20,7 +20,7 @@ export default function ServicesAndMembershipsCard({
   const [selected, setSelected] = useState<Selected[]>([]);
 
   useEffect(() => {
-    const cart = localStorage.getItem("cart");
+    const cart = localStorage.getItem(business_id);
     if (cart) {
       setSelected(JSON.parse(cart));
     }
@@ -35,6 +35,7 @@ export default function ServicesAndMembershipsCard({
             <div className="w-full mt-4 flex flex-col gap-4">
               {services.map((service) => (
                 <ServiceItem
+                  business_id={business_id}
                   key={service.id}
                   service={service}
                   selected={selected}
@@ -62,6 +63,7 @@ export default function ServicesAndMembershipsCard({
           <div className="w-full mt-4 flex flex-col gap-4">
             {memberships?.map((membership) => (
               <MembershipItem
+                business_id={business_id}
                 key={membership.id}
                 membership={membership}
                 selected={selected}

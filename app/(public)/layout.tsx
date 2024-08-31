@@ -1,6 +1,7 @@
 import ScrollToTop from "@/components/back-to-top";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 
@@ -18,6 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <div className={rubik.className}>
+      <Toaster />
       <Navbar />
       {children}
       <ScrollToTop />

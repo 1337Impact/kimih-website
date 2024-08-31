@@ -1,8 +1,6 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { Selected, Service, Membership } from "../ServicesCard/types";
-import { useRouter } from "next/navigation";
 import ServiceItem from "../ServicesCard/ServiceItem";
 import CartCard, { MobileCartCard } from "../ServicesCard/CartCard";
 import MembershipItem from "../ServicesCard/MembershipItem";
@@ -41,13 +39,12 @@ export default function ServicesAndMembershipsCard({
 }: {
   params: { business_id: string };
 }) {
-  const router = useRouter();
   const [services, setServices] = useState<Service[]>([]);
   const [memberships, setMemberships] = useState<Membership[]>([]);
   const [selected, setSelected] = useState<Selected[]>([]);
 
   useEffect(() => {
-    const cart = localStorage.getItem("cart");
+    const cart = localStorage.getItem(params.business_id);
     if (cart) {
       setSelected(JSON.parse(cart));
     }
@@ -69,6 +66,7 @@ export default function ServicesAndMembershipsCard({
               <div className="w-full mt-4 flex flex-col gap-4">
                 {services.map((service) => (
                   <ServiceItem
+                    business_id={params.business_id}
                     key={service.id}
                     service={service}
                     selected={selected}
@@ -89,6 +87,7 @@ export default function ServicesAndMembershipsCard({
             <div className="w-full mt-4 flex flex-col gap-4">
               {memberships?.map((membership) => (
                 <MembershipItem
+                  business_id={params.business_id}
                   key={membership.id}
                   membership={membership}
                   selected={selected}

@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Selected, Service } from "./types";
 
 const ServiceItem = ({
+  business_id,
   service,
   setSelected,
   selected,
 }: {
+  business_id: string;
   service: Service;
   selected: Selected[];
   setSelected: (services: Selected[]) => void;
@@ -31,7 +33,7 @@ const ServiceItem = ({
       ];
     }
     setSelected(updatedSelected);
-    localStorage.setItem("cart", JSON.stringify(updatedSelected));
+    localStorage.setItem(business_id, JSON.stringify(updatedSelected));
   };
 
   const handleRemove = () => {
@@ -45,7 +47,7 @@ const ServiceItem = ({
       updatedSelected = selected.filter((item) => item.id !== service.id);
     }
     setSelected(updatedSelected);
-    localStorage.setItem("cart", JSON.stringify(updatedSelected));
+    localStorage.setItem(business_id, JSON.stringify(updatedSelected));
   };
 
   return (
@@ -54,9 +56,7 @@ const ServiceItem = ({
       className="w-full p-4 px-5 border border-stroke rounded-xl flex justify-between items-center"
     >
       <div className="">
-        <h2 className="text-lg text-gray-800">
-          {service.service_name}
-        </h2>
+        <h2 className="text-lg text-gray-800">{service.service_name}</h2>
         <p className="text-sm text-gray-500">{service.duration} min</p>
         <p className="mt-1 text-gray-800">${service.price}</p>
       </div>

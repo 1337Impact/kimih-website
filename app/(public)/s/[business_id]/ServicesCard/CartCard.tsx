@@ -64,20 +64,12 @@ export function MobileCartCard({ selected }: { selected: Selected[] }) {
           <Button
             disabled={!selected.length}
             className="mt-4"
-            onClick={() =>
-              router.push(
-                `/checkout?items=${encodeURIComponent(
-                  JSON.stringify(selected)
-                )}`
-              )
-            }
+            onClick={() => router.push(`/checkout`)}
           >
             Checkout
           </Button>
-          <DrawerClose>
-            <Button className="w-full" variant="outline">
-              Cancel
-            </Button>
+          <DrawerClose className="w-full border border-stroke bg-gray-100 hover:bg-gray-200 rounded-md p-2">
+            Cancel
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
@@ -121,11 +113,7 @@ export default function CartCard({ selected }: { selected: Selected[] }) {
       <Button
         disabled={!selected.length}
         className="mt-4"
-        onClick={() =>
-          router.push(
-            `/checkout?items=${encodeURIComponent(JSON.stringify(selected))}`
-          )
-        }
+        onClick={() => router.push(`/checkout`)}
       >
         Checkout
       </Button>
