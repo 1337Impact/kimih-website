@@ -4,6 +4,12 @@ import TeamList from "./TeamList";
 import { createClient } from "@/utils/supabase/server";
 import { notFound } from "next/navigation";
 import ServicesAndMembershipsCard from "./ServicesCard";
+import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
+const Map = dynamic(() => import("@/components/Map"), {
+  ssr: false,
+  loading: () => <Skeleton className="h-full" />,
+});
 
 const getBusinessData = async (business_id: string) => {
   const supabase = createClient();
@@ -71,12 +77,12 @@ export default async function SalonPage({
 
   return (
     <main className="container overflow-hidden max-w-[1300px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-20">
-      <section className="w-full flex  max-lg:flex-col justify-between gap-10 mt-10">
+      <section className="w-full flex max-lg:flex-col justify-between gap-2 lg:gap-10 lg:mt-10">
         <div className="lg:hidden">
-          <h1 className="text-4xl text-gray-800 font-bold">
+          <h1 className="text-2xl text-gray-800 font-bold">
             {businessData.name}
           </h1>
-          <p className="mt-4 text-lg text-gray-600">{businessData.address}</p>
+          <p className="lg:mt-4 text-lg text-gray-600">{businessData.address}</p>
         </div>
         <div className="lg:w-1/2 md:w-[80%]">
           <ImageSwiper images={businessData.images!} />
@@ -112,6 +118,19 @@ export default async function SalonPage({
       <div>
         {businessData.team_members && (
           <TeamList teamMembers={businessData.team_members} />
+        )}
+      </div>
+      <div className="w-full">
+        <h1 className="text-center text-3xl font-bold mt-10">
+          Business Location
+        </h1>
+        {businessData?.cordinates && (
+          <div className="mt-6 h-[500px]">
+            <Map
+              latitude={businessData.cordinates[0]}
+              longitude={businessData.cordinates[1]}
+            />
+          </div>
         )}
       </div>
       {/* <section id="recommended-services" className="mt-5 lg:mt-10">

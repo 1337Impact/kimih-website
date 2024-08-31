@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Selected, Service, Membership } from "./types";
 import { useRouter } from "next/navigation";
 import ServiceItem from "./ServiceItem";
-import CartCard from "./CartCard";
+import CartCard, { MobileCartCard } from "./CartCard";
 import MembershipItem from "./MembershipItem";
 
 export default function ServicesAndMembershipsCard({
@@ -28,9 +28,6 @@ export default function ServicesAndMembershipsCard({
 
   return (
     <div className="w-full mt-10">
-      <div className="lg:hidden w-full">
-        <CartCard selected={selected} />
-      </div>
       <div className="w-full grid grid-cols-3 gap-6 mt-4">
         <div className="col-span-3 lg:col-span-2 w-full">
           <h1 className="text-2xl font-bold">Services</h1>
@@ -56,6 +53,9 @@ export default function ServicesAndMembershipsCard({
         </div>
         <div className="max-lg:hidden lg:col-span-1 mt-12 w-full">
           <CartCard selected={selected} />
+        </div>
+        <div className="lg:hidden lg:col-span-1 mt-12 w-full">
+          <MobileCartCard selected={selected} />
         </div>
         <div className="col-span-3">
           <h1 className="text-2xl font-bold">Memberships</h1>
