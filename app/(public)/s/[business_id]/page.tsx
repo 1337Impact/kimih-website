@@ -9,9 +9,7 @@ const getBusinessData = async (business_id: string) => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("business")
-    .select(
-      "*, team_members(first_name, last_name, avatar_url, job_title), services(service_name, price, duration)"
-    )
+    .select("*, team_members(first_name, last_name, avatar_url, job_title)")
     .eq("id", business_id)
     .eq("published", true)
     .single();
@@ -31,6 +29,36 @@ const getBusinessData = async (business_id: string) => {
   };
 };
 
+const getBusinessServices = async (business_id: string) => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("services")
+    .select("id, service_name, price, duration")
+    .eq("business_id", business_id)
+    .order("created_at", { ascending: false })
+    .limit(3);
+  if (error) {
+    console.error(error);
+    return null;
+  }
+  return data;
+};
+
+const getBusinessMemberships = async (business_id: string) => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("memberships_catalog")
+    .select("id, membership_name, valid_for_days, price")
+    .eq("business_id", business_id)
+    .order("created_at", { ascending: false })
+    .limit(3);
+  if (error) {
+    console.error(error);
+    return null;
+  }
+  return data;
+};
+
 export default async function SalonPage({
   params,
 }: {
@@ -38,6 +66,8 @@ export default async function SalonPage({
 }) {
   const businessData = await getBusinessData(params.business_id);
   if (!businessData) throw notFound();
+  const services = await getBusinessServices(params.business_id);
+  const memberships = await getBusinessMemberships(params.business_id);
 
   return (
     <main className="container overflow-hidden max-w-[1300px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-20">
@@ -74,7 +104,11 @@ export default async function SalonPage({
           </button>
         </div>
       </section>
-      <ServicesAndMembershipsCard services={businessData.services} />
+      <ServicesAndMembershipsCard
+        business_id={params.business_id}
+        memberships={memberships || []}
+        services={services || []}
+      />
       <div>
         {businessData.team_members && (
           <TeamList teamMembers={businessData.team_members} />

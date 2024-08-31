@@ -26,14 +26,17 @@ export default function TeamList({
                 className="flex flex-col items-center text-center text-gray-500 max-w-[140px] md:max-w-[160px] h-[240px]"
               >
                 <Avatar className="w-28 md:w-32 h-28 md:h-32 cursor-pointer">
-                  <AvatarImage src={member?.avatar_url!} alt={member.first_name} />
+                  <AvatarImage
+                    src={member?.avatar_url!}
+                    alt={member.first_name}
+                  />
                   <AvatarFallback className="font-bold text-3xl text-violet-400">
                     {`${member?.first_name![0]}${
                       member?.last_name![0]
                     }`.toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
-                <h3 className="my-1 text-xl font-bold tracking-tight text-gray-800 ">
+                <h3 className="mt-2 mb-1 text-lg font-bold tracking-tight text-gray-800 ">
                   {member.first_name} {member.last_name}
                 </h3>
                 <p>{member.job_title}</p>
