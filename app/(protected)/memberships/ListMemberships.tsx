@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import formatDate, { addDaysToDate } from "@/utils/formating-utils/format-date";
 import Link from "next/link";
 
@@ -24,8 +23,7 @@ export default function ListMemberships({
       <h1 className="text-xl font-semibold pl-1">Memberships:</h1>
       <div className="flex flex-col gap-4 mt-4 ml-2">
         {memberships.length ? (
-          <>
-          {memberships.map((membership) => (
+          memberships.map((membership) => (
             <div
               key={membership.id}
               className="border border-gray-200 p-6 bg-white rounded-xl shadow-md flex flex-col space-y-2 hover-scale-2"
@@ -43,23 +41,24 @@ export default function ListMemberships({
                   Price: ${membership.membership_price}
                 </span>
               </div>
-              <div className="flex gap-1 justify-start text-sm text-gray-600 ">
-                At:
-                <Link
-                  href={`/s/${membership.business_id}`}
-                  className="hover:underline"
-                >
-                  {membership.business_name}
-                </Link>
+              <div className="flex items-center justify-between flex-wrap">
+                <div className="flex gap-1 justify-start text-sm text-gray-600 ">
+                  At:
+                  <Link
+                    href={`/s/${membership.business_id}`}
+                    className="hover:underline"
+                  >
+                    {membership.business_name}
+                  </Link>
+                </div>
+                <div>
+                  <span className="text-sm text-gray-700">
+                    Purchased on: {formatDate(membership.created_at)}
+                  </span>
+                </div>
               </div>
             </div>
-          ))}
-            <Link href="/memberships">
-              <Button className="w-full shadow-md" variant={"outline"}>
-                View all memberships
-              </Button>
-            </Link>
-          </>
+          ))
         ) : (
           <div className="text-gray-600">No memberships found.</div>
         )}

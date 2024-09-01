@@ -13,6 +13,8 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { UserData } from "@/lib/getUserData";
 import Link from "next/link";
+import { MdCardMembership } from "react-icons/md";
+import { FiUser } from "react-icons/fi";
 
 export default function UserDropdownMenu({ userData }: { userData: UserData }) {
   const router = useRouter();
@@ -44,10 +46,22 @@ export default function UserDropdownMenu({ userData }: { userData: UserData }) {
         <DropdownMenuGroup>
           <DropdownMenuItem>
             <Link className="flex items-center" href="/profile">
-              <LucideClipboardList className="mr-2 h-6 w-4" />
+              <FiUser className="mr-2 h-6 w-4" />
               <span>Profile</span>
             </Link>
           </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link className="flex items-center" href="/appointments">
+                <LucideClipboardList className="mr-2 h-6 w-4" />
+                <span>Appointmentes</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link className="flex items-center" href="/memberships">
+                <MdCardMembership className="mr-2 h-6 w-4" />
+                <span>Memberships</span>
+              </Link>
+            </DropdownMenuItem>
           <DropdownMenuItem>
             <Link className="flex items-center" href="/settings">
               <Settings className="mr-2 h-6 w-4" />

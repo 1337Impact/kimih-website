@@ -1,5 +1,4 @@
 import AppointmentDetails from "@/components/AppointmentDetails/AppointmentDetails";
-import { Button } from "@/components/ui/button";
 import formatDate from "@/utils/formating-utils/format-date";
 import Link from "next/link";
 
@@ -25,31 +24,27 @@ const getAppointmentStatus = (appointment: Appointment) => {
   const endDate = new Date(
     scheduledDate.getTime() + (appointment.service_duration || 0) * 60000
   );
-  console.log("appointment", appointment.service_name);
-  console.log("currentDate", currentDate);
-  console.log("scheduledDate", scheduledDate);
-  console.log("endDate", endDate);
 
   if (currentDate < scheduledDate) {
     return {
       status: "Upcoming",
-      color: "#FFA500",
+      color: "#FFA500", // Orange color for upcoming
     };
   } else if (currentDate >= scheduledDate && currentDate <= endDate) {
     return {
       status: "In Progress",
-      color: "#00FF00",
+      color: "#00FF00", // Green color for in progress
     };
   } else if (currentDate > endDate) {
     return {
       status: "Completed",
-      color: "#ccc",
+      color: "#ccc", // Grey color for completed
     };
   }
 
   return {
     status: "Pending",
-    color: "#808080",
+    color: "#808080", // Grey color for pending (as a fallback)
   };
 };
 
@@ -102,19 +97,9 @@ export default function ListAppointments({
       <h1 className="text-xl font-semibold ">Appointments:</h1>
       <div className="flex flex-col gap-4 mt-4 ml-2">
         {appointments.length ? (
-          <>
-            {appointments.map((appointment) => (
-              <AppointmentCard appointment={appointment} />
-            ))}
-            <Link href="/appointments">
-              <Button
-                className="w-full border-stroke shadow-md"
-                variant={"outline"}
-              >
-                View all appointments
-              </Button>
-            </Link>
-          </>
+          appointments.map((appointment) => (
+            <AppointmentCard appointment={appointment} />
+          ))
         ) : (
           <div className="text-gray-600">No appointments found</div>
         )}
