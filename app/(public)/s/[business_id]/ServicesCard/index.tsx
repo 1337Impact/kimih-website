@@ -45,7 +45,7 @@ export default function ServicesAndMembershipsCard({
               <Button
                 className="border border-stroke"
                 variant={"outline"}
-                onClick={() => router.push(`/s/${business_id}/all-offers`)}
+                onClick={() => router.push(`/s/${business_id}/checkout`)}
               >
                 See all
               </Button>
@@ -73,7 +73,7 @@ export default function ServicesAndMembershipsCard({
             <Button
               className="border border-stroke"
               variant={"outline"}
-              onClick={() => router.push(`/s/${business_id}/all-offers`)}
+              onClick={() => router.push(`/s/${business_id}/checkout`)}
             >
               See all
             </Button>

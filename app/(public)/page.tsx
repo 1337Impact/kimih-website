@@ -4,6 +4,7 @@ import BookNowCard from "@/components/book-now-card";
 import SalonCard from "@/components/salon-card";
 import ReviewCard from "@/components/review-card";
 import ListCities from "@/components/list-cities";
+import { createClient } from "@/utils/supabase/server";
 
 const tempData = [
   {
@@ -63,6 +64,54 @@ const tempData = [
   },
 ];
 
+const getNewBusinessData = async () => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("business")
+    .select("id, name, address, images")
+    .eq("published", true)
+    .order("created_at", { ascending: false })
+    .limit(10);
+  if (error) {
+    console.error(error);
+    return [];
+  }
+  return data.map((business) => ({
+    title: business.name,
+    address: business.address || "No address provided",
+    image: business?.images?.pop()!,
+    url: `/s/${business.id}`,
+    reviews: {
+      number: 22,
+      stars: 4.5,
+    },
+  }));
+};
+
+const getRecommendedBusinessData = async () => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("business")
+    .select("id, name, address, images")
+    .eq("published", true)
+    .order("created_at", { ascending: false })
+    .limit(10);
+  if (error) {
+    console.error(error);
+    return [];
+  }
+  return data.map((business) => ({
+    title: business.name,
+    address: business.address || "No address provided",
+    image: business?.images?.pop()!,
+    url: `/s/${business.id}`,
+    reviews: {
+      number: 22,
+      stars: 4.5,
+    },
+  }));
+};
+
 const clientReviews = [
   {
     title: "Great service!",
@@ -70,8 +119,7 @@ const clientReviews = [
       "I had a great experience at the salon. The staff was friendly and professional.",
     client_name: "Cameron Diaz",
     client_address: "Springfield, IL",
-    client_image:
-      "/assets/images/review-avatar-1.webp",
+    client_image: "/assets/images/review-avatar-1.webp",
   },
   {
     title: "The best saolon so far!",
@@ -79,16 +127,20 @@ const clientReviews = [
       "I had a great experience at the salon. The staff was friendly and professional.",
     client_name: "John Doe",
     client_address: "Dubai, UAE",
-    client_image:
-      "/assets/images/review-avatar-2.webp",
+    client_image: "/assets/images/review-avatar-2.webp",
   },
 ];
 
 export default async function Home() {
+  const newbusinessData = await getNewBusinessData();
+  const recommendedBusinessData = await getRecommendedBusinessData();
   return (
     <main className="container overflow-hidden max-w-[1300px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-20">
       <div className={styles.background} />
-      <section id="main" className="w-full min-h-[70vh] flex flex-col items-center justify-center">
+      <section
+        id="main"
+        className="w-full min-h-[70vh] flex flex-col items-center justify-center"
+      >
         <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20">
           Book beauty and wellness services
         </h1>
@@ -99,7 +151,7 @@ export default async function Home() {
       <section id="recommended-services" className="mt-20 lg:mt-32">
         <h1 className="text-2xl font-bold">Recommended</h1>
         <div className="w-full mt-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {tempData.map((salon) => (
+          {recommendedBusinessData.map((salon) => (
             <SalonCard key={salon.title} {...salon} />
           ))}
         </div>
@@ -107,13 +159,15 @@ export default async function Home() {
       <section id="new-to-kimih-services" className="mt-20">
         <h1 className="text-2xl font-bold">New to Kimih</h1>
         <div className="w-full mt-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {tempData.slice(0, 3).map((salon) => (
+          {newbusinessData.map((salon) => (
             <SalonCard key={salon.title} {...salon} />
           ))}
         </div>
       </section>
       <section id="discover-kimih" className="relative mt-20 xl:mt-32">
-        <div className={`${styles.discoverKimih} flex max-lg:flex-col max-lg:items-center justify-between`}>
+        <div
+          className={`${styles.discoverKimih} flex max-lg:flex-col max-lg:items-center justify-between`}
+        >
           <div className="max-w-[520px] lg:mt-20 lg:pl-10 xl:mt-32 xl:pl-14">
             <h1 className="text-3xl font-bold">
               Discover Kimih: Your Beauty & Wellness Hub

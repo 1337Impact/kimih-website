@@ -25,14 +25,18 @@ const getTeamData = async (business_id: string) => {
 };
 
 const SelectProfessional = ({
+  selectedProfessional,
   setSelectedProfessional,
   business_id,
 }: {
+  selectedProfessional: TeamMember | null;
   setSelectedProfessional: (professional: TeamMember) => void;
   business_id: string;
 }) => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-  const [selected, setSelected] = useState<string | null>();
+  const [selected, setSelected] = useState<string | null>(
+    selectedProfessional?.id || null
+  );
 
   useEffect(() => {
     getTeamData(business_id).then((data) => {

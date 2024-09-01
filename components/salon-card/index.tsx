@@ -19,7 +19,7 @@ export default function SalonCard({
   };
 }) {
   return (
-    <Link href={"/s/salon-x"}>
+    <Link href={url}>
       <div className="bg-white shadow-md rounded-xl hover-scale">
         <Image
           src={image}

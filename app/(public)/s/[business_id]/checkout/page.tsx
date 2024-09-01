@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
   const { toast } = useToast();
   const [selectedServices, setSelectedServices] = useState<Selected[]>([]);
   const [selectedProfessional, setSelectedProfessional] =
-    useState<TeamMember | null>();
+    useState<TeamMember | null>(null);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
   const [step, setStep] = useState(0);
 
@@ -114,6 +114,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
             />
           ) : step === 1 ? (
             <SelectProfessional
+              selectedProfessional={selectedProfessional}
               business_id={params.business_id}
               setSelectedProfessional={setSelectedProfessional}
             />
@@ -124,11 +125,21 @@ export default function Page({ params }: { params: { business_id: string } }) {
           )}
         </div>
         <div className="max-lg:hidden col-span-2 mt-10">
-          <CartCard handleNext={handleNext} selected={selectedServices} />
+          <CartCard
+            activeStep={step}
+            handlePrevious={handlePrevious}
+            handleNext={handleNext}
+            selected={selectedServices}
+          />
         </div>
       </div>
       <div className="lg:hidden">
-        <MobileCartCard handleNext={handleNext} selected={selectedServices} />
+        <MobileCartCard
+          activeStep={step}
+          handlePrevious={handlePrevious}
+          handleNext={handleNext}
+          selected={selectedServices}
+        />
       </div>
     </main>
   );

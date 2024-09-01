@@ -14,15 +14,18 @@ import { Selected } from "../ServicesCard/types";
 import { Button } from "@/components/ui/button";
 
 export default function CartCard({
+  activeStep,
+  handlePrevious,
   handleNext,
   selected,
 }: {
+  activeStep: number;
+  handlePrevious: () => void;
   handleNext: () => void;
   selected: Selected[];
 }) {
-
   return (
-    <div className="w-full h-full flex flex-col border border-stroke rounded-lg p-4 min-h-[400px] max-h-[calc(100vh-200px)]">
+    <div className="w-full flex flex-col border border-stroke rounded-lg p-4 h-[calc(100vh-250px)]">
       <h1 className="text-2xl font-semibold text-gray-800">Cart</h1>
       <div className="mt-4 flex-1">
         {selected.length ? (
@@ -51,21 +54,35 @@ export default function CartCard({
           <span className="ml-1 text-gray-600">AED</span>
         </p>
       </div>
-      <Button disabled={!selected.length} className="mt-4" onClick={handleNext}>
-        Continue
-      </Button>
+      <div className="w-full flex gap-2 mt-2">
+        {activeStep > 0 && (
+          <Button className="w-1/2" onClick={handlePrevious} variant="outline">
+            Back
+          </Button>
+        )}
+        <Button
+          className="w-full"
+          disabled={!selected.length}
+          onClick={handleNext}
+        >
+          {activeStep < 3 ? "Continue" : "Place Order"}
+        </Button>
+      </div>
     </div>
   );
 }
 
 export function MobileCartCard({
+  activeStep,
+  handlePrevious,
   handleNext,
   selected,
 }: {
+  activeStep: number;
+  handlePrevious: () => void;
   handleNext: () => void;
   selected: Selected[];
 }) {
-
   return (
     <>
       <Drawer>
@@ -135,9 +152,16 @@ export function MobileCartCard({
             AED
           </span>
         </h1>
-        <Button disabled={!selected.length} onClick={handleNext}>
-          Continue
-        </Button>
+        <div className="flex gap-2">
+          {activeStep > 0 && (
+            <Button onClick={handlePrevious} variant="outline">
+              Back
+            </Button>
+          )}
+          <Button disabled={!selected.length} onClick={handleNext}>
+            {activeStep < 3 ? "Continue" : "Place Order"}
+          </Button>
+        </div>
       </div>
     </>
   );
