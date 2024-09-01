@@ -14,7 +14,13 @@ import {
 } from "@/components/ui/drawer";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
 
-export function MobileCartCard({ selected }: { selected: Selected[] }) {
+export function MobileCartCard({
+  business_id,
+  selected,
+}: {
+  business_id: string;
+  selected: Selected[];
+}) {
   const router = useRouter();
 
   return (
@@ -64,9 +70,9 @@ export function MobileCartCard({ selected }: { selected: Selected[] }) {
           <Button
             disabled={!selected.length}
             className="mt-4"
-            onClick={() => router.push(`/checkout`)}
+            onClick={() => router.push(`/s/${business_id}/checkout`)}
           >
-            Checkout
+            Continue
           </Button>
           <DrawerClose className="w-full border border-stroke bg-gray-100 hover:bg-gray-200 rounded-md p-2">
             Cancel
@@ -77,7 +83,13 @@ export function MobileCartCard({ selected }: { selected: Selected[] }) {
   );
 }
 
-export default function CartCard({ selected }: { selected: Selected[] }) {
+export default function CartCard({
+  business_id,
+  selected,
+}: {
+  business_id: string;
+  selected: Selected[];
+}) {
   const router = useRouter();
 
   return (
@@ -113,7 +125,7 @@ export default function CartCard({ selected }: { selected: Selected[] }) {
       <Button
         disabled={!selected.length}
         className="mt-4"
-        onClick={() => router.push(`/checkout`)}
+        onClick={() => router.push(`/s/${business_id}/checkout`)}
       >
         Checkout
       </Button>

@@ -20,7 +20,7 @@ const MembershipItem = ({
     if (existingItem) {
       updatedSelected = selected.map((item) =>
         item.id === membership.id
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: item.quantity + 1, type: "membership" }
           : item
       );
     } else {
@@ -31,6 +31,7 @@ const MembershipItem = ({
           name: membership.membership_name,
           price: membership.price || 0,
           quantity: 1,
+          type: "membership",
         },
       ];
     }

@@ -1,6 +1,6 @@
 "use client";
 import PickBusiness from "@/components/pick-business";
-import Stepper from "@/components/stepper";
+import Stepper from "@/components/stepper/stepper";
 import createBusinessFinalStepSchema, {
   createBusinessStep1Schema,
   createBusinessStep2Schema,

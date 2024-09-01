@@ -34,10 +34,17 @@ const getBusinessMemberships = async (business_id: string) => {
   return data;
 };
 
-export default function ServicesAndMembershipsCard({business_id}: {business_id: string}) {
+export default function ServicesAndMembershipsCard({
+  selected,
+  setSelected,
+  business_id,
+}: {
+  business_id: string;
+  selected: Selected[];
+  setSelected: (selected: Selected[]) => void;
+}) {
   const [services, setServices] = useState<Service[]>([]);
   const [memberships, setMemberships] = useState<Membership[]>([]);
-  const [selected, setSelected] = useState<Selected[]>([]);
 
   useEffect(() => {
     const cart = localStorage.getItem(business_id);
@@ -47,9 +54,7 @@ export default function ServicesAndMembershipsCard({business_id}: {business_id: 
     getBusinessMemberships(business_id).then((data) =>
       setMemberships(data || [])
     );
-    getBusinessServices(business_id).then((data) =>
-      setServices(data || [])
-    );
+    getBusinessServices(business_id).then((data) => setServices(data || []));
   }, []);
 
   return (

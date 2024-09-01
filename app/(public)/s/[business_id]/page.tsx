@@ -57,7 +57,7 @@ const getBusinessMemberships = async (business_id: string) => {
     .select("id, membership_name, valid_for_days, price")
     .eq("business_id", business_id)
     .order("created_at", { ascending: false })
-    .limit(3);
+    .limit(2);
   if (error) {
     console.error(error);
     return null;

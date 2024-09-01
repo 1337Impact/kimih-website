@@ -19,7 +19,7 @@ const ServiceItem = ({
     let updatedSelected;
     if (existingItem) {
       updatedSelected = selected.map((item) =>
-        item.id === service.id ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === service.id ? { ...item, quantity: item.quantity + 1, type: "service" } : item
       );
     } else {
       updatedSelected = [
@@ -29,6 +29,7 @@ const ServiceItem = ({
           name: service.service_name,
           price: service.price || 0,
           quantity: 1,
+          type: "service",
         },
       ];
     }

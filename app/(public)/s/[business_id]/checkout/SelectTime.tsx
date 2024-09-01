@@ -18,7 +18,7 @@ const TimeSlots = ({
         <button
           key={time}
           onClick={() => onSelectTime(time)}
-          className={`py-2 px-5 border rounded-lg ${
+          className={`py-2 px-5 xl:px-8 border rounded-lg ${
             selectedTime === time
               ? "border-purple-500 bg-purple-100 text-purple-700"
               : "border-gray-300"
@@ -31,11 +31,14 @@ const TimeSlots = ({
   );
 };
 
-const SelectTime = () => {
+const SelectTime = ({
+  setCombinedDateTime,
+}: {
+  setCombinedDateTime: (value: Date | null) => void;
+}) => {
   const times = generateTimeSlots("09:00", "18:00");
   const [selectedTime, setSelectedTime] = useState<string | null>(times[0]);
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const [combinedDateTime, setCombinedDateTime] = useState<Date | null>(null);
 
   const combineDateAndTime = (date: Date | undefined, time: string) => {
     if (!date) return null;
@@ -65,12 +68,8 @@ const SelectTime = () => {
     }
   }, [date, selectedTime]);
 
-  useEffect(() => {
-    console.log("Combined DateTime:", combinedDateTime);
-  }, [combinedDateTime]);
-
   return (
-    <div className="flex gap-4 max-md:flex-col mt-8">
+    <div className="grid gap-4 sm:grid-cols-2 mt-8">
       <div className="mx-auto">
         <Calendar
           mode="single"

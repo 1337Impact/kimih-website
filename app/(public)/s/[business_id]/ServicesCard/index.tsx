@@ -53,10 +53,10 @@ export default function ServicesAndMembershipsCard({
           </section>
         </div>
         <div className="max-lg:hidden lg:col-span-1 mt-12 w-full">
-          <CartCard selected={selected} />
+          <CartCard business_id={business_id} selected={selected} />
         </div>
         <div className="lg:hidden lg:col-span-1 mt-12 w-full">
-          <MobileCartCard selected={selected} />
+          <MobileCartCard business_id={business_id} selected={selected} />
         </div>
         <div className="col-span-3">
           <h1 className="text-2xl font-bold">Memberships</h1>

@@ -6,7 +6,7 @@ export default function Stepper({
   activeStep: number;
 }) {
   return (
-    <ol className="flex justify-between items-center w-full text-lg font-medium text-gray-800">
+    <ol className="flex justify-between items-center text-sm w-full md:text-lg font-medium text-slate-800">
       {steps.map((step, index) => (
         <li
           key={index}
@@ -19,13 +19,13 @@ export default function Stepper({
                     : activeStep > index
                     ? "text-violet-400"
                     : ""
-                } after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10`
+                } after:content-[''] after:w-full after:h-1 after:border-b after:border-slate-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10`
           }
         >
-          <span className="flex text-nowrap items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-gray-200">
+          <span className="flex sm:text-nowrap text-[.8rem] sm:text-[.9rem] md:text-[1rem] lg:text-lg items-center after:content-['/'] sm:after:hidden after:mx-2 after:text-slate-200">
             {activeStep >= index ? (
               <svg
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4 me-2.5"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 me-1 sm:me-2.5"
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="currentColor"
