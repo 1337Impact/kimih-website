@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import CartCard, { MobileCartCard } from "./CartCard";
 import SelectTime from "./SelectTime";
 import { Selected } from "../ServicesCard/types";
-import { Button } from "@/components/ui/button";
 import SelectProfessional, { TeamMember } from "./SelectProfessional";
 import ServicesAndMembershipsCard from "./ListServices";
 import { useToast } from "@/hooks/use-toast";
@@ -28,11 +27,6 @@ export default function Page({ params }: { params: { business_id: string } }) {
   }, []);
 
   const handleCreateAppointment = async () => {
-    console.log("appointment data: ", {
-      services: selectedServices,
-      professional: selectedProfessional,
-      time: selectedTime,
-    });
     const res = await ACreateAppointment({
       business_id: params.business_id,
       services_memberships: selectedServices,
@@ -55,21 +49,28 @@ export default function Page({ params }: { params: { business_id: string } }) {
   };
 
   const handleNext = () => {
-    if (step === 0) {
+    if (step === 0){
       if (!selectedServices.length) {
         toast({
           variant: "destructive",
           title: "Please select a service to proceed",
           description: "You need to select a service to proceed",
         });
-      } else if (selectedServices.length >= 6) {
+        return;
+      } else if (
+        selectedServices.filter((service) => service.type === "service")
+          .length === 0
+      ) {
+        setStep(3);
+        return;
+      }
+      if (selectedServices.length >= 6) {
         toast({
           variant: "destructive",
           title: "Maximum 6 services can be selected",
           description: "You can select a maximum of 6 services",
         });
-      } else {
-        setStep(step + 1);
+        return;
       }
     } else if (step === 1 && !selectedProfessional) {
       toast({
@@ -98,6 +99,13 @@ export default function Page({ params }: { params: { business_id: string } }) {
   };
 
   const handlePrevious = () => {
+    if (
+      selectedServices.filter((service) => service.type === "service")
+        .length === 0
+    ) {
+      setStep(0);
+      return;
+    }
     step > 0 && setStep(step - 1);
   };
 

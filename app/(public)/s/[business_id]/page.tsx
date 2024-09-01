@@ -82,7 +82,9 @@ export default async function SalonPage({
           <h1 className="text-2xl text-gray-800 font-bold">
             {businessData.name}
           </h1>
-          <p className="lg:mt-4 text-lg text-gray-600">{businessData.address}</p>
+          <p className="lg:mt-4 text-lg text-gray-600">
+            {businessData.address}
+          </p>
         </div>
         <div className="lg:w-1/2 md:w-[80%]">
           <ImageSwiper images={businessData.images!} />

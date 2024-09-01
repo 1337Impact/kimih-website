@@ -2,7 +2,7 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 // Define the routes you want to protect
-const protectedRoutes = ["/profile", "/appointments"];
+const protectedRoutes = ["/profile", "/appointments", "/checkout"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
@@ -47,8 +47,8 @@ export async function updateSession(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Handle user not logged in
-  if (!user && protectedRoutes.some(route => pathname.startsWith(route))) {
-    url.pathname = "/auth";
+  if (!user && protectedRoutes.some(route => pathname.includes(route))) {
+    url.pathname = "/auth/customer";
     return NextResponse.redirect(url);
   }
 

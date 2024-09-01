@@ -32,24 +32,28 @@ export default function ServicesAndMembershipsCard({
         <div className="col-span-3 lg:col-span-2 w-full">
           <h1 className="text-2xl font-bold">Services</h1>
           <section id="services" className="">
-            <div className="w-full mt-4 flex flex-col gap-4">
-              {services.map((service) => (
-                <ServiceItem
-                  business_id={business_id}
-                  key={service.id}
-                  service={service}
-                  selected={selected}
-                  setSelected={setSelected}
-                />
-              ))}
-              <Button
-                className="border border-stroke"
-                variant={"outline"}
-                onClick={() => router.push(`/s/${business_id}/checkout`)}
-              >
-                See all
-              </Button>
-            </div>
+            {services.length === 0 ? (
+              <p className="text-gray-500">No services available</p>
+            ) : (
+              <div className="w-full mt-4 flex flex-col gap-4">
+                {services.map((service) => (
+                  <ServiceItem
+                    business_id={business_id}
+                    key={service.id}
+                    service={service}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                ))}
+                <Button
+                  className="border border-stroke"
+                  variant={"outline"}
+                  onClick={() => router.push(`/s/${business_id}/checkout`)}
+                >
+                  See all
+                </Button>
+              </div>
+            )}
           </section>
         </div>
         <div className="max-lg:hidden lg:col-span-1 mt-12 w-full">
@@ -61,22 +65,28 @@ export default function ServicesAndMembershipsCard({
         <div className="col-span-3">
           <h1 className="text-2xl font-bold">Memberships</h1>
           <div className="w-full mt-4 flex flex-col gap-4">
-            {memberships?.map((membership) => (
-              <MembershipItem
-                business_id={business_id}
-                key={membership.id}
-                membership={membership}
-                selected={selected}
-                setSelected={setSelected}
-              />
-            ))}
-            <Button
-              className="border border-stroke"
-              variant={"outline"}
-              onClick={() => router.push(`/s/${business_id}/checkout`)}
-            >
-              See all
-            </Button>
+            {memberships.length ? (
+              <>
+                {memberships?.map((membership) => (
+                  <MembershipItem
+                    business_id={business_id}
+                    key={membership.id}
+                    membership={membership}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                ))}
+                <Button
+                  className="border border-stroke"
+                  variant={"outline"}
+                  onClick={() => router.push(`/s/${business_id}/checkout`)}
+                >
+                  See all
+                </Button>
+              </>
+            ) : (
+              <p className="text-gray-500">No memberships available</p>
+            )}
           </div>
         </div>
       </div>
