@@ -15,10 +15,10 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="relative bg-gray-900 text-white py-10 mt-20 lg:mt-32">
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 justify-between mx-auto mb-8 lg:mb-16 max-w-[1300px] px-4">
-        <div className="mb-8 min-w-[200px] pr-5 col-span-2">
-          <Link href="/#" className="max-w-[200px] flex items-end gap-2 mb-4">
+    <footer className="w-full relative bg-gray-900 text-white py-10 mt-20 lg:mt-32 overflow-hidden">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-4 lg:grid-cols-6 justify-between mx-auto mb-8 lg:mb-16 max-w-[1300px] px-4">
+        <div className="mb-8 min-w-[180px] pr-5 col-span-2">
+          <Link href="/#" className="max-w-[190px] flex items-end gap-2 mb-4">
             <Image
               width={300}
               height={300}
