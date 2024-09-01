@@ -9,10 +9,13 @@ import { useToast } from "@/hooks/use-toast";
 import PaymentForm from "./PaymentStep";
 import Stepper from "@/components/stepper/stepper";
 import ACreateAppointment from "@/actions/appointment-actions/create-appointment";
+import { useRouter } from "next/navigation";
 
 export default function Page({ params }: { params: { business_id: string } }) {
   const steps = ["Services", "Professional", "Time", "Payment"];
   const { toast } = useToast();
+  const router = useRouter();
+
   const [selectedServices, setSelectedServices] = useState<Selected[]>([]);
   const [selectedProfessional, setSelectedProfessional] =
     useState<TeamMember | null>(null);
@@ -45,11 +48,13 @@ export default function Page({ params }: { params: { business_id: string } }) {
         title: "Appointment successful",
         description: "Your appointment has been successfully placed",
       });
+      localStorage.removeItem(params.business_id);
+      router.push(`/profile`);
     }
   };
 
   const handleNext = () => {
-    if (step === 0){
+    if (step === 0) {
       if (!selectedServices.length) {
         toast({
           variant: "destructive",
@@ -88,11 +93,6 @@ export default function Page({ params }: { params: { business_id: string } }) {
       return;
     } else if (step == 3) {
       handleCreateAppointment();
-      toast({
-        variant: "success",
-        title: "Booking successful",
-        description: "Your booking has been successfully placed",
-      });
       return;
     }
     setStep(step + 1);

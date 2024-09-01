@@ -17,6 +17,7 @@ export type Database = {
           id: string
           notes: string | null
           payment_id: string | null
+          price_paid: number
           ref: string
           scheduled_date: string
           services_id: string | null
@@ -30,6 +31,7 @@ export type Database = {
           id?: string
           notes?: string | null
           payment_id?: string | null
+          price_paid?: number
           ref?: string
           scheduled_date: string
           services_id?: string | null
@@ -43,6 +45,7 @@ export type Database = {
           id?: string
           notes?: string | null
           payment_id?: string | null
+          price_paid?: number
           ref?: string
           scheduled_date?: string
           services_id?: string | null
@@ -187,6 +190,7 @@ export type Database = {
           memberships_catalog_id: string | null
           notes: string | null
           payment_id: string | null
+          price_paid: number
           ref: string
         }
         Insert: {
@@ -197,6 +201,7 @@ export type Database = {
           memberships_catalog_id?: string | null
           notes?: string | null
           payment_id?: string | null
+          price_paid?: number
           ref?: string
         }
         Update: {
@@ -207,6 +212,7 @@ export type Database = {
           memberships_catalog_id?: string | null
           notes?: string | null
           payment_id?: string | null
+          price_paid?: number
           ref?: string
         }
         Relationships: [

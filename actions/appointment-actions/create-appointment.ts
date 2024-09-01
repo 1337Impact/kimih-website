@@ -56,6 +56,7 @@ export default async function ACreateAppointment({
         scheduled_date: time.toISOString(),
         business_id: business_id,
         payment_id: payment.data.id,
+        price_paid: service.price,
       }))
     );
     if (error) {
@@ -70,6 +71,7 @@ export default async function ACreateAppointment({
         memberships_catalog_id: membership.id,
         business_id: business_id,
         payment_id: payment.data.id,
+        price_paid: membership.price,
       }))
     );
     if (error) {
