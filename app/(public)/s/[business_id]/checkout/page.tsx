@@ -9,6 +9,7 @@ import ServicesAndMembershipsCard from "./ListServices";
 import { useToast } from "@/hooks/use-toast";
 import PaymentForm from "./PaymentStep";
 import Stepper from "@/components/stepper/stepper";
+import ACreateAppointment from "@/actions/appointment-actions/create-appointment";
 
 export default function Page({ params }: { params: { business_id: string } }) {
   const steps = ["Services", "Professional", "Time", "Payment"];
@@ -26,14 +27,31 @@ export default function Page({ params }: { params: { business_id: string } }) {
     }
   }, []);
 
-  const handleCreateAppointment = () => {
-    // localStorage.setItem(params.business_id, "[]");
+  const handleCreateAppointment = async () => {
     console.log("appointment data: ", {
       services: selectedServices,
       professional: selectedProfessional,
       time: selectedTime,
     });
-    
+    const res = await ACreateAppointment({
+      business_id: params.business_id,
+      services_memberships: selectedServices,
+      team_member: selectedProfessional!,
+      time: selectedTime!,
+    });
+    if (res.error) {
+      toast({
+        variant: "destructive",
+        title: "Error creating appointment",
+        description: res.error,
+      });
+    } else {
+      toast({
+        variant: "success",
+        title: "Appointment successful",
+        description: "Your appointment has been successfully placed",
+      });
+    }
   };
 
   const handleNext = () => {
