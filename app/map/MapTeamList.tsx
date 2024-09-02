@@ -15,8 +15,8 @@ export default function TeamList({
   return (
     <section className="bg-white w-full">
       <div className="pt-8 px-4 mx-auto text-center lg:pt-8 lg:px-6">
-        <div className="mx-auto mb-8 max-w-screen">
-          <h2 className="mb-4 text-3xl tracking-tight font-extrabold text-gray-900 ">
+        <div className="mx-auto my-6 max-w-screen">
+          <h2 className="mb-2 text-2xl tracking-tight font-extrabold text-gray-900 ">
             Our team
           </h2>
           <div className="mt-6 md:mt-10 grid grid-cols-2 gap-6">

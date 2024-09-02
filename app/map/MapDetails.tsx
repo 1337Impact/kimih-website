@@ -39,7 +39,7 @@ export default function MapDetails() {
   const [businessData, setBusinessData] = useState<any>(null);
 
   useEffect(() => {
-    if (!marker) return;
+    if (!marker?.id) return;
     fetchDetailsData(marker.id).then((data) => {
       setBusinessData(data);
       console.log(data);
@@ -54,7 +54,7 @@ export default function MapDetails() {
 
   return (
     <div className="w-full">
-      <div className="lg:w-full md:w-[80%] my-4">
+      <div className="lg:w-full md:w-[80%] mb-4">
         <ImageSwiper images={businessData.images!} />
       </div>
 

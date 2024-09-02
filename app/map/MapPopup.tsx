@@ -5,13 +5,10 @@ import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 
 export default function MapPopup({ business_id }: { business_id: string }) {
   const [data, setData] = useState<any>(null);
-  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setSelectedMarker({id: business_id}));
     const fetchData = async () => {
       const supabase = createClient();
       const { data, error } = await supabase
@@ -34,7 +31,7 @@ export default function MapPopup({ business_id }: { business_id: string }) {
       });
     };
     fetchData();
-  }, [business_id, dispatch]);
+  }, [business_id]);
 
   if (!data) {
     return <div>Loading...</div>;

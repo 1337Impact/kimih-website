@@ -1,5 +1,15 @@
-import { AlignJustify, BookIcon, Calendar, Clock3, MapPin, Search, SearchIcon } from "lucide-react";
+"use client";
+import {
+  AlignJustify,
+  BookIcon,
+  Calendar,
+  Clock3,
+  MapPin,
+  Search,
+  SearchIcon,
+} from "lucide-react";
 import styles from "./styles.module.css";
+import { useRouter } from "next/navigation";
 
 const servicesList = [
   {
@@ -61,43 +71,42 @@ const servicesList = [
 ];
 
 const tempData = [
-    {
-      image: "https://via.placeholder.com/150",
-      title: "Cozy Coffee Shop",
-      address: "123 Main Street, Springfield",
-      url: "https://cozycoffeeshop.com",
-      reviews: 123,
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      title: "The Artisanal Bakery",
-      address: "456 Baker's Lane, Metropolis",
-      url: "https://artisanalbakery.com",
-      reviews: 89,
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      title: "Urban Yoga Studio",
-      address: "789 Yoga Blvd, Gotham",
-      url: "https://urbanyoga.com",
-      reviews: 200,
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      title: "Gourmet Restaurant",
-      address: "321 Fine Dining St, Star City",
-      url: "https://gourmetrestaurant.com",
-      reviews: 45,
-    },
-    {
-      image: "https://via.placeholder.com/150",
-      title: "Tech Hub Coworking",
-      address: "987 Silicon Avenue, Techville",
-      url: "https://techhubcoworking.com",
-      reviews: 78,
-    },
-  ];
-  
+  {
+    image: "https://via.placeholder.com/150",
+    title: "Cozy Coffee Shop",
+    address: "123 Main Street, Springfield",
+    url: "https://cozycoffeeshop.com",
+    reviews: 123,
+  },
+  {
+    image: "https://via.placeholder.com/150",
+    title: "The Artisanal Bakery",
+    address: "456 Baker's Lane, Metropolis",
+    url: "https://artisanalbakery.com",
+    reviews: 89,
+  },
+  {
+    image: "https://via.placeholder.com/150",
+    title: "Urban Yoga Studio",
+    address: "789 Yoga Blvd, Gotham",
+    url: "https://urbanyoga.com",
+    reviews: 200,
+  },
+  {
+    image: "https://via.placeholder.com/150",
+    title: "Gourmet Restaurant",
+    address: "321 Fine Dining St, Star City",
+    url: "https://gourmetrestaurant.com",
+    reviews: 45,
+  },
+  {
+    image: "https://via.placeholder.com/150",
+    title: "Tech Hub Coworking",
+    address: "987 Silicon Avenue, Techville",
+    url: "https://techhubcoworking.com",
+    reviews: 78,
+  },
+];
 
 const IconTitle = ({
   children,
@@ -107,20 +116,29 @@ const IconTitle = ({
   title: string;
 }) => (
   <div className="flex items-center gap-2 mb-3">
-    <div className="p-2 text-white bg-gradient-to-tr from-lightBlue to-lightVilot rounded-lg">{children}</div>
+    <div className="p-2 text-white bg-gradient-to-tr from-lightBlue to-lightVilot rounded-lg">
+      {children}
+    </div>
     <span className="text-gray-700 font-bold">{title}</span>
   </div>
 );
 
 export default function BookNowCard() {
+  const router = useRouter();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push("/map");
+  };
   return (
     <div className="w-full mx-auto">
       <div className={`${styles.card} bg-white rounded-lg shadow-md p-10`}>
-        <form action="#" method="GET">
+        <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="flex-1 min-w-[200px]">
               <div className="">
-                <IconTitle title="Any treatment or venue"><SearchIcon /></IconTitle>
+                <IconTitle title="Any treatment or venue">
+                  <SearchIcon />
+                </IconTitle>
                 <select className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm">
                   <option value="">Please Select</option>
                   {servicesList.map((service) => (
@@ -134,7 +152,9 @@ export default function BookNowCard() {
 
             <div className="flex-1 min-w-[200px]">
               <div className="">
-              <IconTitle title="Current Location"><MapPin /></IconTitle>
+                <IconTitle title="Current Location">
+                  <MapPin />
+                </IconTitle>
                 <input
                   type="text"
                   className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"
@@ -148,7 +168,9 @@ export default function BookNowCard() {
 
             <div className="flex-1 min-w-[200px]">
               <div className="">
-              <IconTitle title="Any Date"><Calendar /></IconTitle>
+                <IconTitle title="Any Date">
+                  <Calendar />
+                </IconTitle>
                 <input
                   type="date"
                   className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"
@@ -160,7 +182,9 @@ export default function BookNowCard() {
 
             <div className="flex-1 min-w-[200px]">
               <div className="">
-                <IconTitle title="Any Time"><Clock3 /></IconTitle>
+                <IconTitle title="Any Time">
+                  <Clock3 />
+                </IconTitle>
                 <input
                   type="time"
                   className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"

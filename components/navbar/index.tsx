@@ -48,7 +48,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <header className="fixed bg-white z-[40] w-screen h-[80px] mx-auto text-slate-800">
+    <header className="fixed bg-white z-[999] w-screen h-[80px] mx-auto text-slate-800">
       <div className="relative flex h-full w-full items-center justify-between px-4 max-w-[1300px] mx-auto">
         <Link href="/#" className="flex items-center gap-1">
           <Image
@@ -63,7 +63,7 @@ export default function Navbar() {
         <nav
           className={`${
             !isMenuOpen && "max-md:hidden"
-          } max-md:absolute z-40 flex right-0 top-[70px] max-md:w-full max-md:h-[400px] max-md:shadow-md max-md:bg-gray-100 max-md:rounded-md items-center max-md:justify-around font-semibold max-md:flex-col max-md:text-xl md:gap-4 lg:gap-8 xl:gap-10`}
+          } max-md:absolute z-[999] flex right-0 top-[70px] max-md:w-full max-md:h-[400px] max-md:shadow-md max-md:bg-gray-100 max-md:rounded-md items-center max-md:justify-around font-semibold max-md:flex-col max-md:text-xl md:gap-4 lg:gap-8 xl:gap-10`}
         >
           {links.map((link) => (
             <Link key={link.name} href={link.href}>

@@ -11,6 +11,8 @@ import {
 import "leaflet/dist/leaflet.css";
 import { useMap } from "react-leaflet";
 import "./styles.css";
+import { useDispatch } from "react-redux";
+import { setSelectedMarker } from "@/store/selectedMarkerSlice";
 
 export const dynamic = "force-dynamic";
 
@@ -36,18 +38,6 @@ const ChangeView: React.FC<ChangeViewProps> = ({ center }) => {
   return null;
 };
 
-// const ClickListener = ({
-//   onClick,
-// }: {
-//   onClick: (e: L.LeafletMouseEvent) => void;
-// }) => {
-//   useMapEvents({
-//     click: onClick,
-//   });
-
-//   return null;
-// };
-
 const Map: React.FC<MapProps> = ({
   latitude,
   longitude,
@@ -55,6 +45,7 @@ const Map: React.FC<MapProps> = ({
   showMarker,
   markers,
 }) => {
+  const dispatch = useDispatch();
   const [isMounted, setIsMounted] = useState(false);
   const [markerPosition, setMarkerPosition] = useState<L.LatLngExpression>([
     latitude,
@@ -92,6 +83,10 @@ const Map: React.FC<MapProps> = ({
   const layer2 =
     "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
 
+  const handleClick = (business_id: string) => {
+    dispatch(setSelectedMarker({ id: business_id }));
+  };
+
   return (
     isMounted && (
       <MapContainer
@@ -105,22 +100,26 @@ const Map: React.FC<MapProps> = ({
           attribution='&copy; <a href=""></a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {
-          showMarker && (
-            <Marker icon={positionIcon} position={markerPosition}>
-              <Popup>Current Location</Popup>
-            </Marker>
-          )
-        }
-        {markers && markers.map((marker) => (
-          <Marker
-            key={marker.id}
-            icon={businessIcon}
-            position={marker.position as LatLngExpression}
-          >
-            <Popup>{marker.popup}</Popup>
+        {showMarker && (
+          <Marker icon={positionIcon} position={markerPosition}>
+            <Popup>Current Location</Popup>
           </Marker>
-        ))}
+        )}
+        {markers &&
+          markers.map((marker) => (
+            <Marker
+              eventHandlers={{
+                click: () => {
+                  handleClick(marker.id);
+                },
+              }}
+              key={marker.id}
+              icon={businessIcon}
+              position={marker.position as LatLngExpression}
+            >
+              <Popup>{marker.popup}</Popup>
+            </Marker>
+          ))}
       </MapContainer>
     )
   );

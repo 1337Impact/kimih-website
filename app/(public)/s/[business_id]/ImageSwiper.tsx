@@ -22,8 +22,9 @@ export default function ImageSwiper({ images }: { images: string[] }) {
       <Swiper
         style={
           {
-            "--swiper-navigation-color": "#000",
-            "--swiper-pagination-color": "#fff",
+            "--swiper-navigation-color": "#bbb",
+            "--swiper-navigation-size": "36px",
+            "--swiper-pagination-color": "#000",
           } as any
         }
         loop={true}
@@ -59,9 +60,9 @@ export default function ImageSwiper({ images }: { images: string[] }) {
           {images.map((image, index) => (
             <SwiperSlide key={index}>
               <Image
-                            width={400}
-                            height={400}
-                            alt="Image"
+                width={400}
+                height={400}
+                alt="Image"
                 className="rounded-lg aspect-[3/2] object-cover cursor-pointer"
                 src={image}
               />

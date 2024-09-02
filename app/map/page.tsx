@@ -5,6 +5,7 @@ import { headers } from "next/headers";
 import { getMyLocation } from "@/utils";
 import MapPopup from "./MapPopup";
 import MapDetails from "./MapDetails";
+import styles from "./styles.module.css";
 
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
@@ -41,10 +42,10 @@ export default async function BusinessMap() {
   return (
     <main className="container overflow-hidden max-w-[1300px] mx-auto px-4 md:px-6 pt-28">
       <div className="h-[calc(100vh-140px)] grid grid-cols-3 gap-4">
-        <div className="w-full p-4 border border-stroke rounded-xl overflow-y-auto">
+        <div className={`${styles.details} max-lg:hidden w-full p-4 border border-stroke rounded-xl overflow-y-auto`}>
           <MapDetails />
         </div>
-        <div className="col-span-2">
+        <div className="col-span-3 lg:col-span-2">
           <Map markers={makersData} latitude={latitude} longitude={longitude} />
           <Skeleton className="h-full" />
         </div>

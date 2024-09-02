@@ -38,7 +38,7 @@ export default function UserDropdownMenu({ userData }: { userData: UserData }) {
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-44">
+      <DropdownMenuContent align="end" className="w-44 z-[999]">
         <DropdownMenuLabel>
           {userData?.first_name} {userData?.last_name}
         </DropdownMenuLabel>
@@ -50,18 +50,18 @@ export default function UserDropdownMenu({ userData }: { userData: UserData }) {
               <span>Profile</span>
             </Link>
           </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link className="flex items-center" href="/appointments">
-                <LucideClipboardList className="mr-2 h-6 w-4" />
-                <span>Appointmentes</span>
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link className="flex items-center" href="/memberships">
-                <MdCardMembership className="mr-2 h-6 w-4" />
-                <span>Memberships</span>
-              </Link>
-            </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link className="flex items-center" href="/appointments">
+              <LucideClipboardList className="mr-2 h-6 w-4" />
+              <span>Appointmentes</span>
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <Link className="flex items-center" href="/memberships">
+              <MdCardMembership className="mr-2 h-6 w-4" />
+              <span>Memberships</span>
+            </Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <Link className="flex items-center" href="/settings">
               <Settings className="mr-2 h-6 w-4" />
