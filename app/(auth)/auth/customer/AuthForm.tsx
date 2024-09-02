@@ -11,7 +11,6 @@ const loginWithFacebook = async () => {
       redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/callback`,
     },
   });
-  console.log("Login with facebook");
 };
 
 const loginWithGoogle = async () => {
@@ -22,7 +21,6 @@ const loginWithGoogle = async () => {
       redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/callback`,
     },
   });
-  console.log("Login with google: ", data);
 };
 
 export default function AuthForm() {

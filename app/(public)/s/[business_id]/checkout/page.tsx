@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import CartCard, { MobileCartCard } from "./CartCard";
-import SelectTime from "./SelectTime";
+import SelectTime from "./SelectAvailableTimes";
 import { Selected } from "../ServicesCard/types";
 import SelectProfessional, { TeamMember } from "./SelectProfessional";
 import ServicesAndMembershipsCard from "./ListServices";

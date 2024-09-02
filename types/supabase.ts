@@ -101,6 +101,7 @@ export type Database = {
           owner_id: string
           published: boolean
           website: string | null
+          working_hours: Json
         }
         Insert: {
           address?: string | null
@@ -112,6 +113,7 @@ export type Database = {
           owner_id?: string
           published?: boolean
           website?: string | null
+          working_hours?: Json
         }
         Update: {
           address?: string | null
@@ -123,6 +125,7 @@ export type Database = {
           owner_id?: string
           published?: boolean
           website?: string | null
+          working_hours?: Json
         }
         Relationships: [
           {

@@ -20,7 +20,6 @@ export default function AuthWithEmail() {
   const [isExisting, setExisting] = useState(false);
 
   const handleChange = (e: any) => {
-    console.log(e.target.id, e.target.value);
     setData({ ...data, [e.target.id]: e.target.value });
   };
 
