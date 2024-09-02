@@ -7,6 +7,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
+import Image from "next/image";
 
 export default function ImageSwiper({ images }: { images: string[] }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -34,7 +35,10 @@ export default function ImageSwiper({ images }: { images: string[] }) {
       >
         {images.map((image, index) => (
           <SwiperSlide key={index}>
-            <img
+            <Image
+              width={800}
+              height={600}
+              alt="Image"
               className="w-full rounded-lg aspect-[3/2] object-cover"
               src={image}
             />
@@ -54,7 +58,10 @@ export default function ImageSwiper({ images }: { images: string[] }) {
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
-              <img
+              <Image
+                            width={400}
+                            height={400}
+                            alt="Image"
                 className="rounded-lg aspect-[3/2] object-cover cursor-pointer"
                 src={image}
               />

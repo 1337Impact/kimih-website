@@ -27,7 +27,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
     if (cart) {
       setSelectedServices(JSON.parse(cart));
     }
-  }, []);
+  }, [params.business_id]);
 
   const handleCreateAppointment = async () => {
     const res = await ACreateAppointment({

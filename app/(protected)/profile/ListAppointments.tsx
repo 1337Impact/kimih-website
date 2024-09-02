@@ -104,7 +104,7 @@ export default function ListAppointments({
         {appointments.length ? (
           <>
             {appointments.map((appointment) => (
-              <AppointmentCard appointment={appointment} />
+              <AppointmentCard key={appointment.id} appointment={appointment} />
             ))}
             <Link href="/appointments">
               <Button

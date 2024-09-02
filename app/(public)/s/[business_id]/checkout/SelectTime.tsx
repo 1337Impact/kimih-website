@@ -66,7 +66,7 @@ const SelectTime = ({
       const combined = combineDateAndTime(date, selectedTime);
       setCombinedDateTime(combined);
     }
-  }, [date, selectedTime]);
+  }, [date, selectedTime, setCombinedDateTime]);
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 mt-8">

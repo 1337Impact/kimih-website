@@ -21,7 +21,7 @@ export default function Navbar() {
     getUserData().then((data) => {
         setUserData(data);
     });
-  }, []);
+  }, [setUserData]);
   return (
     <header className="fixed bg-white z-[10] w-full h-[80px] mx-auto text-slate-800 shadow-lg">
       <div className="w-full h-full flex items-center justify-between px-4 sm:px-8 max-w-[1000px] mx-auto">

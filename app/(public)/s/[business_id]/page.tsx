@@ -129,6 +129,7 @@ export default async function SalonPage({
         {businessData?.cordinates && (
           <div className="mt-6 h-[500px]">
             <Map
+              showMarker
               latitude={businessData.cordinates[0]}
               longitude={businessData.cordinates[1]}
             />

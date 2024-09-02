@@ -44,7 +44,7 @@ const SelectProfessional = ({
         setTeamMembers(data);
       }
     });
-  }, []);
+  }, [business_id]);
 
   const handleSelectProfessional = (professional: TeamMember) => {
     setSelectedProfessional(professional);

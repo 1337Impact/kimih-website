@@ -24,7 +24,7 @@ export default function ServicesAndMembershipsCard({
     if (cart) {
       setSelected(JSON.parse(cart));
     }
-  }, []);
+  }, [business_id]);
 
   return (
     <div className="w-full mt-10">

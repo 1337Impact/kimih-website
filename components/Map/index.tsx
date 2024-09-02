@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Icon } from "leaflet";
+import { Icon, LatLngExpression } from "leaflet";
 import {
   MapContainer,
   Marker,
@@ -17,8 +17,13 @@ export const dynamic = "force-dynamic";
 type MapProps = {
   latitude: number;
   longitude: number;
-  height?: string;
+  showMarker?: boolean;
   handleChange?: (latitude: number, longitude: number) => void;
+  markers?: {
+    id: string;
+    position: number[];
+    popup: React.ReactNode;
+  }[];
 };
 
 type ChangeViewProps = {
@@ -31,23 +36,24 @@ const ChangeView: React.FC<ChangeViewProps> = ({ center }) => {
   return null;
 };
 
-const ClickListener = ({
-  onClick,
-}: {
-  onClick: (e: L.LeafletMouseEvent) => void;
-}) => {
-  useMapEvents({
-    click: onClick,
-  });
+// const ClickListener = ({
+//   onClick,
+// }: {
+//   onClick: (e: L.LeafletMouseEvent) => void;
+// }) => {
+//   useMapEvents({
+//     click: onClick,
+//   });
 
-  return null;
-};
+//   return null;
+// };
 
 const Map: React.FC<MapProps> = ({
   latitude,
   longitude,
-  height,
   handleChange,
+  showMarker,
+  markers,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [markerPosition, setMarkerPosition] = useState<L.LatLngExpression>([
@@ -60,9 +66,13 @@ const Map: React.FC<MapProps> = ({
     zoom: 10,
   });
 
-  const customIcon = new Icon({
-    iconUrl: "/assets/icons/placeholder.png",
+  const positionIcon = new Icon({
+    iconUrl: "/assets/icons/red-marker.png",
     iconSize: [30, 30],
+  });
+  const businessIcon = new Icon({
+    iconUrl: "/assets/icons/black-marker.svg",
+    iconSize: [32, 32],
   });
 
   useEffect(() => {
@@ -78,7 +88,6 @@ const Map: React.FC<MapProps> = ({
   if (!isMounted) {
     return null;
   }
-
 
   const layer2 =
     "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
@@ -96,11 +105,22 @@ const Map: React.FC<MapProps> = ({
           attribution='&copy; <a href=""></a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker position={markerPosition} icon={customIcon}>
-          <Popup>
-            Hello from <br /> {latitude}, {longitude}
-          </Popup>
-        </Marker>
+        {
+          showMarker && (
+            <Marker icon={positionIcon} position={markerPosition}>
+              <Popup>Current Location</Popup>
+            </Marker>
+          )
+        }
+        {markers && markers.map((marker) => (
+          <Marker
+            key={marker.id}
+            icon={businessIcon}
+            position={marker.position as LatLngExpression}
+          >
+            <Popup>{marker.popup}</Popup>
+          </Marker>
+        ))}
       </MapContainer>
     )
   );

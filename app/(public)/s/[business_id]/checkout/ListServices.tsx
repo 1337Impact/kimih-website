@@ -55,7 +55,7 @@ export default function ServicesAndMembershipsCard({
       setMemberships(data || [])
     );
     getBusinessServices(business_id).then((data) => setServices(data || []));
-  }, []);
+  }, [business_id, setSelected, setMemberships, setServices]);
 
   return (
     <div className="w-full mt-6">

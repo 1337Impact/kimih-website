@@ -98,7 +98,7 @@ export default function ListAppointments({
       <div className="flex flex-col gap-4 mt-4 ml-2">
         {appointments.length ? (
           appointments.map((appointment) => (
-            <AppointmentCard appointment={appointment} />
+            <AppointmentCard key={appointment.id} appointment={appointment} />
           ))
         ) : (
           <div className="text-gray-600">No appointments found</div>
