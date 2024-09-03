@@ -34,7 +34,7 @@ const fetchDetailsData = async (business_id: string) => {
 
 export default function MapDetails() {
   const marker = useSelector(
-    (state: RootState) => state.selectedMarker.selectedMarker
+    (state: RootState) => state.selectedMarkerSlice.selectedMarker
   );
   const [businessData, setBusinessData] = useState<any>(null);
 
