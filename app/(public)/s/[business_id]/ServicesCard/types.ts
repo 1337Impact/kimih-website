@@ -17,5 +17,6 @@ export interface Selected {
   name: string;
   price: number;
   quantity: number;
+  duration?: number;
   type: string;
 }

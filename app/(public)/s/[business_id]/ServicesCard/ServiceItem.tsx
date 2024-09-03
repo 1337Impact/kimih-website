@@ -19,7 +19,9 @@ const ServiceItem = ({
     let updatedSelected;
     if (existingItem) {
       updatedSelected = selected.map((item) =>
-        item.id === service.id ? { ...item, quantity: item.quantity + 1, type: "service" } : item
+        item.id === service.id
+          ? { ...item, quantity: item.quantity + 1, type: "service" }
+          : item
       );
     } else {
       updatedSelected = [
@@ -30,6 +32,7 @@ const ServiceItem = ({
           price: service.price || 0,
           quantity: 1,
           type: "service",
+          duration: service.duration || 0,
         },
       ];
     }
@@ -62,12 +65,13 @@ const ServiceItem = ({
         <p className="mt-1 text-gray-800">${service.price}</p>
       </div>
       <div className="flex items-center gap-2">
-        <Button onClick={handleAdd} className="mt-2">
-          Add
-        </Button>
-        {isSelected && (
+        {isSelected ? (
           <Button variant={"outline"} onClick={handleRemove} className="mt-2">
             Remove
+          </Button>
+        ) : (
+          <Button onClick={handleAdd} className="mt-2">
+            Add
           </Button>
         )}
       </div>

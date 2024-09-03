@@ -1,3 +1,5 @@
+import { format, startOfDay, endOfDay } from "date-fns";
+
 export default function formatDate(dateString: string): string {
   const date = new Date(dateString);
 
@@ -59,4 +61,14 @@ export function generateTimeSlots(
   }
 
   return timeSlots;
+}
+
+export function getStartAndEndOfDate(date: Date) {
+  const startDate = startOfDay(date);
+  const endDate = endOfDay(date);
+
+  const formattedStartDate = format(startDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+  const formattedEndDate = format(endDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+
+  return { startDate: formattedStartDate, endDate: formattedEndDate };
 }

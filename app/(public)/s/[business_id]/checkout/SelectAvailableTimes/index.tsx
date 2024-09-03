@@ -1,7 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
-import { generateTimeSlots } from "@/utils/formating-utils/format-date";
+import {
+  addMinutesToDate,
+  generateTimeSlots,
+  getStartAndEndOfDate,
+} from "@/utils/formating-utils/format-date";
 import TimeSlots from "./TimeSlot";
 import { createClient } from "@/utils/supabase/client";
 
@@ -26,27 +30,27 @@ const combineDateAndTime = (date: Date | undefined, time: string) => {
   return combined;
 };
 
-
 async function getAvailableHours(
   business_id: string,
-  worker_id: string,
+  team_member_id: string,
   date: Date
 ): Promise<string[]> {
   const supabase = createClient();
 
-  // Step 1: Get appointments for the given worker on the specified date
+  const { startDate, endDate } = getStartAndEndOfDate(date);
+
   const { data: appointments, error: appointmentsError } = await supabase
     .from("appointments")
-    .select("from_hour, to_hour")
-    .eq("worker_id", worker_id)
-    .eq("scheduled_date", date.toISOString().split('T')[0]);
+    .select("scheduled_date, services(duration)")
+    .eq("team_member_id", team_member_id)
+    .gt("scheduled_date", startDate)
+    .lte("scheduled_date", endDate);
 
   if (appointmentsError) {
     console.error("Error fetching appointments:", appointmentsError);
     return [];
   }
 
-  // Step 2: Get working hours from the business table
   const { data: business, error: businessError } = await supabase
     .from("business")
     .select("working_hours")
@@ -58,9 +62,11 @@ async function getAvailableHours(
     return [];
   }
 
-  // Step 3: Calculate available hours
   const workingHours = business.working_hours;
-  const dayName = new Date(date).toLocaleDateString('en-US', { weekday: 'long' });
+  const dayName = new Date(date).toLocaleDateString("en-US", {
+    weekday: "long",
+  });
+  //@ts-ignore
   const hoursForDay = workingHours[dayName];
 
   if (!hoursForDay || !hoursForDay.is_open) {
@@ -68,21 +74,26 @@ async function getAvailableHours(
   }
 
   const availableHours: Set<string> = new Set();
-  const fromHour = parseInt(hoursForDay.from_hour?.split(':')[0] ?? '0');
-  const toHour = parseInt(hoursForDay.to_hour?.split(':')[0] ?? '24');
+  const fromHour = parseInt(hoursForDay.from_hour?.split(":")[0] ?? "0");
+  const toHour = parseInt(hoursForDay.to_hour?.split(":")[0] ?? "24");
 
-  // Initialize available hours
   for (let hour = fromHour; hour < toHour; hour++) {
-    availableHours.add(hour.toString().padStart(2, '0') + ":00");
+    availableHours.add(hour.toString().padStart(2, "0") + ":00");
   }
 
-  // Remove hours occupied by appointments
-  appointments.forEach(appointment => {
-    const from = appointment.from_hour.split(':')[0];
-    const to = appointment.to_hour.split(':')[0];
+  appointments.forEach((appointment) => {
+    const appointmentTime = appointment.scheduled_date
+      .split("T")[1]
+      .slice(0, 5);
+    const from = parseInt(appointmentTime.split(":")[0]);
+    const endTime = addMinutesToDate(
+      appointmentTime,
+      appointment.services?.duration || 0
+    );
+    const to = endTime.getHours();
 
-    for (let hour = parseInt(from); hour < parseInt(to); hour++) {
-      availableHours.delete(hour.toString().padStart(2, '0') + ":00");
+    for (let hour = from; hour < to; hour++) {
+      availableHours.delete(hour.toString().padStart(2, "0") + ":00");
     }
   });
 
@@ -91,10 +102,15 @@ async function getAvailableHours(
 
 const SelectTime = ({
   setCombinedDateTime,
+  business_id,
+  selectedTeamMember,
 }: {
+  business_id: string;
+  selectedTeamMember: string;
   setCombinedDateTime: (value: Date | null) => void;
 }) => {
-  const times = generateTimeSlots("09:00", "18:00");
+  const [times, setTimes] = useState<string[]>([]);
+
   const [selectedTime, setSelectedTime] = useState<string | null>(times[0]);
   const [date, setDate] = useState<Date | undefined>(new Date());
 
@@ -104,6 +120,12 @@ const SelectTime = ({
       setCombinedDateTime(combined);
     }
   }, [date, selectedTime, setCombinedDateTime]);
+
+  useEffect(() => {
+    if (date) {
+      getAvailableHours(business_id, selectedTeamMember, date).then(setTimes);
+    }
+  }, [date, business_id, selectedTeamMember]);
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 mt-8">

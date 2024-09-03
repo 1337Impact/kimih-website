@@ -2,6 +2,7 @@
 import { TeamMember } from "@/app/(public)/s/[business_id]/checkout/SelectProfessional";
 import { Selected } from "@/app/(public)/s/[business_id]/ServicesCard/types";
 import { createClient } from "@/utils/supabase/server";
+import { format } from "date-fns";
 
 export default async function ACreateAppointment({
   business_id,
@@ -24,7 +25,7 @@ export default async function ACreateAppointment({
     paymentAmount,
     services: services_memberships,
     professional: team_member,
-    time: time,
+    time: format(time, "yyyy-MM-dd'T'HH:mm:ss.SSS"),
   });
   // tmp code
   const payment = await supabase
@@ -53,7 +54,7 @@ export default async function ACreateAppointment({
       services.map((service) => ({
         services_id: service.id,
         team_member_id: team_member.id,
-        scheduled_date: time.toISOString(),
+        scheduled_date: format(time, "yyyy-MM-dd'T'HH:mm:ss.SSS"),
         business_id: business_id,
         payment_id: payment.data.id,
         price_paid: service.price,

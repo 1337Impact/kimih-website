@@ -127,7 +127,11 @@ export default function Page({ params }: { params: { business_id: string } }) {
               setSelectedProfessional={setSelectedProfessional}
             />
           ) : step == 2 ? (
-            <SelectTime setCombinedDateTime={setSelectedTime} />
+            <SelectTime
+              business_id={params.business_id}
+              selectedTeamMember={selectedProfessional?.id!}
+              setCombinedDateTime={setSelectedTime}
+            />
           ) : (
             <PaymentForm />
           )}

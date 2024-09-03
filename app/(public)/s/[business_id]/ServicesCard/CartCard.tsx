@@ -43,7 +43,7 @@ export function MobileCartCard({
                   className="pt-2 border-b flex items-center justify-between"
                 >
                   <h2 className="font-semibold text-gray-800">
-                    {item.name} x{item.quantity}
+                    {item.name}
                   </h2>
                   <p>
                     {item.price * item.quantity}
@@ -103,7 +103,7 @@ export default function CartCard({
               className="pt-2 border-b flex items-center justify-between"
             >
               <h2 className="font-semibold text-gray-800">
-                {item.name} x{item.quantity}
+                {item.name}
               </h2>
               <p>
                 {item.price * item.quantity}
