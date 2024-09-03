@@ -3,13 +3,11 @@ import Link from "next/link";
 import React from "react";
 import {
   FaCashRegister,
-  FaChevronUp,
   FaEnvelope,
   FaFacebook,
   FaInstagram,
   FaLinkedin,
   FaMapMarkerAlt,
-  FaPhone,
   FaTwitter,
 } from "react-icons/fa";
 

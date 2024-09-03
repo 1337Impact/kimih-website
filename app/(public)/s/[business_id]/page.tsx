@@ -6,6 +6,10 @@ import { notFound } from "next/navigation";
 import ServicesAndMembershipsCard from "./ServicesCard";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
+import BookNowButton from "./BookNowButton";
+import BusinessWorkingHours, { WorkingHours } from "./WorkingHours";
+import { FaEarthAfrica, FaLocationDot } from "react-icons/fa6";
+import Link from "next/link";
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <Skeleton className="h-full" />,
@@ -96,7 +100,7 @@ export default async function SalonPage({
           <h2 className="max-lg:hidden text-gray-500">
             {businessData.address}
           </h2>
-          <div className="mt-4 flex items-center">
+          <div className="my-3 flex items-center">
             <div className="flex gap-1">
               {Array(5)
                 .fill("")
@@ -107,9 +111,40 @@ export default async function SalonPage({
             <span className="text-gray-800 ml-2">4.5</span>
             <span className="text-gray-500 ml-2">(123)</span>
           </div>
-          <button className="mt-6 text-xl text-white bg-gray-900 py-2 px-10 rounded-lg">
-            Book now
-          </button>
+          <div>
+            {businessData.website && (
+              <div className="mt-6 flex gap-2 items-center">
+                <FaEarthAfrica />
+                <a
+                  href={`https://${businessData.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-500"
+                >
+                  {businessData.website}
+                </a>
+              </div>
+            )}
+          </div>
+          {businessData.cordinates && (
+            <div className="mt-3 flex gap-2 items-center">
+              <FaLocationDot />
+              <Link
+                href={"#map"}
+                rel="noopener noreferrer"
+                className="text-gray-500 "
+              >
+                {/* {businessData.cordinates[0]}, {businessData.cordinates[1]} */}
+                click to view map
+              </Link>
+            </div>
+          )}
+          <div className="mt-3">
+            <BusinessWorkingHours
+              hours={businessData.working_hours as WorkingHours}
+            />
+          </div>
+          <BookNowButton />
         </div>
       </section>
       <ServicesAndMembershipsCard
@@ -122,7 +157,7 @@ export default async function SalonPage({
           <TeamList teamMembers={businessData.team_members} />
         )}
       </div>
-      <div className="w-full">
+      <section id="map" className="scroll-mt-20 w-full">
         <h1 className="text-center text-3xl font-bold mt-10">
           Business Location
         </h1>
@@ -135,7 +170,7 @@ export default async function SalonPage({
             />
           </div>
         )}
-      </div>
+      </section>
       {/* <section id="recommended-services" className="mt-5 lg:mt-10">
         <h1 className="text-2xl font-bold">Recommended</h1>
         <div className="w-full mt-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

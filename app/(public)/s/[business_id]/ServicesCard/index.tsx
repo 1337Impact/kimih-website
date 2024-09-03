@@ -27,7 +27,7 @@ export default function ServicesAndMembershipsCard({
   }, [business_id]);
 
   return (
-    <div className="w-full mt-10">
+    <div className="w-full mt-6">
       <div className="w-full grid grid-cols-3 gap-6 mt-4">
         <div className="col-span-3 lg:col-span-2 w-full">
           <h1 className="text-2xl font-bold">Services</h1>
