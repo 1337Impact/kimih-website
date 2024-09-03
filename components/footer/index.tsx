@@ -39,7 +39,7 @@ export default function Footer() {
               <FaLinkedin />
             </Link>
             <Link
-              href="https://twitter.com/kimih"
+              href="https://x.com/KimihCo"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Twitter"
@@ -48,7 +48,7 @@ export default function Footer() {
               <FaTwitter />
             </Link>
             <Link
-              href="https://www.facebook.com/kimih"
+              href="https://www.facebook.com/share/xTL8fWj5hV34izC2/?mibextid=LQQJ4d"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
@@ -57,7 +57,7 @@ export default function Footer() {
               <FaFacebook />
             </Link>
             <Link
-              href="https://www.instagram.com/kimih"
+              href="https://www.instagram.com/kimihco"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"

@@ -197,7 +197,7 @@ export default async function Home() {
           <div className="rounded-xl w-full">
             <iframe
               className="m-auto w-full aspect-video rounded-2xl hover-scale"
-              src="https://www.youtube.com/embed/A6XnZepxalE"
+              src="https://www.youtube.com/embed/yFKRYzQ1ZRg"
               title="Busy Life? Book Beauty &amp; Wellness in Seconds with Kimih!"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             ></iframe>

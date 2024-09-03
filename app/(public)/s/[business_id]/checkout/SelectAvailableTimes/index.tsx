@@ -4,8 +4,6 @@ import { Calendar } from "@/components/ui/calendar";
 import TimeSlots from "./TimeSlot";
 import getAvailableHours, { combineDateAndTime } from "./utils";
 
-
-
 const SelectTime = ({
   setCombinedDateTime,
   business_id,
@@ -24,18 +22,17 @@ const SelectTime = ({
     if (date && selectedTime) {
       const combined = combineDateAndTime(date, selectedTime);
       setCombinedDateTime(combined);
+    } else {
+      setCombinedDateTime(null);
+      setSelectedTime(null);
     }
   }, [date, selectedTime, setCombinedDateTime]);
 
   useEffect(() => {
     if (date) {
-      setSelectedTime(null);
-    }
-  }, [date]);
-
-  useEffect(() => {
-    if (date) {
       getAvailableHours(business_id, selectedTeamMember, date).then(setTimes);
+    } else {
+      setTimes([]);
     }
   }, [date, business_id, selectedTeamMember]);
 
@@ -49,14 +46,15 @@ const SelectTime = ({
           className="rounded-lg border border-stroke p-5"
         />
       </div>
-      {
-        times ? (
+      {times ? (
         <TimeSlots
-        times={times}
-        selectedTime={selectedTime}
-        onSelectTime={setSelectedTime}
-        />) : <div>Loading...</div>
-      }
+          times={times}
+          selectedTime={selectedTime}
+          onSelectTime={setSelectedTime}
+        />
+      ) : (
+        <div>Loading...</div>
+      )}
     </div>
   );
 };
