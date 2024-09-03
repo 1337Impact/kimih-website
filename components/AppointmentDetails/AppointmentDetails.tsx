@@ -23,12 +23,16 @@ type Appointment = {
   ref: string;
   scheduled_date: string;
   created_at: string;
+  price_paid: number | null;
   payments: {
     amount: number;
+    service_discounts: {
+      discount_value: number;
+    } | null;
   } | null;
   services: {
     service_name: string;
-    price: number | null;
+    price: number;
     duration: number | null;
   } | null;
   team_members: {
@@ -53,7 +57,7 @@ const getAppointmentsData = async (
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id)"
+      "id, ref, scheduled_date, price_paid, created_at, payments(amount, service_discounts(discount_value)), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id)"
     )
     .eq("id", appointment_id)
     .single();
@@ -165,11 +169,18 @@ export default function AppointmentDetails({
             </div>
             <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
               <h1>Discount:</h1>
-              <h2>{0}AED</h2>
+              <h2 className="text-green-500">
+                {data?.payments?.service_discounts
+                  ? (data.services?.price! *
+                      data?.payments?.service_discounts?.discount_value) /
+                    100
+                  : 0}
+                AED
+              </h2>
             </div>
             <div className="flex items-center justify-between pt-3">
               <h1>Total payment:</h1>
-              <h2>{data?.payments?.amount || "N/A"}AED</h2>
+              <h2>{data?.price_paid || "N/A"}AED</h2>
             </div>
           </div>
         </div>

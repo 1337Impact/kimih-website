@@ -37,7 +37,7 @@ export default async function ACreateAppointment({
   const payment = await supabase
     .from("payments")
     .insert({
-      amount: paymentAmount,
+      amount: paymentAmount * (1 - discount.value / 100),
       business_id: business_id,
       discount_id: discount.id,
     })
@@ -65,7 +65,7 @@ export default async function ACreateAppointment({
         business_id: business_id,
         payment_id: payment.data.id,
         price_paid: discount.value
-          ? (service.price * discount.value) / 100
+          ? service.price - (service.price * discount.value) / 100
           : service.price,
       }))
     );
@@ -82,7 +82,7 @@ export default async function ACreateAppointment({
         business_id: business_id,
         payment_id: payment.data.id,
         price_paid: discount.value
-          ? (membership.price * discount.value) / 100
+          ? membership.price - (membership.price * discount.value) / 100
           : membership.price,
       }))
     );

@@ -513,7 +513,7 @@ export type Database = {
           description: string | null
           duration: number | null
           id: string
-          price: number | null
+          price: number
           service_name: string
         }
         Insert: {
@@ -523,7 +523,7 @@ export type Database = {
           description?: string | null
           duration?: number | null
           id?: string
-          price?: number | null
+          price: number
           service_name: string
         }
         Update: {
@@ -533,7 +533,7 @@ export type Database = {
           description?: string | null
           duration?: number | null
           id?: string
-          price?: number | null
+          price?: number
           service_name?: string
         }
         Relationships: [

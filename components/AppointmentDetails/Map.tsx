@@ -25,7 +25,7 @@ export default function BusinessMap({cordinates}: BusinessMapProps) {
         </div>
       </div>
       <div className="mt-6 h-[300px]">
-        <Map latitude={cordinates[0]} longitude={cordinates[1]} handleChange={() => {}} />
+        <Map  showMarker latitude={cordinates[0]} longitude={cordinates[1]} handleChange={() => {}} />
       </div>
     </div>
   );
