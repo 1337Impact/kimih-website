@@ -18,11 +18,14 @@ export default function formatDate(dateString: string): string {
   return formatter.format(date);
 }
 
-export function addMinutesToDate(dateStr: string, minutes: number): Date {
-  const date = new Date(dateStr);
-  date.setMinutes(date.getMinutes() + minutes);
+export function addMinutesToDate(time: string, minutes: number): Date {
+  const [hours, mins] = time.split(":").map(Number);
+  const date = new Date();
+  date.setHours(hours);
+  date.setMinutes(mins + minutes);
   return date;
 }
+
 export function addDaysToDate(dateStr: string, days: number): Date {
   const date = new Date(dateStr);
   date.setHours(date.getHours() + days * 24);
