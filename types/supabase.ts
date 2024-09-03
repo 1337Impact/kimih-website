@@ -335,6 +335,7 @@ export type Database = {
           business_id: string | null
           client_id: string | null
           created_at: string
+          discount_id: string | null
           id: string
         }
         Insert: {
@@ -342,6 +343,7 @@ export type Database = {
           business_id?: string | null
           client_id?: string | null
           created_at?: string
+          discount_id?: string | null
           id?: string
         }
         Update: {
@@ -349,6 +351,7 @@ export type Database = {
           business_id?: string | null
           client_id?: string | null
           created_at?: string
+          discount_id?: string | null
           id?: string
         }
         Relationships: [
@@ -364,6 +367,13 @@ export type Database = {
             columns: ["client_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_discount_id_fkey"
+            columns: ["discount_id"]
+            isOneToOne: false
+            referencedRelation: "service_discounts"
             referencedColumns: ["id"]
           },
         ]

@@ -9,11 +9,16 @@ export default async function ACreateAppointment({
   services_memberships,
   team_member,
   time,
+  discount,
 }: {
   business_id: string;
   services_memberships: Selected[];
   time: Date;
   team_member: TeamMember;
+  discount: {
+    id: string;
+    value: number;
+  };
 }) {
   const paymentAmount = services_memberships.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -26,6 +31,7 @@ export default async function ACreateAppointment({
     services: services_memberships,
     professional: team_member,
     time: format(time, "yyyy-MM-dd'T'HH:mm:ss.SSS"),
+    discount,
   });
   // tmp code
   const payment = await supabase
@@ -33,6 +39,7 @@ export default async function ACreateAppointment({
     .insert({
       amount: paymentAmount,
       business_id: business_id,
+      discount_id: discount.id,
     })
     .select("id")
     .single();
@@ -57,7 +64,9 @@ export default async function ACreateAppointment({
         scheduled_date: format(time, "yyyy-MM-dd'T'HH:mm:ss.SSS"),
         business_id: business_id,
         payment_id: payment.data.id,
-        price_paid: service.price,
+        price_paid: discount.value
+          ? (service.price * discount.value) / 100
+          : service.price,
       }))
     );
     if (error) {
@@ -72,7 +81,9 @@ export default async function ACreateAppointment({
         memberships_catalog_id: membership.id,
         business_id: business_id,
         payment_id: payment.data.id,
-        price_paid: membership.price,
+        price_paid: discount.value
+          ? (membership.price * discount.value) / 100
+          : membership.price,
       }))
     );
     if (error) {

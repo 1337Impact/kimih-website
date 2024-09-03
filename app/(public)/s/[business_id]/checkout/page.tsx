@@ -10,23 +10,29 @@ import PaymentForm from "./PaymentStep";
 import Stepper from "@/components/stepper/stepper";
 import ACreateAppointment from "@/actions/appointment-actions/create-appointment";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { setBusinessId } from "@/store/checkoutSlice";
+import { RootState } from "@/store";
 
 export default function Page({ params }: { params: { business_id: string } }) {
   const steps = ["Services", "Professional", "Time", "Payment"];
   const { toast } = useToast();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const [selectedServices, setSelectedServices] = useState<Selected[]>([]);
   const [selectedProfessional, setSelectedProfessional] =
     useState<TeamMember | null>(null);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
   const [step, setStep] = useState(0);
+  const discount = useSelector((state: RootState) => state.checkoutSlice.checkoutData?.discount);
 
   useEffect(() => {
     const cart = localStorage.getItem(params.business_id);
     if (cart) {
       setSelectedServices(JSON.parse(cart));
     }
+    dispatch(setBusinessId(params.business_id));
   }, [params.business_id]);
 
   const handleCreateAppointment = async () => {
@@ -35,6 +41,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
       services_memberships: selectedServices,
       team_member: selectedProfessional!,
       time: selectedTime!,
+      discount: discount
     });
     if (res.error) {
       toast({

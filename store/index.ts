@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./userSlice";
-import selectedMarker from "./selectedMarkerSlice";
+import selectedMarkerSlice from "./selectedMarkerSlice";
+import checkoutSlice from "./checkoutSlice";
 
 export const store = configureStore({
   reducer: {
     userSlice,
-    selectedMarker,
+    selectedMarkerSlice,
+    checkoutSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
