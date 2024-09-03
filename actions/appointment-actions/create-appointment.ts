@@ -3,6 +3,7 @@ import { TeamMember } from "@/app/(public)/s/[business_id]/checkout/SelectProfes
 import { Selected } from "@/app/(public)/s/[business_id]/ServicesCard/types";
 import { createClient } from "@/utils/supabase/server";
 import { format } from "date-fns";
+import { sendAppointmentEmail } from "./send-email";
 
 export default async function ACreateAppointment({
   business_id,
@@ -90,6 +91,19 @@ export default async function ACreateAppointment({
       console.error("error inserting memberships", error);
       return { data: null, error: error.message };
     }
+  }
+  const { data } = await supabase
+    .from("team_members")
+    .select("email")
+    .eq("id", team_member.id)
+    .single();
+  if (data) {
+    sendAppointmentEmail({
+      workerEmail: data.email!,
+      appointmentDate: time.toDateString(),
+      serviceName: "testing",
+      clientName: "client",
+    });
   }
 
   return { data: { payment_id: payment.data.id }, error: null };
