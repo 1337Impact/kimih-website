@@ -10,7 +10,6 @@ export default function formatDate(dateString: string): string {
     hour: "2-digit",
     minute: "2-digit",
     hour12: true,
-    timeZone: "UTC",
   };
 
   const formatter = new Intl.DateTimeFormat("en-US", options);

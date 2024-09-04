@@ -40,7 +40,7 @@ export default async function ACreateAppointment({
     .insert({
       amount: paymentAmount * (1 - discount.value / 100),
       business_id: business_id,
-      discount_id: discount.id,
+      discount_id: discount.id || null,
     })
     .select("id")
     .single();

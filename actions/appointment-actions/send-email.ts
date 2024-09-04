@@ -1,3 +1,4 @@
+"use server";
 import nodemailer from "nodemailer";
 
 interface SendAppointmentEmailParams {
@@ -14,10 +15,12 @@ export async function sendAppointmentEmail({
   clientName,
 }: SendAppointmentEmailParams): Promise<void> {
   try {
+    console.log("Sending email to:", workerEmail);
     const transporter = nodemailer.createTransport({
-      host: process.env.NEXT_PUBLIC_SMTP_HOST,
+      host: "smtp-mail.outlook.com",
       port: parseInt(process.env.NEXT_PUBLIC_SMTP_PORT || "587", 10),
       secure: true,
+      // port: 587,
       auth: {
         user: process.env.NEXT_PUBLIC_SMTP_EMAIL,
         pass: process.env.NEXT_PUBLIC_SMTP_PASS,

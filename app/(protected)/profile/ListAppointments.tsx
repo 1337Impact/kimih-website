@@ -1,7 +1,9 @@
+"use client";
 import AppointmentDetails from "@/components/AppointmentDetails/AppointmentDetails";
 import { Button } from "@/components/ui/button";
 import formatDate from "@/utils/formating-utils/format-date";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export type Appointment = {
   id: string;
@@ -54,7 +56,13 @@ const getAppointmentStatus = (appointment: Appointment) => {
 };
 
 const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
-  const status = getAppointmentStatus(appointment);
+  const [status, setStatus] = useState({
+    status: "Pending",
+    color: "#808080",
+  });
+  useEffect(() => {
+    setStatus(getAppointmentStatus(appointment));
+  }, [appointment]);
 
   return (
     <AppointmentDetails appointment_id={appointment.id} key={appointment.id}>

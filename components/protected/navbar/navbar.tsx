@@ -23,7 +23,7 @@ export default function Navbar() {
     });
   }, [setUserData]);
   return (
-    <header className="fixed bg-white z-[10] w-full h-[80px] mx-auto text-slate-800 shadow-lg">
+    <header className="fixed bg-white z-[10] w-screen h-[80px] mx-auto text-slate-800 shadow-lg">
       <div className="w-full h-full flex items-center justify-between px-4 sm:px-8 max-w-[1000px] mx-auto">
         <Link
           className="flex items-center gap-2 text-2xl font-bold text-gray-700"

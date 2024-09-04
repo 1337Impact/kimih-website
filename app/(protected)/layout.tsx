@@ -14,7 +14,7 @@ export default function RootLayout({
     <div className={inter.className}>
       <UserProvider>
         <Navbar />
-        <main className="pt-32 max-w-[1000px] px-4 md:px-6 mx-auto">
+        <main className="pt-32 pb-10 max-w-[1000px] px-4 md:px-6 mx-auto">
         {children}
         </main>
       </UserProvider>
