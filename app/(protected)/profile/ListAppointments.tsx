@@ -86,7 +86,7 @@ const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
             {status.status}
           </span>
         </div>
-        <div className="flex gap-1 justify-start text-sm text-gray-600 ">
+        <div className="flex gap-1 justify-start text-sm text-gray-600">
           At:
           <Link
             href={`/s/${appointment.business_id}`}

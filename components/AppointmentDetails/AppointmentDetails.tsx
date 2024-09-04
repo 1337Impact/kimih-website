@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import BusinessMap from "./Map";
 import { FaMapMarked, FaPhone } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import AppointmentReview from "./AppointmentReview";
 
 type Appointment = {
   id: string;
@@ -46,6 +47,12 @@ type Appointment = {
     address: string | null | undefined;
     cordinates: number[] | null | undefined;
   } | null;
+  reviews: {
+    id: string;
+    rating: number;
+    comment: string | null;
+    created_at: string;
+  }[];
   business_email: string | null | undefined;
   business_phone: string | null | undefined;
 };
@@ -57,7 +64,7 @@ const getAppointmentsData = async (
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, price_paid, created_at, payments(amount, service_discounts(discount_value)), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id)"
+      "id, ref, scheduled_date, price_paid, created_at, payments(amount, service_discounts(discount_value)), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id), reviews(id, rating, comment, created_at)"
     )
     .eq("id", appointment_id)
     .single();
@@ -88,6 +95,7 @@ export default function AppointmentDetails({
     if (isOpen && !data) {
       getAppointmentsData(appointment_id).then((data) => {
         setData(data);
+        console.log(data);
       });
     }
   };
@@ -162,6 +170,13 @@ export default function AppointmentDetails({
           {data?.business?.cordinates && (
             <BusinessMap cordinates={data?.business?.cordinates} />
           )}
+          <div>
+            <AppointmentReview
+              appointment_id={appointment_id}
+              business_id={data?.business?.id!}
+              review={data?.reviews[0] || null}
+            />
+          </div>
           <div className="border border-stroke rounded-lg p-2">
             <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
               <h1>Service price:</h1>
