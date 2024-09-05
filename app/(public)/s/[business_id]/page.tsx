@@ -10,6 +10,7 @@ import BookNowButton from "./BookNowButton";
 import BusinessWorkingHours, { WorkingHours } from "./WorkingHours";
 import { FaEarthAfrica, FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
+import ReviewsSection, { StarRating } from "./BusinessRating";
 const Map = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <Skeleton className="h-full" />,
@@ -32,10 +33,26 @@ const getBusinessData = async (business_id: string) => {
     .select("first_name, last_name, avatar_url")
     .eq("id", data?.owner_id)
     .single();
-  if (!ownerData) return data;
+
+  const { data: reviewData, count: reviewsCount } = await supabase
+    .from("reviews")
+    .select("rating", { count: "exact" })
+    .eq("business_id", business_id);
   return {
     ...data,
-    team_members: [{ ...ownerData, job_title: "Owner" }, ...data?.team_members],
+    team_members: [
+      { ...ownerData!, job_title: "Owner" },
+      ...data?.team_members,
+    ],
+    rating: {
+      count: reviewsCount || 0,
+      average: reviewsCount
+        ? reviewData?.reduce(
+            (acc: number, curr: { rating: number }) => acc + curr.rating,
+            0
+          ) / reviewsCount
+        : 0,
+    },
   };
 };
 
@@ -101,15 +118,12 @@ export default async function SalonPage({
             {businessData.address}
           </h2>
           <div className="my-3 flex items-center">
-            <div className="flex gap-1">
-              {Array(5)
-                .fill("")
-                .map((_, index) => (
-                  <FaStar key={index} className="text-xl text-gray-800" />
-                ))}
-            </div>
-            <span className="text-gray-800 ml-2">4.5</span>
-            <span className="text-gray-500 ml-2">(123)</span>
+            <span className="text-xl">
+              <StarRating rating={businessData.rating.average} />
+            </span>
+            <span className="text-gray-500 ml-2">
+              ({businessData.rating.count})
+            </span>
           </div>
           <div>
             {businessData.website && (
@@ -134,7 +148,6 @@ export default async function SalonPage({
                 rel="noopener noreferrer"
                 className="text-gray-500 "
               >
-                {/* {businessData.cordinates[0]}, {businessData.cordinates[1]} */}
                 click to view map
               </Link>
             </div>
@@ -171,22 +184,13 @@ export default async function SalonPage({
           </div>
         )}
       </section>
-      {/* <section id="recommended-services" className="mt-5 lg:mt-10">
-        <h1 className="text-2xl font-bold">Recommended</h1>
-        <div className="w-full mt-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {tempData.map((salon) => (
-            <SalonCard key={salon.title} {...salon} />
-          ))}
-        </div>
+      <section id="reviews" className="mt-10 flex flex-col items-center">
+        <h1 className="text-3xl font-bold">Reviews</h1>
+        <ReviewsSection
+          rating={businessData.rating}
+          business_id={params.business_id}
+        />
       </section>
-      <section id="new-to-kimih-services" className="mt-20">
-        <h1 className="text-2xl font-bold">New to Kimih</h1>
-        <div className="w-full my-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {tempData.slice(0, 3).map((salon) => (
-            <SalonCard key={salon.title} {...salon} />
-          ))}
-        </div>
-      </section> */}
     </main>
   );
 }
