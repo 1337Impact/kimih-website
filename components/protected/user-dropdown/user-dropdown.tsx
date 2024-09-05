@@ -22,8 +22,7 @@ export default function UserDropdownMenu({ userData }: { userData: UserData }) {
   const handleSignOut = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    router.push("/");
-    router.refresh();
+    router.push("/auth/customer");
   };
 
   return (
