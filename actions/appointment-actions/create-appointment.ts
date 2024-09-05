@@ -29,13 +29,6 @@ export default async function ACreateAppointment({
     0
   );
 
-  console.log("appointment data: ", {
-    paymentAmount,
-    services: services_memberships,
-    professional: team_member,
-    time: format(time, "yyyy-MM-dd'T'HH:mm:ss.SSS"),
-    discount,
-  });
   // tmp code
   const payment = await supabase
     .from("payments")

@@ -46,14 +46,14 @@ export default function Page({ params }: { params: { business_id: string } }) {
     if (res.error) {
       toast({
         variant: "destructive",
-        title: "Error creating appointment",
-        description: res.error,
+        title: "Could not place order",
+        description: "There was an error placing your order, please try again",
       });
     } else {
       toast({
         variant: "success",
-        title: "Appointment successful",
-        description: "Your appointment has been successfully placed",
+        title: "Order placed successfully",
+        description: "Your order has been placed successfully",
       });
       localStorage.removeItem(params.business_id);
       router.push(`/profile`);
