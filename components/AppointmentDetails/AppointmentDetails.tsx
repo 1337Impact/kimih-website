@@ -85,9 +85,11 @@ const getAppointmentsData = async (
 export default function AppointmentDetails({
   children,
   appointment_id,
+  status,
 }: {
   appointment_id: string;
   children: React.ReactNode;
+  status: string;
 }) {
   const [data, setData] = useState<Appointment | null>(null);
   const [size, setSize] = useState(0);
@@ -170,13 +172,15 @@ export default function AppointmentDetails({
           {data?.business?.cordinates && (
             <BusinessMap cordinates={data?.business?.cordinates} />
           )}
-          <div>
-            <AppointmentReview
-              appointment_id={appointment_id}
-              business_id={data?.business?.id!}
-              review={data?.reviews[0] || null}
-            />
-          </div>
+          {status === "Completed" && (
+            <div>
+              <AppointmentReview
+                appointment_id={appointment_id}
+                business_id={data?.business?.id!}
+                review={data?.reviews[0] || null}
+              />
+            </div>
+          )}
           <div className="border border-stroke rounded-lg p-2">
             <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
               <h1>Service price:</h1>

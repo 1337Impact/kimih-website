@@ -52,7 +52,7 @@ const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
   const status = getAppointmentStatus(appointment);
 
   return (
-    <AppointmentDetails appointment_id={appointment.id} key={appointment.id}>
+    <AppointmentDetails status={status.status} appointment_id={appointment.id} key={appointment.id}>
       <div className="border border-gray-200 p-4 bg-white rounded-xl shadow-md flex flex-col space-y-2 hover-scale-2">
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-semibold">{appointment.service_name}</h3>

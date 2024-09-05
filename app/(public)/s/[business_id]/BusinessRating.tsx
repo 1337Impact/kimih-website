@@ -1,5 +1,7 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaStar, FaRegStar } from "react-icons/fa"; // FaRegStar is the empty star icon
 
@@ -19,7 +21,9 @@ const fetchReviews = async (business_id: string) => {
     .select(
       "comment, created_at, rating, id, appointments(profiles(first_name))"
     )
-    .eq("business_id", business_id);
+    .eq("business_id", business_id)
+    .order("created_at", { ascending: false })
+    .limit(3);
   return (
     data?.map((review) => ({
       comment: review.comment,
@@ -59,7 +63,7 @@ export default function ReviewsSection({
           reviews.map((review) => (
             <div
               key={review.id}
-              className="border border-gray-200 rounded-lg p-4 shadow-sm w-[350px]"
+              className="border border-gray-200 rounded-lg p-4 shadow-sm w-[350px] md:w-[400px]"
             >
               <div className="flex items-center gap-1 text-yellow-500 mb-2">
                 {Array(5)
@@ -74,11 +78,11 @@ export default function ReviewsSection({
                     </span>
                   ))}
               </div>
-              <div className="text-sm text-gray-700">
+              <div className="text-sm text-gray-800">
                 {review.comment || "No comment provided"}
               </div>
               <div className="mt-1 flex text-sm justify-between items-center mb-2">
-                <div className="text-gray-800">{review.profile}</div>
+                <div className="text-gray-600">{review.profile}</div>
                 <span className="text-sm text-gray-500">
                   {new Date(review.created_at).toLocaleDateString()}
                 </span>
@@ -89,6 +93,9 @@ export default function ReviewsSection({
           <p className="text-gray-700">No reviews available.</p>
         )}
       </div>
+      <Link href={`/s/${business_id}/reviews`}>
+        <Button variant="outline">View all reviews</Button>
+      </Link>
     </div>
   );
 }

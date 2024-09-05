@@ -6,7 +6,6 @@ import { notFound } from "next/navigation";
 import ServicesAndMembershipsCard from "./ServicesCard";
 import dynamic from "next/dynamic";
 import { Skeleton } from "@/components/ui/skeleton";
-import BookNowButton from "./BookNowButton";
 import BusinessWorkingHours, { WorkingHours } from "./WorkingHours";
 import { FaEarthAfrica, FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
@@ -157,14 +156,20 @@ export default async function SalonPage({
               hours={businessData.working_hours as WorkingHours}
             />
           </div>
-          <BookNowButton />
+          <Link href={`#services`}>
+            <button className="mt-6 text-xl text-white bg-gray-900 py-2 px-10 rounded-lg">
+              Book now
+            </button>
+          </Link>
         </div>
       </section>
-      <ServicesAndMembershipsCard
-        business_id={params.business_id}
-        memberships={memberships || []}
-        services={services || []}
-      />
+      <section id="services" className="scroll-mt-20 w-full">
+        <ServicesAndMembershipsCard
+          business_id={params.business_id}
+          memberships={memberships || []}
+          services={services || []}
+        />
+      </section>
       <div>
         {businessData.team_members && (
           <TeamList teamMembers={businessData.team_members} />
