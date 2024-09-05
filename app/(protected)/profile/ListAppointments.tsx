@@ -27,10 +27,6 @@ const getAppointmentStatus = (appointment: Appointment) => {
   const endDate = new Date(
     scheduledDate.getTime() + (appointment.service_duration || 0) * 60000
   );
-  console.log("appointment", appointment.service_name);
-  console.log("currentDate", currentDate);
-  console.log("scheduledDate", scheduledDate);
-  console.log("endDate", endDate);
 
   if (currentDate < scheduledDate) {
     return {

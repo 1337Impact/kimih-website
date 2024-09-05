@@ -67,7 +67,6 @@ export default function AppointmentReview({
 
 function DeleteReview({ review_id }: { review_id: string }) {
   const { toast } = useToast();
-  const router = useRouter();
 
   const handleDelete = async () => {
     const res = await ADeleteReview(review_id);
@@ -79,7 +78,6 @@ function DeleteReview({ review_id }: { review_id: string }) {
         description: res.error,
       });
     } else {
-      router.refresh();
       toast({
         variant: "success",
         title: "Success",

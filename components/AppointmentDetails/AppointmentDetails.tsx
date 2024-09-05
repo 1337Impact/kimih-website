@@ -94,13 +94,54 @@ export default function AppointmentDetails({
   const [data, setData] = useState<Appointment | null>(null);
   const [size, setSize] = useState(0);
   const onOpenChange = (isOpen: boolean) => {
-    if (isOpen && !data) {
+    if (isOpen) {
       getAppointmentsData(appointment_id).then((data) => {
+        console.log("initial data: ", data);
         setData(data);
-        console.log(data);
       });
     }
   };
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase
+      .channel("review_changes")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "reviews" },
+        (event) => {
+          if (event.eventType == "INSERT") {
+            console.log("new review: ", event.new);
+            console.log("appointment_id: ", data?.id);
+            if (event.new.appointment_id === data?.id) {
+              setData((prev) => ({
+                ...prev!,
+                reviews: [
+                  {
+                    id: event.new.id,
+                    rating: event.new.rating,
+                    comment: event.new.comment,
+                    created_at: event.new.created_at,
+                  },
+                ],
+              }));
+            }
+          } else if (event.eventType == "DELETE") {
+            if (event.old.id === data?.reviews[0].id) {
+              setData((prev) => ({ ...prev!, reviews: [] }));
+            }
+          }
+        }
+      )
+      .subscribe();
+    return () => {
+      supabase.channel("review_changes").unsubscribe();
+    };
+  }, [setData, data]);
+
+  useEffect(() => {
+    console.log("data updated: ", data);
+  }, [data]);
 
   useEffect(() => {
     if (!window) return;
@@ -175,7 +216,7 @@ export default function AppointmentDetails({
           {status === "Completed" && (
             <div>
               <AppointmentReview
-                appointment_id={appointment_id}
+                appointment_id={data?.id!}
                 business_id={data?.business?.id!}
                 review={data?.reviews[0] || null}
               />

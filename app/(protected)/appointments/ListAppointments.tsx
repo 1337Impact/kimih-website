@@ -28,23 +28,23 @@ const getAppointmentStatus = (appointment: Appointment) => {
   if (currentDate < scheduledDate) {
     return {
       status: "Upcoming",
-      color: "#FFA500", // Orange color for upcoming
+      color: "#FFA500",
     };
   } else if (currentDate >= scheduledDate && currentDate <= endDate) {
     return {
       status: "In Progress",
-      color: "#00FF00", // Green color for in progress
+      color: "#00FF00",
     };
   } else if (currentDate > endDate) {
     return {
       status: "Completed",
-      color: "#ccc", // Grey color for completed
+      color: "#ccc",
     };
   }
 
   return {
     status: "Pending",
-    color: "#808080", // Grey color for pending (as a fallback)
+    color: "#808080",
   };
 };
 
@@ -52,7 +52,11 @@ const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
   const status = getAppointmentStatus(appointment);
 
   return (
-    <AppointmentDetails status={status.status} appointment_id={appointment.id} key={appointment.id}>
+    <AppointmentDetails
+      status={status.status}
+      appointment_id={appointment.id}
+      key={appointment.id}
+    >
       <div className="border border-gray-200 p-4 bg-white rounded-xl shadow-md flex flex-col space-y-2 hover-scale-2">
         <div className="flex justify-between items-center">
           <h3 className="text-lg font-semibold">{appointment.service_name}</h3>

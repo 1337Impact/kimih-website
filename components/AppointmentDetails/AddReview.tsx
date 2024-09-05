@@ -32,7 +32,6 @@ export default function AddReview({
   appointment_id: string;
 }) {
   const { toast } = useToast();
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState({
     review: "",
@@ -93,15 +92,14 @@ export default function AddReview({
         title: "Failed to create review. Please try again.",
       });
     } else {
-      router.refresh();
       toast({
         variant: "success",
         title: "Success",
         description: "Review has been submitted successfully.",
       });
-      handleClose();
     }
     setData({ review: "", rating: 0 });
+    handleClose();
   };
 
   return (
