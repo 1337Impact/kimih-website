@@ -7,6 +7,7 @@ export interface TeamMember {
   id: string;
   first_name: string;
   last_name: string;
+  email: string | null;
   job_title: string | null | undefined;
   avatar_url: string | null | undefined;
 }
@@ -15,7 +16,7 @@ const getTeamData = async (business_id: string) => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("team_members")
-    .select("id, first_name, last_name, avatar_url, job_title")
+    .select("id, first_name, last_name, avatar_url, job_title, email")
     .eq("business_id", business_id);
   if (error) {
     console.error(error);

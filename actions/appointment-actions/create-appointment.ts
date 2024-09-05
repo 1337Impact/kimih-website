@@ -21,12 +21,14 @@ export default async function ACreateAppointment({
     value: number;
   };
 }) {
+  const supabase = createClient();
+  const {data : {user : clientData}} = await supabase.auth.getUser();
+
   const paymentAmount = services_memberships.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
 
-  const supabase = createClient();
   console.log("appointment data: ", {
     paymentAmount,
     services: services_memberships,
@@ -74,6 +76,14 @@ export default async function ACreateAppointment({
       console.error("error inserting services", error);
       return { data: null, error: error.message };
     }
+    for (const service of services) {
+      sendAppointmentEmail({
+        workerEmail: "mbenkhat@student.1337.ma",
+        appointmentDate: time.toDateString(),
+        serviceName: service.name,
+        clientName: clientData?.user_metadata.full_name || "client name",
+      });
+    }
   }
 
   if (memberships.length) {
@@ -91,19 +101,6 @@ export default async function ACreateAppointment({
       console.error("error inserting memberships", error);
       return { data: null, error: error.message };
     }
-  }
-  const { data } = await supabase
-    .from("team_members")
-    .select("email")
-    .eq("id", team_member.id)
-    .single();
-  if (data) {
-    sendAppointmentEmail({
-      workerEmail: data.email!,
-      appointmentDate: time.toDateString(),
-      serviceName: "testing",
-      clientName: "client",
-    });
   }
 
   return { data: { payment_id: payment.data.id }, error: null };

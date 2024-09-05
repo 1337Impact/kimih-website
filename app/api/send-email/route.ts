@@ -30,12 +30,12 @@ export async function POST(request: Request) {
     const res = await transporter.sendMail({
       from: `"Kimih Support Request" <${process.env.NEXT_PUBLIC_SMTP_EMAIL}>`,
       to: "support@kimih.com",
-      subject: "Votre facture est prête.",
+      subject: "Support Request",
       html: `<div>\
         <h4>Support Request from ${data.name}!</h4>\
         <h6>Subject ${data.subject}!</h6>\
         <p>${data.message}</p>\
-        Email: ${data.email}\
+        Content: ${data.email}\
         </div>`,
     });
     console.log("nodemailer res: ", res);

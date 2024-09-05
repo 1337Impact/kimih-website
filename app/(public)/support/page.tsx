@@ -13,8 +13,7 @@ export default function Contact() {
       subject: e.target.subject.value,
       message: e.target.message.value,
     };
-    console.log(data);
-    fetch("/api/sendmail", {
+    fetch("/api/send-email", {
       method: "POST",
       body: JSON.stringify(data),
     })
