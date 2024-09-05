@@ -89,7 +89,7 @@ export default function CartCard({
       <div className="mt-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-800">Total</h2>
         <p>
-          {discountedValue}
+          {discountedValue.toFixed(2)}
           <span className="ml-1 text-gray-600">AED</span>
         </p>
       </div>
