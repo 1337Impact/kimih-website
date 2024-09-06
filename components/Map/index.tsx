@@ -93,7 +93,7 @@ const Map: React.FC<MapProps> = ({
         <ChangeView center={markerPosition} />
         <TileLayer
           attribution='&copy; <a href=""></a>'
-          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
         />
         {showMarker && (
           <Marker icon={positionIcon} position={markerPosition}>
