@@ -1,6 +1,3 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
 
@@ -25,7 +22,7 @@ export default function BusinessMap({cordinates}: BusinessMapProps) {
         </div>
       </div>
       <div className="mt-6 h-[300px]">
-        <Map  showMarker latitude={cordinates[0]} longitude={cordinates[1]} handleChange={() => {}} />
+        <Map  showMarker latitude={cordinates[0]} longitude={cordinates[1]}/>
       </div>
     </div>
   );

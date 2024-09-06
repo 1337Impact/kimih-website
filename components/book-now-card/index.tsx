@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import styles from "./styles.module.css";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import AddressInput from "./address-input";
 
 const servicesList = [
   {
@@ -123,15 +125,27 @@ const IconTitle = ({
   </div>
 );
 
+interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export default function BookNowCard() {
   const router = useRouter();
+  const [coordinates, setCoordinates] = useState<Coordinates | null>(null);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push("/map");
+    console.log("coordinates", coordinates);
+    if (coordinates){
+      router.push(`/map?lat=${coordinates?.latitude}&lng=${coordinates?.longitude}`);
+    } else {
+      router.push("/map");
+    }
   };
   return (
     <div className="w-full mx-auto">
-      <div className={`${styles.card} bg-white rounded-lg shadow-md p-10`}>
+      <div className={`${styles.card} bg-white rounded-lg p-10`}>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div className="flex-1 min-w-[200px]">
@@ -139,8 +153,10 @@ export default function BookNowCard() {
                 <IconTitle title="Any treatment or venue">
                   <SearchIcon />
                 </IconTitle>
-                <select className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm">
-                  <option value="">Please Select</option>
+                <select className="border-[2px] border-violet-400 font-semibold w-full pl-5 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm">
+                  <option disabled value="">
+                    Please Select
+                  </option>
                   {servicesList.map((service) => (
                     <option key={service.id} value={service.id}>
                       {service.name}
@@ -155,13 +171,7 @@ export default function BookNowCard() {
                 <IconTitle title="Current Location">
                   <MapPin />
                 </IconTitle>
-                <input
-                  type="text"
-                  className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"
-                  placeholder="Type location"
-                  name="location"
-                  id="addressInput"
-                />
+                <AddressInput setCoridinates={setCoordinates}  />
                 <div id="suggestionsContainer"></div>
               </div>
             </div>
@@ -173,7 +183,7 @@ export default function BookNowCard() {
                 </IconTitle>
                 <input
                   type="date"
-                  className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"
+                  className="border-[2px] border-violet-400 font-semibold w-full pl-5 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"
                   placeholder="December 28, 2021"
                   id="datetimepicker"
                 />
@@ -187,7 +197,7 @@ export default function BookNowCard() {
                 </IconTitle>
                 <input
                   type="time"
-                  className="border-2 font-bold w-full pl-10 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"
+                  className="border-[2px] border-violet-400 font-semibold w-full pl-5 pr-3 py-2 text-gray-600 rounded-md focus:outline-none sm:text-sm"
                   placeholder="Enter Time"
                 />
               </div>

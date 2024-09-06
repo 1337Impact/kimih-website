@@ -13,6 +13,7 @@ import { useMap } from "react-leaflet";
 import "./styles.css";
 import { useDispatch } from "react-redux";
 import { setSelectedMarker } from "@/store/selectedMarkerSlice";
+import { useSearchParams } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +21,6 @@ type MapProps = {
   latitude: number;
   longitude: number;
   showMarker?: boolean;
-  handleChange?: (latitude: number, longitude: number) => void;
   markers?: {
     id: string;
     position: number[];
@@ -38,50 +38,45 @@ const ChangeView: React.FC<ChangeViewProps> = ({ center }) => {
   return null;
 };
 
+const positionIcon = new Icon({
+  iconUrl: "/assets/icons/red-marker.png",
+  iconSize: [30, 30],
+});
+const businessIcon = new Icon({
+  iconUrl: "/assets/icons/black-marker.svg",
+  iconSize: [32, 32],
+});
+
 const Map: React.FC<MapProps> = ({
   latitude,
   longitude,
-  handleChange,
   showMarker,
   markers,
 }) => {
   const dispatch = useDispatch();
+  const searchParams = useSearchParams();
+  const searchLat = parseFloat(searchParams.get("lat") || "");
+  const searchLng = parseFloat(searchParams.get("lng") || "");
+
   const [isMounted, setIsMounted] = useState(false);
   const [markerPosition, setMarkerPosition] = useState<L.LatLngExpression>([
-    latitude,
-    longitude,
+    searchLat || latitude,
+    searchLng || longitude,
   ]);
-  const [viewport, setViewport] = useState({
-    latitude: latitude,
-    longitude: longitude,
-    zoom: 10,
-  });
 
-  const positionIcon = new Icon({
-    iconUrl: "/assets/icons/red-marker.png",
-    iconSize: [30, 30],
-  });
-  const businessIcon = new Icon({
-    iconUrl: "/assets/icons/black-marker.svg",
-    iconSize: [32, 32],
-  });
+  useEffect(() => {
+    if (searchLat && searchLng) {
+      setMarkerPosition([searchLng, searchLat]);
+    }
+  }, [searchLat, searchLng]);
 
   useEffect(() => {
     setIsMounted(true);
-    setViewport((prevViewport) => ({
-      ...prevViewport,
-      latitude: latitude,
-      longitude: longitude,
-    }));
-    setMarkerPosition([latitude, longitude]);
-  }, [latitude, longitude]);
+  }, []);
 
   if (!isMounted) {
     return null;
   }
-
-  const layer2 =
-    "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
 
   const handleClick = (business_id: string) => {
     dispatch(setSelectedMarker({ id: business_id }));
@@ -92,13 +87,13 @@ const Map: React.FC<MapProps> = ({
       <MapContainer
         className="h-full w-full rounded-xl"
         center={markerPosition}
-        zoom={viewport.zoom}
+        zoom={10}
         scrollWheelZoom={true}
       >
         <ChangeView center={markerPosition} />
         <TileLayer
           attribution='&copy; <a href=""></a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
         />
         {showMarker && (
           <Marker icon={positionIcon} position={markerPosition}>
