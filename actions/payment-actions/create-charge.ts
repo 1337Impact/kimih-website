@@ -1,9 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+"use server";
+
 import axios from "axios";
 
 interface ChargeRequest {
   amount: number;
   currency: string;
+  description: string;
   reference: {
     transaction: string;
     order: string;
@@ -23,21 +25,21 @@ interface ChargeRequest {
   };
 }
 
-export async function POST(req: NextRequest) {
-  const request = await req.json();
+export default async function ACreateCharge(data: ChargeRequest) {
+  console.log("createCharge data:", data);
   try {
     const response = await axios.post(
       "https://api.tap.company/v2/charges/",
       {
-        amount: 1,
-        currency: "KWD",
+        amount: data.amount,
+        currency: data.currency,
         customer_initiated: true,
         threeDSecure: true,
         save_card: false,
         // payment_agreement: {
         //   id: "sdfdsfdsfdfsdf", // Replace with your payment agreement ID
         // },
-        description: "Test Description",
+        description: data.description,
         metadata: {
           udf1: "Metadata 1",
         },
@@ -49,19 +51,8 @@ export async function POST(req: NextRequest) {
           email: true,
           sms: true,
         },
-        customer: {
-          first_name: "Mohammed",
-          middle_name: "Doe",
-          last_name: "Benkhattab",
-          email: "mobenkhattab@gmail.com",
-          phone: {
-            country_code: "965",
-            number: "50000000",
-          },
-        },
-        merchant: {
-          id: "1234", // Replace with your merchant ID if needed
-        },
+        customer: data.customer,
+        merchant: data.merchant,
         source: {
           id: "src_card", // Change to the actual source ID
         },
@@ -69,7 +60,7 @@ export async function POST(req: NextRequest) {
           url: "https://26d2-197-230-30-146.ngrok-free.app/api/verify-payment",
         },
         redirect: {
-          url: "http://localhost:3000",
+          url: "http://localhost:3000/payment/status",
         },
       },
       {
@@ -84,27 +75,26 @@ export async function POST(req: NextRequest) {
     console.log("Charge Response:", response.data);
 
     // Return the API response data
-    return NextResponse.json(response.data);
-  } catch (error : any) {
-    // Improved error logging to capture all error types
+    return response.data;
+  } catch (error: any) {
     if (error.response) {
       console.error("Charge Error (Response):", error.response.data);
-      return NextResponse.json(
-        { message: error.response.data || "Error processing charge" },
-        { status: error.response.status }
-      );
+      return;
+      {
+        message: error.response.data || "Error processing charge";
+      }
     } else if (error.request) {
       console.error("Charge Error (No Response):", error.request);
-      return NextResponse.json(
-        { message: "No response received from Tap Payments API" },
-        { status: 500 }
-      );
+      return;
+      {
+        message: "No response received from Tap Payments API";
+      }
     } else {
       console.error("Charge Error (Message):", error.message);
-      return NextResponse.json(
-        { message: "Error processing charge" },
-        { status: 500 }
-      );
+      return;
+      {
+        message: "Error processing charge";
+      }
     }
   }
 }

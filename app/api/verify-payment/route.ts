@@ -3,19 +3,25 @@ import { NextRequest, NextResponse } from 'next/server';
 import axios from 'axios';
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const tap_id = searchParams.get('tap_id');
+  console.log('verify-payment get: ', req);
+  return new Response('Hello, Next.js!', {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  })
+}
 
-  try {
-    const response = await axios.get(`https://api.tap.company/v2/charges/${tap_id}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.TAP_SECRET_KEY}`,
-      },
-    });
-
-    return NextResponse.json(response.data);
-  } catch (error) {
-    console.error('Error verifying payment:', error.response?.data || error.message);
-    return NextResponse.json({ error: 'Error verifying payment' }, { status: 500 });
-  }
+export async function POST(req: NextRequest) {
+  console.log('verify-payment post: ', req);
+  return new Response('Hello, Next.js!', {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  })
 }
