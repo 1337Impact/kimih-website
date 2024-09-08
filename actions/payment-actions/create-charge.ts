@@ -1,5 +1,4 @@
 "use server";
-
 import axios from "axios";
 
 interface ChargeRequest {
@@ -57,7 +56,7 @@ export default async function ACreateCharge(data: ChargeRequest) {
           id: "src_card", // Change to the actual source ID
         },
         post: {
-          url: "https://26d2-197-230-30-146.ngrok-free.app/api/verify-payment",
+          url: `${process.env.NEXT_PUBLIC_URL}/api/verify-payment`,
         },
         redirect: {
           url: "http://localhost:3000/payment/status",
