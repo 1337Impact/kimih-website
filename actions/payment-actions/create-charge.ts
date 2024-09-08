@@ -56,7 +56,7 @@ export default async function ACreateCharge(data: ChargeRequest) {
           id: "src_card", // Change to the actual source ID
         },
         post: {
-          url: `${process.env.NEXT_PUBLIC_URL}/api/verify-payment`,
+          url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook`,
         },
         redirect: {
           url: "http://localhost:3000/payment/status",
