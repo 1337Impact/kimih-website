@@ -12,7 +12,7 @@ import { MdOutlineLocalGroceryStore } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { Selected } from "../ServicesCard/types";
 import { Button } from "@/components/ui/button";
-import DiscountCode from "./DiscountCode";
+import DiscountCode from "./Confirmation/DiscountCode";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useEffect, useState } from "react";
@@ -42,7 +42,7 @@ export default function CartCard({
 
   useEffect(() => {
     if (discount) {
-      setDiscountedValue(total - (total * (discount.value / 100)));
+      setDiscountedValue(total - total * (discount.value / 100));
     } else {
       setDiscountedValue(total);
     }
@@ -69,23 +69,6 @@ export default function CartCard({
           <p className="text-gray-500">No items in cart</p>
         )}
       </div>
-      {activeStep == 3 && (
-        <>
-          <DiscountCode />
-          {!!discount.value && (
-            <>
-            <div className="mt-4 flex items-center justify-between">
-              <h2 className=" text-gray-800">Price</h2>
-              <p className="text-gray-600">{total} AED</p>
-            </div>
-            <div className="mt-4 flex items-center justify-between">
-              <h2 className=" text-gray-800">Discount ({discount.value}%)</h2>
-              <p className="text-green-600">{total * (discount.value / 100)} AED</p>
-            </div>
-            </>
-          )}
-        </>
-      )}
       <div className="mt-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-800">Total</h2>
         <p>
@@ -123,6 +106,26 @@ export function MobileCartCard({
   handleNext: () => void;
   selected: Selected[];
 }) {
+  const discount = useSelector(
+    (state: RootState) => state.checkoutSlice.checkoutData?.discount
+  );
+  const [total, setTotal] = useState<number>(0);
+  const [discountedValue, setDiscountedValue] = useState<number>(0);
+
+  useEffect(() => {
+    setTotal(
+      selected.reduce((acc, item) => acc + item.price * item.quantity, 0)
+    );
+  }, [selected, setTotal]);
+
+  useEffect(() => {
+    if (discount) {
+      setDiscountedValue(total - total * (discount.value / 100));
+    } else {
+      setDiscountedValue(total);
+    }
+  }, [discount, total]);
+
   return (
     <>
       <Drawer>
@@ -157,10 +160,7 @@ export function MobileCartCard({
             <div className="mt-4 flex items-center justify-between">
               <h2 className="text-lg font-semibold text-gray-800">Total</h2>
               <p>
-                {selected.reduce(
-                  (acc, item) => acc + item.price * item.quantity,
-                  0
-                )}
+                {discountedValue}
                 <span className="ml-1 text-gray-600">AED</span>
               </p>
             </div>
@@ -183,10 +183,7 @@ export function MobileCartCard({
         <h1 className="text-lg">
           Total:{" "}
           <span className="text-gray-700 text-[1rem] font-semibold">
-            {selected.reduce(
-              (acc, item) => acc + item.price * item.quantity,
-              0
-            )}{" "}
+            {discountedValue}
             AED
           </span>
         </h1>
@@ -196,9 +193,11 @@ export function MobileCartCard({
               Back
             </Button>
           )}
-          <Button disabled={!selected.length} onClick={handleNext}>
-            {activeStep < 3 ? "Continue" : "Place Order"}
-          </Button>
+          {activeStep < 3 && (
+            <Button disabled={!selected.length} onClick={handleNext}>
+              Continue
+            </Button>
+          )}
         </div>
       </div>
     </>

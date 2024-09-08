@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createClient } from "@/utils/supabase/client";
+import { useDispatch } from "react-redux";
+import { setProfessional } from "@/store/checkoutSlice";
 
 export interface TeamMember {
   id: string;
@@ -34,6 +36,7 @@ const SelectProfessional = ({
   setSelectedProfessional: (professional: TeamMember) => void;
   business_id: string;
 }) => {
+  const dispatch = useDispatch();
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [selected, setSelected] = useState<string | null>(
     selectedProfessional?.id || null
@@ -50,6 +53,12 @@ const SelectProfessional = ({
   const handleSelectProfessional = (professional: TeamMember) => {
     setSelectedProfessional(professional);
     setSelected(professional.id);
+    dispatch(
+      setProfessional({
+        id: professional.id,
+        name: `${professional.first_name} ${professional.last_name}`,
+      })
+    );
   };
 
   return (

@@ -69,17 +69,17 @@ export default function DiscountCode() {
   return (
     <div className="w-full flex border border-black rounded-lg">
       <input
-        className="w-full border border-black rounded-lg rounded-r-none px-2"
+        className="w-full rounded-lg rounded-r-none px-2"
         value={value}
         onChange={handleChange}
         placeholder="Enter discount code"
       />
       {discount?.value ? (
-        <Button onClick={handleReset} className="rounded-l-none">
+        <Button onClick={handleReset} className="rounded-l-none md:px-8">
           Reset
         </Button>
       ) : (
-        <Button onClick={handleSubmission} className="rounded-l-none">
+        <Button onClick={handleSubmission} className="rounded-l-none md:px-8">
           Apply
         </Button>
       )}

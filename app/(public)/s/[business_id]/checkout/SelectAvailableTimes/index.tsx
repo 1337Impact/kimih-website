@@ -15,7 +15,7 @@ const SelectTime = ({
 }) => {
   const [times, setTimes] = useState<string[]>([]);
 
-  const [selectedTime, setSelectedTime] = useState<string | null>(times[0]);
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   useEffect(() => {
@@ -30,7 +30,10 @@ const SelectTime = ({
 
   useEffect(() => {
     if (date) {
-      getAvailableHours(business_id, selectedTeamMember, date).then(setTimes);
+      getAvailableHours(business_id, selectedTeamMember, date).then((data) => {
+        setTimes(data);
+        setSelectedTime(data[0] || null);
+      });
     } else {
       setTimes([]);
     }

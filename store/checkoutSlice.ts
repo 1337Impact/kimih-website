@@ -6,6 +6,11 @@ interface CheckoutData {
     id: string;
     value: number;
   };
+  professional: {
+    id: string;
+    name: string;
+  } | null;
+  isMembershipOnly: boolean;
 }
 
 const initialState = {
@@ -15,7 +20,9 @@ const initialState = {
       id: "",
       value: 0,
     },
-  },
+    professional: null,
+    isMembershipOnly: false,
+  } as CheckoutData,
 };
 
 const checkoutDataSlice = createSlice({
@@ -29,11 +36,18 @@ const checkoutDataSlice = createSlice({
       state.checkoutData.discount = action.payload;
     },
     setBusinessId: (state, action) => {
-        state.checkoutData.business_id = action.payload;
+      state.checkoutData.business_id = action.payload;
+    },
+    setProfessional: (state, action) => {
+      state.checkoutData.professional = action.payload;
+    },
+    setIsMembershipOnly: (state, action) => {
+      state.checkoutData.isMembershipOnly = action.payload;
     }
   },
 });
 
-export const { setCheckoutData, setDiscount, setBusinessId } = checkoutDataSlice.actions;
+export const { setCheckoutData, setDiscount, setBusinessId, setProfessional, setIsMembershipOnly } =
+  checkoutDataSlice.actions;
 
 export default checkoutDataSlice.reducer;

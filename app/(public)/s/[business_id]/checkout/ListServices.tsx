@@ -1,10 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Selected, Service, Membership } from "../ServicesCard/types";
 import ServiceItem from "../ServicesCard/ServiceItem";
 import CartCard, { MobileCartCard } from "../ServicesCard/CartCard";
 import MembershipItem from "../ServicesCard/MembershipItem";
 import { createClient } from "@/utils/supabase/client";
+import { useDispatch } from "react-redux";
+import { setIsMembershipOnly } from "@/store/checkoutSlice";
 
 const getBusinessServices = async (business_id: string) => {
   const supabase = createClient();
@@ -45,6 +47,7 @@ export default function ServicesAndMembershipsCard({
 }) {
   const [services, setServices] = useState<Service[]>([]);
   const [memberships, setMemberships] = useState<Membership[]>([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const cart = localStorage.getItem(business_id);
@@ -56,6 +59,14 @@ export default function ServicesAndMembershipsCard({
     );
     getBusinessServices(business_id).then((data) => setServices(data || []));
   }, [business_id, setSelected, setMemberships, setServices]);
+
+  useEffect(() => {
+    if (selected.filter((service) => service.type === "service").length === 0) {
+      dispatch(setIsMembershipOnly(true));
+    } else {
+      dispatch(setIsMembershipOnly(false));
+    }
+  }, [selected]);
 
   return (
     <div className="w-full mt-6">

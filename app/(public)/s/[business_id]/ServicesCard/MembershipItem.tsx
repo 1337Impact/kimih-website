@@ -68,12 +68,13 @@ const MembershipItem = ({
         <p className="mt-1 text-gray-800">${membership.price}</p>
       </div>
       <div className="flex items-center gap-2">
-        <Button onClick={handleAdd} className="mt-2">
-          Add
-        </Button>
-        {isSelected && (
+        {isSelected ? (
           <Button variant={"outline"} onClick={handleRemove} className="mt-2">
             Remove
+          </Button>
+        ) : (
+          <Button onClick={handleAdd} className="mt-2">
+            Add
           </Button>
         )}
       </div>

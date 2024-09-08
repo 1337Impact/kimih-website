@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { setBusinessId } from "@/store/checkoutSlice";
 import { RootState } from "@/store";
+import Confirmation from "./Confirmation";
 
 export default function Page({ params }: { params: { business_id: string } }) {
   const steps = ["Services", "Professional", "Time", "Payment"];
@@ -25,7 +26,12 @@ export default function Page({ params }: { params: { business_id: string } }) {
     useState<TeamMember | null>(null);
   const [selectedTime, setSelectedTime] = useState<Date | null>(null);
   const [step, setStep] = useState(0);
-  const discount = useSelector((state: RootState) => state.checkoutSlice.checkoutData?.discount);
+  const discount = useSelector(
+    (state: RootState) => state.checkoutSlice.checkoutData?.discount
+  );
+  const isMembershipOnly = useSelector(
+    (state: RootState) => state.checkoutSlice.checkoutData?.isMembershipOnly
+  );
 
   useEffect(() => {
     const cart = localStorage.getItem(params.business_id);
@@ -41,7 +47,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
       services_memberships: selectedServices,
       team_member: selectedProfessional!,
       time: selectedTime!,
-      discount: discount
+      discount: discount,
     });
     if (res.error) {
       toast({
@@ -69,10 +75,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
           description: "You need to select a service to proceed",
         });
         return;
-      } else if (
-        selectedServices.filter((service) => service.type === "service")
-          .length === 0
-      ) {
+      } else if (isMembershipOnly) {
         setStep(3);
         return;
       }
@@ -120,37 +123,50 @@ export default function Page({ params }: { params: { business_id: string } }) {
     <main className="container overflow-hidden max-w-[1100px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-28">
       <Stepper steps={steps} activeStep={step} />
       <div className="w-full grid grid-cols-5 gap-20">
-        <div className="col-span-5 lg:col-span-3">
-          {step === 0 ? (
+        {step === 0 ? (
+          <div className="col-span-5 lg:col-span-3">
             <ServicesAndMembershipsCard
               selected={selectedServices}
               setSelected={setSelectedServices}
               business_id={params.business_id}
             />
-          ) : step === 1 ? (
+          </div>
+        ) : step === 1 ? (
+          <div className="col-span-5 lg:col-span-3">
             <SelectProfessional
               selectedProfessional={selectedProfessional}
               business_id={params.business_id}
               setSelectedProfessional={setSelectedProfessional}
             />
-          ) : step == 2 ? (
+          </div>
+        ) : step == 2 ? (
+          <div className="col-span-5 lg:col-span-3">
             <SelectTime
               business_id={params.business_id}
               selectedTeamMember={selectedProfessional?.id!}
               setCombinedDateTime={setSelectedTime}
             />
-          ) : (
-            <PaymentForm />
-          )}
-        </div>
-        <div className="max-lg:hidden col-span-2 mt-10">
-          <CartCard
-            activeStep={step}
-            handlePrevious={handlePrevious}
-            handleNext={handleNext}
-            selected={selectedServices}
-          />
-        </div>
+          </div>
+        ) : (
+          <div className="col-span-5 mt-4">
+            <Confirmation
+              business_id={params.business_id}
+              selected={selectedServices}
+              selectedTime={selectedTime}
+              handlePrevious={handlePrevious}
+            />
+          </div>
+        )}
+        {step !== 3 && (
+          <div className="max-lg:hidden col-span-2 mt-10">
+            <CartCard
+              activeStep={step}
+              handlePrevious={handlePrevious}
+              handleNext={handleNext}
+              selected={selectedServices}
+            />
+          </div>
+        )}
       </div>
       <div className="lg:hidden">
         <MobileCartCard
