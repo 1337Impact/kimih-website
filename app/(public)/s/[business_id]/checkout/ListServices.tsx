@@ -66,7 +66,7 @@ export default function ServicesAndMembershipsCard({
     } else {
       dispatch(setIsMembershipOnly(false));
     }
-  }, [selected]);
+  }, [selected, dispatch]);
 
   return (
     <div className="w-full mt-6">

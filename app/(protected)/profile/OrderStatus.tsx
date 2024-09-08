@@ -44,7 +44,7 @@ export default function OrderStatus() {
         }
       });
     }
-  }, [searchParams]);
+  }, [searchParams, toast]);
 
   return <div/>;
 }

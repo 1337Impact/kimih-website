@@ -11,6 +11,7 @@ import ACreateAppointment from "@/actions/appointment-actions/create-appointment
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/loading/loader";
+import Image from "next/image";
 
 const getBusinessData = async (business_id: string) => {
   const supabase = createClient();
@@ -109,7 +110,9 @@ export default function Confirmation({
   return (
     <div className="w-full mt-6 bg-white p-6 rounded-lg shadow-md max-w-[700px] mx-auto">
       <div className="flex items-center space-x-4">
-        <img
+        <Image
+          width={200}
+          height={200}
           src={businessData.images.length ? businessData.images[0] : ""}
           alt="Business"
           className="w-16 h-16 object-cover rounded-md"
