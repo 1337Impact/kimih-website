@@ -59,7 +59,7 @@ export default async function ACreateCharge(data: ChargeRequest) {
           url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook`,
         },
         redirect: {
-          url: "http://localhost:3000/profile",
+          url: `${process.env.NEXT_PUBLIC_URL}/profile`,
         },
       },
       {

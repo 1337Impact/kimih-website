@@ -44,8 +44,8 @@ async function handlePayment({
 
   const res = await ACreateCharge({
     amount: discountedValue,
-    currency: "KWD",
-    description: "Test Description",
+    currency: "AED",
+    description: "Payment for services and memberships",
     reference: {
       transaction: "txn_01",
       order: "ord_01",
