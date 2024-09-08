@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import ProfileCard from "./ProfileCard";
 import ListAppointments, { Appointment } from "./ListAppointments";
 import ListMemberships, { Membership } from "./ListMemberships";
+import OrderStatus from "./OrderStatus";
 
 const getUserData = async () => {
   const supabase = createClient();
@@ -76,6 +77,7 @@ export default async function Page() {
 
   return (
     <div>
+      <OrderStatus />
       <div className="grid grid-cols-7 gap-6">
         <div className="col-span-7 lg:col-span-3">
           <ProfileCard userData={userData} />
