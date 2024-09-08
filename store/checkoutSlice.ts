@@ -8,7 +8,11 @@ interface CheckoutData {
   };
   professional: {
     id: string;
-    name: string;
+    first_name: string;
+    last_name: string;
+    email: string | null;
+    job_title: string | null | undefined;
+    avatar_url: string | null | undefined;
   } | null;
   isMembershipOnly: boolean;
 }

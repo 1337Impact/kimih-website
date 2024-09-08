@@ -7,6 +7,10 @@ import { RootState } from "@/store";
 import { Button } from "@/components/ui/button";
 import DiscountCode from "./DiscountCode";
 import ShowDate from "./ShowDate";
+import ACreateAppointment from "@/actions/appointment-actions/create-appointment";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
+import Loader from "@/components/loading/loader";
 
 const getBusinessData = async (business_id: string) => {
   const supabase = createClient();
@@ -33,6 +37,9 @@ export default function Confirmation({
   selectedTime: Date | null;
   handlePrevious: () => void;
 }) {
+  const { toast } = useToast();
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
   const totalDuration = selected.reduce((sum, item) => {
     return sum + (item.duration || 0);
   }, 0);
@@ -69,8 +76,34 @@ export default function Confirmation({
     }
   }, [discount, total]);
 
-  if (!businessData) {
-    return <div>Loading...</div>;
+  const handleSubmit = async () => {
+    setLoading(true);
+    const res = await ACreateAppointment({
+      business_id: business_id,
+      services_memberships: selected,
+      team_member: checkoutData.professional!,
+      time: selectedTime!,
+      discount: discount,
+    });
+    if (res.error) {
+      toast({
+        variant: "destructive",
+        title: "Could not place order",
+        description: "There was an error placing your order, please try again",
+      });
+      setLoading(false);
+    } else {
+      localStorage.removeItem(business_id);
+      router.push(res.data?.redirection_url);
+    }
+  };
+
+  if (!businessData || loading) {
+    return (
+      <div className="flex items-center justify-center w-full h-[400px]">
+        <Loader loading={loading} />
+      </div>
+    );
   }
 
   return (
@@ -98,11 +131,12 @@ export default function Confirmation({
               {!isMembershipOnly && (
                 <p className="text-sm text-gray-500">
                   {Math.floor(item.duration! / 60)} hr, {item.duration! % 60}{" "}
-                  min with {checkoutData.professional?.name}
+                  min with {checkoutData.professional?.first_name}{" "}
+                  {checkoutData.professional?.last_name}
                 </p>
               )}
             </div>
-            <p className="font-semibold">{item.price * item.quantity} AED</p>
+            <p className="">{item.price.toFixed(2)} AED</p>
           </div>
         ))}
       </div>
@@ -112,7 +146,7 @@ export default function Confirmation({
           <>
             <div className="mt-4 flex items-center justify-between">
               <h2 className=" text-gray-800">Price</h2>
-              <p className="text-gray-600">{total} AED</p>
+              <p className="text-gray-600">{total.toFixed(2)} AED</p>
             </div>
             <div className="mt-4 flex items-center justify-between">
               <h2 className=" text-gray-800">Discount ({discount.value}%)</h2>
@@ -134,7 +168,10 @@ export default function Confirmation({
         <Button onClick={handlePrevious} className="w-1/3" variant={"outline"}>
           back
         </Button>
-        <Button className="w-2/3 bg-green-500 hover:bg-green-700 text-white py-2 rounded-lg">
+        <Button
+          onClick={handleSubmit}
+          className="w-2/3 bg-green-500 hover:bg-green-700 text-white py-2 rounded-lg"
+        >
           Pay now
         </Button>
       </div>

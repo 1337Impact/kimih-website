@@ -333,26 +333,32 @@ export type Database = {
         Row: {
           amount: number
           business_id: string | null
+          charge_id: string | null
           client_id: string | null
           created_at: string
           discount_id: string | null
           id: string
+          status: string
         }
         Insert: {
           amount: number
           business_id?: string | null
+          charge_id?: string | null
           client_id?: string | null
           created_at?: string
           discount_id?: string | null
           id?: string
+          status?: string
         }
         Update: {
           amount?: number
           business_id?: string | null
+          charge_id?: string | null
           client_id?: string | null
           created_at?: string
           discount_id?: string | null
           id?: string
+          status?: string
         }
         Relationships: [
           {
