@@ -7,20 +7,20 @@ export default function SalonCard({
   title,
   address,
   url,
-  reviews,
+  rating,
 }: {
   image: string;
   title: string;
   address: string;
   url: string;
-  reviews: {
-    number: number;
-    stars: number;
+  rating: {
+    count: number;
+    average: number;
   };
 }) {
   return (
     <Link href={url}>
-      <div className="bg-white shadow-md rounded-xl hover-scale">
+      <div className="relative h-[320px] bg-white shadow-md rounded-xl hover-scale">
         <Image
           src={image}
           alt={title}
@@ -31,12 +31,12 @@ export default function SalonCard({
         <div className="p-2">
           <h3 className="font-semibold">{title}</h3>
           <p className="text-sm mt-1 text-gray-500">{address}</p>
-          <div className="flex items-center gap-2 mt-2">
+          <div className="absolute bottom-3 flex items-center gap-2 mt-2">
             <span className="flex items-center gap-1 text-sm text-yellow-500">
               <Star size={16} />
-              {reviews.stars}
+              {rating.average}
             </span>
-            <span className="text-sm text-gray-500">({reviews.number})</span>
+            <span className="text-sm text-gray-500">({rating.count})</span>
           </div>
         </div>
       </div>

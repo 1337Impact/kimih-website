@@ -68,7 +68,7 @@ const getNewBusinessData = async () => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("business")
-    .select("id, name, address, images")
+    .select("id, name, address, images, reviews(rating)")
     .eq("published", true)
     .order("created_at", { ascending: false })
     .limit(10);
@@ -81,9 +81,14 @@ const getNewBusinessData = async () => {
     address: business.address || "No address provided",
     image: business?.images?.pop()!,
     url: `/s/${business.id}`,
-    reviews: {
-      number: 22,
-      stars: 4.5,
+    rating: {
+      count: business.reviews.length || 0,
+      average: business.reviews.length
+        ? business.reviews?.reduce(
+            (acc: number, curr: { rating: number }) => acc + curr.rating,
+            0
+          ) / business.reviews.length 
+        : 0,
     },
   }));
 };
@@ -92,9 +97,9 @@ const getRecommendedBusinessData = async () => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("business")
-    .select("id, name, address, images")
+    .select("id, name, address, images, reviews(rating)")
+    // .order("reviews(rating)", { ascending: false })
     .eq("published", true)
-    .order("created_at", { ascending: false })
     .limit(10);
   if (error) {
     console.error(error);
@@ -105,9 +110,14 @@ const getRecommendedBusinessData = async () => {
     address: business.address || "No address provided",
     image: business?.images?.pop()!,
     url: `/s/${business.id}`,
-    reviews: {
-      number: 22,
-      stars: 4.5,
+    rating: {
+      count: business.reviews.length || 0,
+      average: business.reviews.length
+        ? business.reviews?.reduce(
+            (acc: number, curr: { rating: number }) => acc + curr.rating,
+            0
+          ) / business.reviews.length 
+        : 0,
     },
   }));
 };
