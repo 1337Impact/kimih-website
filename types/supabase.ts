@@ -92,38 +92,47 @@ export type Database = {
       }
       business: {
         Row: {
-          address: string | null
+          address: string
           cordinates: number[] | null
           created_at: string
+          currency: string
           id: string
           images: string[] | null
           name: string
           owner_id: string
           published: boolean
+          status: string
+          tap_destination_id: string | null
           website: string | null
           working_hours: Json
         }
         Insert: {
-          address?: string | null
+          address: string
           cordinates?: number[] | null
           created_at?: string
+          currency?: string
           id?: string
           images?: string[] | null
           name: string
           owner_id?: string
           published?: boolean
+          status?: string
+          tap_destination_id?: string | null
           website?: string | null
           working_hours?: Json
         }
         Update: {
-          address?: string | null
+          address?: string
           cordinates?: number[] | null
           created_at?: string
+          currency?: string
           id?: string
           images?: string[] | null
           name?: string
           owner_id?: string
           published?: boolean
+          status?: string
+          tap_destination_id?: string | null
           website?: string | null
           working_hours?: Json
         }

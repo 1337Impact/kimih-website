@@ -33,7 +33,7 @@ export default function Page() {
         <ul className="list-disc list-inside text-gray-700 space-y-2">
           <li>
             <strong>Transaction Fees:</strong> Kimih charges a transaction fee
-            of 2.5% on each successful booking processed through our platform.
+            of 5% on each successful booking processed through our platform.
           </li>
           <li>
             <strong>Additional Costs:</strong> Partners are responsible for any

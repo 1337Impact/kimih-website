@@ -18,7 +18,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name)"
+      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name, currency)"
     )
     .order("created_at", { ascending: false });
   if (error || !data) return [] as Appointment[];
@@ -34,6 +34,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
       team_member_color: appointment.team_members?.color,
       business_id: appointment.business?.id,
       business_name: appointment.business?.name,
+      currency: appointment.business?.currency || "",
     };
   });
 };

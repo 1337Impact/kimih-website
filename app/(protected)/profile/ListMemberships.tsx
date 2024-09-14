@@ -12,6 +12,7 @@ export type Membership = {
   payment_amount: number | null | undefined;
   business_id: string | null | undefined;
   business_name: string | null | undefined;
+  currency: string;
 };
 
 export default function ListMemberships({
@@ -40,7 +41,7 @@ export default function ListMemberships({
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-sm text-gray-700">
-                  Price: ${membership.membership_price}
+                  Price: {membership.membership_price} {membership.currency}
                 </span>
               </div>
               <div className="flex gap-1 justify-start text-sm text-gray-600 ">

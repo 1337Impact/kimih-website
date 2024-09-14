@@ -18,6 +18,7 @@ export type Appointment = {
   team_member_color: string | null | undefined;
   business_id: string | null | undefined;
   business_name: string | null | undefined;
+  currency: string;
 };
 
 const getAppointmentStatus = (appointment: Appointment) => {
@@ -71,7 +72,7 @@ const AppointmentCard = ({ appointment }: { appointment: Appointment }) => {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-sm text-gray-700">
-            Price: ${appointment.service_price}
+            Price: {appointment.service_price} {appointment.currency}
           </span>
           <span
             className="px-2 py-1 text-xs rounded-md text-white"

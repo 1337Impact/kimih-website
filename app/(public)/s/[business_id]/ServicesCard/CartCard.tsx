@@ -13,6 +13,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
+import Currency from "@/components/Currency";
 
 export function MobileCartCard({
   business_id,
@@ -47,7 +48,7 @@ export function MobileCartCard({
                   </h2>
                   <p>
                     {item.price * item.quantity}
-                    <span className="ml-1 text-gray-600">AED</span>
+                    <span className="ml-1 text-gray-600"><Currency /></span>
                   </p>
                 </div>
               ))
@@ -62,7 +63,7 @@ export function MobileCartCard({
                 (acc, item) => acc + item.price * item.quantity,
                 0
               )}
-              <span className="ml-1 text-gray-600">AED</span>
+              <span className="ml-1 text-gray-600"><Currency /></span>
             </p>
           </div>
         </div>
@@ -107,7 +108,7 @@ export default function CartCard({
               </h2>
               <p>
                 {item.price * item.quantity}
-                <span className="ml-1 text-gray-600">AED</span>
+                <span className="ml-1 text-gray-600"><Currency /></span>
               </p>
             </div>
           ))
@@ -119,7 +120,7 @@ export default function CartCard({
         <h2 className="text-lg font-semibold text-gray-800">Total</h2>
         <p>
           {selected.reduce((acc, item) => acc + item.price * item.quantity, 0)}
-          <span className="ml-1 text-gray-600">AED</span>
+          <span className="ml-1 text-gray-600"><Currency /></span>
         </p>
       </div>
       <Button

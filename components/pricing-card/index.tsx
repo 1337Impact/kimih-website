@@ -14,7 +14,7 @@ export default function PricingCard() {
         </li>
         <li className="flex items-center">
           <FaCheck className="h-4 w-4 text-gray-700 mr-2" />
-          Only 2.5% on each successful booking
+          Only 5% on each successful booking
         </li>
         <li className="flex items-center">
           <FaCheck className="h-4 w-4 text-gray-700 mr-2" />

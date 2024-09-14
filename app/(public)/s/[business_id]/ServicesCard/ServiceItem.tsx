@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Selected, Service } from "./types";
+import Currency from "@/components/Currency";
 
 const ServiceItem = ({
   business_id,
@@ -62,7 +63,7 @@ const ServiceItem = ({
       <div className="">
         <h2 className="text-lg text-gray-800">{service.service_name}</h2>
         <p className="text-sm text-gray-500">{service.duration} min</p>
-        <p className="mt-1 text-gray-800">${service.price}</p>
+        <p className="mt-1 text-gray-800">{service.price} <Currency /></p>
       </div>
       <div className="flex items-center gap-2">
         {isSelected ? (

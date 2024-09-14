@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Selected, Membership } from "./types";
+import Currency from "@/components/Currency";
 
 const MembershipItem = ({
   business_id,
@@ -65,7 +66,7 @@ const MembershipItem = ({
         <p className="text-sm text-gray-500">
           {membership.valid_for_days} days
         </p>
-        <p className="mt-1 text-gray-800">${membership.price}</p>
+        <p className="mt-1 text-gray-800">{membership.price} <Currency /></p>
       </div>
       <div className="flex items-center gap-2">
         {isSelected ? (

@@ -6,6 +6,9 @@ import { useRouter } from "next/navigation";
 import ServiceItem from "./ServiceItem";
 import CartCard, { MobileCartCard } from "./CartCard";
 import MembershipItem from "./MembershipItem";
+import { getBusinessCurrency } from "../checkout/utils";
+import { setCurrency } from "@/store/checkoutSlice";
+import { useDispatch } from "react-redux";
 
 export default function ServicesAndMembershipsCard({
   business_id,
@@ -17,6 +20,7 @@ export default function ServicesAndMembershipsCard({
   memberships: Membership[];
 }) {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [selected, setSelected] = useState<Selected[]>([]);
 
   useEffect(() => {
@@ -25,6 +29,12 @@ export default function ServicesAndMembershipsCard({
       setSelected(JSON.parse(cart));
     }
   }, [business_id]);
+
+  useEffect(() => {
+    getBusinessCurrency(business_id).then((data: string) => {
+      dispatch(setCurrency(data));
+    });
+  }, [business_id, dispatch]);
 
   return (
     <div className="w-full mt-6">

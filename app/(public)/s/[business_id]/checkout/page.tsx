@@ -11,9 +11,10 @@ import Stepper from "@/components/stepper/stepper";
 import ACreateAppointment from "@/actions/appointment-actions/create-appointment";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import { setBusinessId } from "@/store/checkoutSlice";
+import { setBusinessId, setCurrency } from "@/store/checkoutSlice";
 import { RootState } from "@/store";
 import Confirmation from "./Confirmation";
+import { getBusinessCurrency } from "./utils";
 
 export default function Page({ params }: { params: { business_id: string } }) {
   const steps = ["Services", "Professional", "Time", "Payment"];
@@ -40,6 +41,12 @@ export default function Page({ params }: { params: { business_id: string } }) {
     }
     dispatch(setBusinessId(params.business_id));
   }, [params.business_id, discount, dispatch]);
+
+  useEffect(() => {
+    getBusinessCurrency(params.business_id).then((data: string) => {
+      dispatch(setCurrency(data));
+    });
+  }, [params.business_id, dispatch]);
 
   const handleCreateAppointment = async () => {
     const res = await ACreateAppointment({

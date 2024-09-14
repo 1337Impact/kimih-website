@@ -16,6 +16,7 @@ import DiscountCode from "./Confirmation/DiscountCode";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useEffect, useState } from "react";
+import Currency from "@/components/Currency";
 
 export default function CartCard({
   activeStep,
@@ -31,6 +32,10 @@ export default function CartCard({
   const discount = useSelector(
     (state: RootState) => state.checkoutSlice.checkoutData?.discount
   );
+  const currency = useSelector(
+    (state: RootState) => state.checkoutSlice.checkoutData?.currency
+  );
+
   const [total, setTotal] = useState<number>(0);
   const [discountedValue, setDiscountedValue] = useState<number>(0);
 
@@ -61,7 +66,7 @@ export default function CartCard({
               <h2 className="font-semibold text-gray-800">{item.name}</h2>
               <p>
                 {item.price * item.quantity}
-                <span className="ml-1 text-gray-600">AED</span>
+                <span className="ml-1 text-gray-600">{currency}</span>
               </p>
             </div>
           ))
@@ -73,7 +78,7 @@ export default function CartCard({
         <h2 className="text-lg font-semibold text-gray-800">Total</h2>
         <p>
           {discountedValue.toFixed(2)}
-          <span className="ml-1 text-gray-600">AED</span>
+          <span className="ml-1 text-gray-600">{currency}</span>
         </p>
       </div>
 
@@ -108,6 +113,9 @@ export function MobileCartCard({
 }) {
   const discount = useSelector(
     (state: RootState) => state.checkoutSlice.checkoutData?.discount
+  );
+  const currency = useSelector(
+    (state: RootState) => state.checkoutSlice.checkoutData?.currency
   );
   const [total, setTotal] = useState<number>(0);
   const [discountedValue, setDiscountedValue] = useState<number>(0);
@@ -149,7 +157,7 @@ export function MobileCartCard({
                     <h2 className="font-semibold text-gray-800">{item.name}</h2>
                     <p>
                       {item.price * item.quantity}
-                      <span className="ml-1 text-gray-600">AED</span>
+                      <span className="ml-1 text-gray-600">{currency}</span>
                     </p>
                   </div>
                 ))
@@ -161,7 +169,7 @@ export function MobileCartCard({
               <h2 className="text-lg font-semibold text-gray-800">Total</h2>
               <p>
                 {discountedValue}
-                <span className="ml-1 text-gray-600">AED</span>
+                <span className="ml-1 text-gray-600">{currency}</span>
               </p>
             </div>
           </div>
@@ -183,8 +191,8 @@ export function MobileCartCard({
         <h1 className="text-lg">
           Total:{" "}
           <span className="text-gray-700 text-[1rem] font-semibold">
-            {discountedValue}
-            AED
+            {discountedValue}{" "}
+            <Currency />
           </span>
         </h1>
         <div className="flex gap-2">

@@ -12,6 +12,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/loading/loader";
 import Image from "next/image";
+import Currency from "@/components/Currency";
 
 const getBusinessData = async (business_id: string) => {
   const supabase = createClient();
@@ -139,7 +140,7 @@ export default function Confirmation({
                 </p>
               )}
             </div>
-            <p className="">{item.price.toFixed(2)} AED</p>
+            <p className="">{item.price.toFixed(2)} <Currency /></p>
           </div>
         ))}
       </div>
@@ -149,12 +150,12 @@ export default function Confirmation({
           <>
             <div className="mt-4 flex items-center justify-between">
               <h2 className=" text-gray-800">Price</h2>
-              <p className="text-gray-600">{total.toFixed(2)} AED</p>
+              <p className="text-gray-600">{total.toFixed(2)} <Currency /></p>
             </div>
             <div className="mt-4 flex items-center justify-between">
               <h2 className=" text-gray-800">Discount ({discount.value}%)</h2>
               <p className="text-green-600">
-                {(total * (discount.value / 100)).toFixed(2)} AED
+                {(total * (discount.value / 100)).toFixed(2)} <Currency />
               </p>
             </div>
           </>
@@ -164,7 +165,7 @@ export default function Confirmation({
         <h2 className="text-lg font-semibold text-gray-800">Total</h2>
         <p>
           {discountedValue.toFixed(2)}
-          <span className="ml-1 text-gray-600">AED</span>
+          <span className="ml-1 text-gray-600"><Currency /></span>
         </p>
       </div>
       <div className="flex items-center gap-6 mt-4">

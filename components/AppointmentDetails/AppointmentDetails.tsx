@@ -18,6 +18,7 @@ import BusinessMap from "./Map";
 import { FaMapMarked, FaPhone } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import AppointmentReview from "./AppointmentReview";
+import Currency from "../Currency";
 
 type Appointment = {
   id: string;
@@ -46,6 +47,8 @@ type Appointment = {
     name: string;
     address: string | null | undefined;
     cordinates: number[] | null | undefined;
+    owner_id: string;
+    currency: string | null | undefined;
   } | null;
   reviews: {
     id: string;
@@ -64,7 +67,7 @@ const getAppointmentsData = async (
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, price_paid, created_at, payments(amount, service_discounts(discount_value)), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id), reviews(id, rating, comment, created_at)"
+      "id, ref, scheduled_date, price_paid, created_at, payments(amount, service_discounts(discount_value)), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id, currency), reviews(id, rating, comment, created_at)"
     )
     .eq("id", appointment_id)
     .single();
@@ -192,7 +195,7 @@ export default function AppointmentDetails({
                 {data?.services?.service_name}
               </h4>
               <h4 className="ml-2 text-gray-700">
-                {data?.services?.price || "N/A"}AED
+                {data?.services?.price || "N/A"} {data?.business?.currency}
               </h4>
             </div>
           </div>
@@ -225,7 +228,9 @@ export default function AppointmentDetails({
           <div className="border border-stroke rounded-lg p-2">
             <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
               <h1>Service price:</h1>
-              <h2>{data?.services?.price || "N/A"}AED</h2>
+              <h2>
+                {data?.services?.price || "N/A"} {data?.business?.currency}
+              </h2>
             </div>
             <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
               <h1>Discount:</h1>
@@ -235,12 +240,14 @@ export default function AppointmentDetails({
                       data?.payments?.service_discounts?.discount_value) /
                     100
                   : 0}
-                AED
+                {data?.business?.currency}
               </h2>
             </div>
             <div className="flex items-center justify-between pt-3">
               <h1>Total payment:</h1>
-              <h2>{data?.price_paid || "N/A"}AED</h2>
+              <h2>
+                {data?.price_paid || "N/A"} {data?.business?.currency}
+              </h2>
             </div>
           </div>
         </div>

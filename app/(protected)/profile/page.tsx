@@ -21,7 +21,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name)"
+      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name, currency)"
     )
     .order("created_at", { ascending: false })
     .limit(5);
@@ -38,6 +38,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
       team_member_color: appointment.team_members?.color,
       business_id: appointment.business?.id,
       business_name: appointment.business?.name,
+      currency: appointment.business?.currency || ""
     };
   });
 };
@@ -47,7 +48,7 @@ const getMembershipsData = async (): Promise<Membership[]> => {
   const { data, error } = await supabase
     .from("memberships")
     .select(
-      "id, ref, created_at, memberships_catalog(membership_name, price, valid_for_days), payments(amount), business(id, name)"
+      "id, ref, created_at, memberships_catalog(membership_name, price, valid_for_days), payments(amount), business(id, name, currency)"
     )
     .order("created_at", { ascending: false })
     .limit(5);
@@ -63,6 +64,7 @@ const getMembershipsData = async (): Promise<Membership[]> => {
       payment_amount: appointment.payments?.amount,
       business_id: appointment.business?.id,
       business_name: appointment.business?.name,
+      currency: appointment.business?.currency || ""
     };
   });
 };

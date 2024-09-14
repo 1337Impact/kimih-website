@@ -18,7 +18,7 @@ const getMembershipsData = async (): Promise<Membership[]> => {
   const { data, error } = await supabase
     .from("memberships")
     .select(
-      "id, ref, created_at, memberships_catalog(membership_name, price, valid_for_days), payments(amount), business(id, name)"
+      "id, ref, created_at, memberships_catalog(membership_name, price, valid_for_days), payments(amount), business(id, name, currency)"
     )
     .order("created_at", { ascending: false });
   if (error || !data) return [] as Membership[];
@@ -33,6 +33,7 @@ const getMembershipsData = async (): Promise<Membership[]> => {
       payment_amount: appointment.payments?.amount,
       business_id: appointment.business?.id,
       business_name: appointment.business?.name,
+      currency: appointment.business?.currency || "",
     };
   });
 };

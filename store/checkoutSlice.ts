@@ -15,6 +15,7 @@ interface CheckoutData {
     avatar_url: string | null | undefined;
   } | null;
   isMembershipOnly: boolean;
+  currency: string;
 }
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
     },
     professional: null,
     isMembershipOnly: false,
+    currency: "",
   } as CheckoutData,
 };
 
@@ -47,11 +49,14 @@ const checkoutDataSlice = createSlice({
     },
     setIsMembershipOnly: (state, action) => {
       state.checkoutData.isMembershipOnly = action.payload;
-    }
+    },
+    setCurrency: (state, action) => {
+      state.checkoutData.currency = action.payload;
+    },
   },
 });
 
-export const { setCheckoutData, setDiscount, setBusinessId, setProfessional, setIsMembershipOnly } =
+export const { setCheckoutData, setDiscount, setBusinessId, setProfessional, setIsMembershipOnly, setCurrency } =
   checkoutDataSlice.actions;
 
 export default checkoutDataSlice.reducer;
