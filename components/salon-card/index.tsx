@@ -29,7 +29,7 @@ export default function SalonCard({
           className="w-full aspect-[3/2] object-cover rounded-t-lg"
         />
         <div className="p-2">
-          <h3 className="font-semibold">{title}</h3>
+          <h3 className="font-semibold notranslate">{title}</h3>
           <p className="text-sm mt-1 text-gray-500">{address}</p>
           <div className="absolute bottom-3 flex items-center gap-2 mt-2">
             <span className="flex items-center gap-1 text-sm text-yellow-500">

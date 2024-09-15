@@ -21,6 +21,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/navbar/language-switcher.jsx", "components/protected/user-dropdown/language-switcher.jsx"],
   "exclude": ["node_modules"]
 }

@@ -24,7 +24,7 @@ export default function Footer() {
               alt="logo"
               className="h-9 w-9"
             />
-            <h1 className="text-3xl font-bold text-white">Kimih</h1>
+            <h1 className="notranslate text-3xl font-bold text-white">Kimih</h1>
           </Link>
           <div className="social-icons flex gap-10 mt-8 p-2">
             <Link
@@ -81,7 +81,7 @@ export default function Footer() {
             <FaPhone className="text-white mr-2" />
             +1 (555) 123-4567
           </p> */}
-          <p className="flex items-center mb-4">
+          <p className="flex items-center mb-4 notranslate">
             <FaEnvelope className="text-white mr-2" />
             Info@kimih.com
           </p>

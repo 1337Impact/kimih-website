@@ -143,10 +143,6 @@ export default function AppointmentDetails({
   }, [setData, data]);
 
   useEffect(() => {
-    console.log("data updated: ", data);
-  }, [data]);
-
-  useEffect(() => {
     if (!window) return;
     setSize(window.innerWidth);
     window.addEventListener("resize", () => setSize(window.innerWidth));
@@ -208,7 +204,7 @@ export default function AppointmentDetails({
               <h4 className="flex gap-2 items-center ml-2 font-normal text-gray-700">
                 <FaPhone /> +{data?.business_phone || "N/A"}
               </h4>
-              <h4 className="flex gap-2 items-center ml-2 font-normal text-gray-700">
+              <h4 className="flex gap-2 items-center ml-2 font-normal text-gray-700 notranslate">
                 <MdEmail /> {data?.business_email || "N/A"}
               </h4>
             </div>

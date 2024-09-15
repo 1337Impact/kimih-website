@@ -38,7 +38,7 @@ export default function ProfileCard({ userData }: { userData: UserData }) {
           </div>
           <div className="w-full border border-stroke rounded-xl bg-gray-100 px-5 py-2 md:py-3">
             <h2 className="text-xs md:text-sm text-gray-500">Email address</h2>
-            <p className="max-md:text-sm text-gray-700 tracking-wide">{userData.email}</p>
+            <p className="max-md:text-sm text-gray-700 tracking-wide notranslate">{userData.email}</p>
           </div>
           <div className="w-full border border-stroke rounded-xl bg-gray-100 px-5 py-2 md:py-3">
             <h2 className="text-xs md:text-sm text-gray-500">Phone number</h2>

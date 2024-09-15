@@ -15,6 +15,7 @@ import { UserData } from "@/lib/getUserData";
 import Link from "next/link";
 import { MdCardMembership } from "react-icons/md";
 import { FiUser } from "react-icons/fi";
+import LanguageSwitcher from "./language-switcher";
 
 export default function UserDropdownMenu({ userData }: { userData: UserData }) {
   const router = useRouter();
@@ -66,6 +67,9 @@ export default function UserDropdownMenu({ userData }: { userData: UserData }) {
               <Settings className="mr-2 h-6 w-4" />
               <span>Settings</span>
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
+            <LanguageSwitcher />
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />

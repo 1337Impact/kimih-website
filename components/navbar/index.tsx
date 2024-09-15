@@ -7,6 +7,7 @@ import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { getUserData, UserData } from "@/lib/getUserData";
 import UserDropdownMenu from "../protected/user-dropdown/user-dropdown";
+import LanguageSwitcher from "./language-switcher";
 
 const links = [
   {
@@ -20,7 +21,7 @@ const links = [
     id: "support",
   },
   {
-    name: "About",
+    name: "About us",
     href: "/about",
     id: "about",
   },
@@ -58,7 +59,7 @@ export default function Navbar() {
             src="/logo.svg"
             className="h-9 w-9"
           />
-          <h1 className="text-xl font-bold text-black">Kimih</h1>
+          <h1 className="notranslate text-xl font-bold text-black">Kimih</h1>
         </Link>
         <nav
           className={`${
@@ -111,6 +112,7 @@ export default function Navbar() {
               </Link>
             </>
           )}
+         <LanguageSwitcher />
         </nav>
         <button
           name="menu"
