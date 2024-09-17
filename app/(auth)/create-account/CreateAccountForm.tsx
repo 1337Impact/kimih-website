@@ -66,7 +66,7 @@ export default function CreateAccountForm() {
       setError((prev) => ({ ...prev, ["post_error"]: error }));
       return;
     }
-    router.push("/complete-profile");
+    router.push("/profile");
   }
 
   if (isOAuth) {
