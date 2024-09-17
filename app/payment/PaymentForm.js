@@ -1,7 +1,12 @@
 "use client";
 import { useEffect } from "react";
 
-const PaymentStep = ({ onSuccess }: { onSuccess: (data: any) => void }) => {
+const PaymentForm = () => {
+  const callbackFunc = (response) => {
+    console.log("Response:", response);
+    const msg = document.getElementById("msg");
+  };
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!window.CardSDK) return;
@@ -60,22 +65,21 @@ const PaymentStep = ({ onSuccess }: { onSuccess: (data: any) => void }) => {
       // onValidInput: (data) => console.log("onValidInputChange", data),
       // onInvalidInput: (data) => console.log("onInvalidInput", data),
       // onError: (data) => console.log("onError", data),
-      onSuccess: onSuccess,
+      onSuccess: (data) => console.log("onSuccess", data),
     });
-  }, [onSuccess]);
+  }, []);
+
+  const handleSubmit = () => {
+    const res = window.CardSDK.tokenize();
+  };
 
   return (
-    <div className="max-w-md mx-auto p-2 mt-10">
-      <h2 className="text-xl font-semibold mb-6 text-gray-800">
-        Payment Informations
-      </h2>
-      <div className="mb-4">
-        <div>
-          <div id="card-sdk-id" />
-        </div>
-      </div>
+    <div>
+      <div id="card-sdk-id"></div>
+      <p id="msg"></p>
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 };
 
-export default PaymentStep;
+export default PaymentForm;

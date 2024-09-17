@@ -1,4 +1,4 @@
-export default function Loader({ loading }: { loading: boolean }) {
+export default function Loader({ content }: { content?: string }) {
   return (
     <div className="flex flex-col justify-center w-full items-center">
       <svg
@@ -17,7 +17,7 @@ export default function Loader({ loading }: { loading: boolean }) {
           fill="currentFill"
         />
       </svg>
-      <h1 className="text-xl text-center text-gray-700 font-semibold mt-4">redirecting...</h1>
+      <h1 className="text-xl text-center text-gray-700 font-semibold mt-4">{content || "redirecting..."}</h1>
     </div>
   );
 }

@@ -9,16 +9,14 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
-import { useRouter } from "next/navigation";
 import { Selected } from "../ServicesCard/types";
 import { Button } from "@/components/ui/button";
-import DiscountCode from "./Confirmation/DiscountCode";
+import DiscountCode from "./DiscountCode";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { useEffect, useState } from "react";
-import Currency from "@/components/Currency";
 
-export default function CartCard({
+function CartContent({
   activeStep,
   handlePrevious,
   handleNext,
@@ -32,12 +30,9 @@ export default function CartCard({
   const discount = useSelector(
     (state: RootState) => state.checkoutSlice.checkoutData?.discount
   );
-  const currency = useSelector(
-    (state: RootState) => state.checkoutSlice.checkoutData?.currency
-  );
-
   const [total, setTotal] = useState<number>(0);
   const [discountedValue, setDiscountedValue] = useState<number>(0);
+  const [serviceFee, setServiceFee] = useState<number>(0);
 
   useEffect(() => {
     setTotal(
@@ -53,9 +48,12 @@ export default function CartCard({
     }
   }, [discount, total]);
 
+  useEffect(() => {
+    setServiceFee(discountedValue * 0.03);
+  }, [discountedValue]);
+
   return (
-    <div className="w-full flex flex-col border border-stroke rounded-lg p-4 h-[calc(100vh-250px)]">
-      <h1 className="text-2xl font-semibold text-gray-800">Cart</h1>
+    <>
       <div className="mt-4 flex-1">
         {selected.length ? (
           selected.map((item) => (
@@ -66,7 +64,7 @@ export default function CartCard({
               <h2 className="font-semibold text-gray-800">{item.name}</h2>
               <p>
                 {item.price * item.quantity}
-                <span className="ml-1 text-gray-600">{currency}</span>
+                <span className="ml-1 text-gray-600">AED</span>
               </p>
             </div>
           ))
@@ -74,11 +72,38 @@ export default function CartCard({
           <p className="text-gray-500">No items in cart</p>
         )}
       </div>
+      {activeStep == 3 && (
+        <>
+          <DiscountCode />
+          {!!discount.value && (
+            <>
+              <div className="mt-4 flex items-center justify-between">
+                <h2 className=" text-gray-800">Price</h2>
+                <p className="text-gray-600">{total} AED</p>
+              </div>
+              <div className="mt-4 flex items-center justify-between">
+                <h2 className=" text-gray-800">Discount ({discount.value}%)</h2>
+                <p className="text-green-600">
+                  {total * (discount.value / 100)} AED
+                </p>
+              </div>
+            </>
+          )}
+          <div className="mt-4 flex items-center justify-between">
+            <h2 className="text-gray-800">Service fee (3%)</h2>
+            <p>
+              {serviceFee.toFixed(2)}
+              <span className="ml-1 text-gray-600">AED</span>
+            </p>
+          </div>
+        </>
+      )}
+
       <div className="mt-4 flex items-center justify-between">
         <h2 className="text-lg font-semibold text-gray-800">Total</h2>
         <p>
-          {discountedValue.toFixed(2)}
-          <span className="ml-1 text-gray-600">{currency}</span>
+          {(discountedValue + serviceFee).toFixed(2)}
+          <span className="ml-1 text-gray-600">AED</span>
         </p>
       </div>
 
@@ -96,6 +121,29 @@ export default function CartCard({
           {activeStep < 3 ? "Continue" : "Place Order"}
         </Button>
       </div>
+    </>
+  );
+}
+export default function CartCard({
+  activeStep,
+  handlePrevious,
+  handleNext,
+  selected,
+}: {
+  activeStep: number;
+  handlePrevious: () => void;
+  handleNext: () => void;
+  selected: Selected[];
+}) {
+  return (
+    <div className="w-full flex flex-col border border-stroke rounded-lg p-4 h-[calc(100vh-250px)]">
+      <h1 className="text-2xl font-semibold text-gray-800">Cart</h1>
+      <CartContent
+        activeStep={activeStep}
+        handlePrevious={handlePrevious}
+        handleNext={handleNext}
+        selected={selected}
+      />
     </div>
   );
 }
@@ -111,29 +159,6 @@ export function MobileCartCard({
   handleNext: () => void;
   selected: Selected[];
 }) {
-  const discount = useSelector(
-    (state: RootState) => state.checkoutSlice.checkoutData?.discount
-  );
-  const currency = useSelector(
-    (state: RootState) => state.checkoutSlice.checkoutData?.currency
-  );
-  const [total, setTotal] = useState<number>(0);
-  const [discountedValue, setDiscountedValue] = useState<number>(0);
-
-  useEffect(() => {
-    setTotal(
-      selected.reduce((acc, item) => acc + item.price * item.quantity, 0)
-    );
-  }, [selected, setTotal]);
-
-  useEffect(() => {
-    if (discount) {
-      setDiscountedValue(total - total * (discount.value / 100));
-    } else {
-      setDiscountedValue(total);
-    }
-  }, [discount, total]);
-
   return (
     <>
       <Drawer>
@@ -147,40 +172,14 @@ export function MobileCartCard({
             </DrawerTitle>
           </DrawerHeader>
           <div className="w-full h-full flex flex-col p-4 min-h-[400px]">
-            <div className="mt-4 flex-1">
-              {selected.length ? (
-                selected.map((item) => (
-                  <div
-                    key={item.id}
-                    className="pt-2 border-b flex items-center justify-between"
-                  >
-                    <h2 className="font-semibold text-gray-800">{item.name}</h2>
-                    <p>
-                      {item.price * item.quantity}
-                      <span className="ml-1 text-gray-600">{currency}</span>
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-500">No items in cart</p>
-              )}
-            </div>
-            <div className="mt-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-800">Total</h2>
-              <p>
-                {discountedValue}
-                <span className="ml-1 text-gray-600">{currency}</span>
-              </p>
-            </div>
+            <CartContent
+              activeStep={activeStep}
+              handlePrevious={handlePrevious}
+              handleNext={handleNext}
+              selected={selected}
+            />
           </div>
           <DrawerFooter>
-            <Button
-              disabled={!selected.length}
-              className="mt-4"
-              onClick={handleNext}
-            >
-              Continue
-            </Button>
             <DrawerClose className="w-full border border-stroke bg-gray-100 hover:bg-gray-200 rounded-md p-2">
               Cancel
             </DrawerClose>
@@ -191,8 +190,11 @@ export function MobileCartCard({
         <h1 className="text-lg">
           Total:{" "}
           <span className="text-gray-700 text-[1rem] font-semibold">
-            {discountedValue}{" "}
-            <Currency />
+            {selected.reduce(
+              (acc, item) => acc + item.price * item.quantity,
+              0
+            )}{" "}
+            AED
           </span>
         </h1>
         <div className="flex gap-2">
@@ -201,9 +203,13 @@ export function MobileCartCard({
               Back
             </Button>
           )}
-          {activeStep < 3 && (
+          {activeStep < 3 ? (
             <Button disabled={!selected.length} onClick={handleNext}>
               Continue
+            </Button>
+          ) : (
+            <Button disabled={!selected.length} onClick={handleNext}>
+              Place Order
             </Button>
           )}
         </div>

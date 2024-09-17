@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { RootState } from "@/store";
-import { setCheckoutData, setDiscount } from "@/store/checkoutSlice";
+import { setDiscount } from "@/store/checkoutSlice";
 import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

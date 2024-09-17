@@ -4,7 +4,7 @@ export {};
 declare global {
   interface Window {
     CardSDK: {
-      renderTapCard: (...args: any[]) => { unmount: () => void };
+      renderTapCard: any;
       Theme: any;
       Currencies: any;
       Direction: any;

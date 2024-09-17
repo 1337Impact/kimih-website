@@ -4,6 +4,7 @@ import ACreateCharge from "@/actions/payment-actions/create-charge";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import PaymentForm from "./PaymentForm";
 
 function PaymentIndex() {
   const router = useRouter();
@@ -38,7 +39,7 @@ function PaymentIndex() {
   return (
     <div className="w-full flex items-center justify-center mt-10">
       <div className="max-w-[500px]">
-        <Button onClick={createChange}>pay</Button>
+      <PaymentForm />
       </div>
     </div>
   );

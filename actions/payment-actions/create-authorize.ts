@@ -1,7 +1,7 @@
 "use server";
 import axios from "axios";
 
-interface ChargeRequest {
+interface AuthorizeRequest {
   amount: number;
   currency: string;
   description: string;
@@ -22,27 +22,22 @@ interface ChargeRequest {
   merchant: {
     id: string;
   };
-  tokenizedId: string; // Optional field for tokenized ID
+  tokenizedId: string;
+  captureAfter: number;
 }
 
-export default async function ACreateCharge(data: ChargeRequest) {
-  console.log("createCharge data:", data);
+export default async function ACreateAuthorize(data: AuthorizeRequest) {
+  console.log("createAutorization data:", data);
   try {
     const response = await axios.post(
-      "https://api.tap.company/v2/charges/",
+      "https://api.tap.company/v2/authorize/",
       {
         amount: data.amount,
         currency: data.currency,
         customer_initiated: true,
         threeDSecure: true,
         save_card: false,
-        // payment_agreement: {
-        //   id: "sdfdsfdsfdfsdf", // Replace with your payment agreement ID
-        // },
         description: data.description,
-        metadata: {
-          udf1: "Metadata 1",
-        },
         reference: {
           transaction: "txn_01",
           order: "ord_01",
@@ -53,6 +48,10 @@ export default async function ACreateCharge(data: ChargeRequest) {
         },
         customer: data.customer,
         merchant: data.merchant,
+        auto: {
+          type: "CAPTURE",
+          time: data.captureAfter < 168 ? data.captureAfter : 168,
+        },
         source: {
           id: data.tokenizedId, // Change to the actual source ID
         },
@@ -72,23 +71,23 @@ export default async function ACreateCharge(data: ChargeRequest) {
       }
     );
 
-    console.log("Charge Response:", response.data);
+    console.log("Authorize Response:", response.data);
 
     // Return the API response data
     return { data: response.data};
   } catch (error: any) {
     if (error.response) {
-      console.error("Charge Error (Response):", error.response.data);
+      console.error("Authorize Error (Response):", error.response.data);
       return {
-        error: error.response.data || "Error processing charge"
+        error: error.response.data.errors[0] || "Error processing charge"
       }
     } else if (error.request) {
-      console.error("Charge Error (No Response):", error.request);
+      console.error("Authorize Error (No Response):", error.request);
       return {
         error: "No response received from Tap Payments API"
       }
     } else {
-      console.error("Charge Error (Message):", error.message);
+      console.error("Authorize Error (Message):", error.message);
       return {
         error: "Error processing charge"
       }

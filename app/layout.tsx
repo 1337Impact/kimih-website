@@ -17,10 +17,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <script src="https://tap-sdks.b-cdn.net/card/1.0.2/index.js" async />
+      </head>
       <body suppressHydrationWarning={true} className={inter.className}>
-        <ReduxProvider>
-        {children}
-        </ReduxProvider>
+        <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>
   );

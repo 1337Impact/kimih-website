@@ -5,12 +5,10 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { Button } from "@/components/ui/button";
-import DiscountCode from "./DiscountCode";
+import DiscountCode from "../DiscountCode";
 import ShowDate from "./ShowDate";
-import ACreateAppointment from "@/actions/appointment-actions/create-appointment";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import Loader from "@/components/loading/loader";
 import Image from "next/image";
 import Currency from "@/components/Currency";
 
@@ -80,33 +78,33 @@ export default function Confirmation({
 
   const handleSubmit = async () => {
     setLoading(true);
-    const res = await ACreateAppointment({
-      business_id: business_id,
-      services_memberships: selected,
-      team_member: checkoutData.professional!,
-      time: selectedTime!,
-      discount: discount,
-    });
-    if (res.error) {
-      toast({
-        variant: "destructive",
-        title: "Could not place order",
-        description: "There was an error placing your order, please try again",
-      });
-      setLoading(false);
-    } else {
-      localStorage.removeItem(business_id);
-      router.push(res.data?.redirection_url);
-    }
+    // const res = await ACreateAppointment({
+    //   business_id: business_id,
+    //   services_memberships: selected,
+    //   team_member: checkoutData.professional!,
+    //   time: selectedTime!,
+    //   discount: discount,
+    // });
+    // if (res.error) {
+    //   toast({
+    //     variant: "destructive",
+    //     title: "Could not place order",
+    //     description: "There was an error placing your order, please try again",
+    //   });
+    //   setLoading(false);
+    // } else {
+    //   localStorage.removeItem(business_id);
+    //   router.push(res.data?.redirection_url);
+    // }
   };
 
-  if (!businessData || loading) {
-    return (
-      <div className="flex items-center justify-center w-full h-[400px]">
-        <Loader loading={loading} />
-      </div>
-    );
-  }
+  // if (!businessData || loading) {
+  //   return (
+  //     <div className="flex items-center justify-center w-full h-[400px]">
+  //       <Loader loading={loading} />
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="w-full mt-6 bg-white p-6 rounded-lg shadow-md max-w-[700px] mx-auto">
@@ -140,7 +138,9 @@ export default function Confirmation({
                 </p>
               )}
             </div>
-            <p className="">{item.price.toFixed(2)} <Currency /></p>
+            <p className="">
+              {item.price.toFixed(2)} <Currency />
+            </p>
           </div>
         ))}
       </div>
@@ -150,7 +150,9 @@ export default function Confirmation({
           <>
             <div className="mt-4 flex items-center justify-between">
               <h2 className=" text-gray-800">Price</h2>
-              <p className="text-gray-600">{total.toFixed(2)} <Currency /></p>
+              <p className="text-gray-600">
+                {total.toFixed(2)} <Currency />
+              </p>
             </div>
             <div className="mt-4 flex items-center justify-between">
               <h2 className=" text-gray-800">Discount ({discount.value}%)</h2>
@@ -165,7 +167,9 @@ export default function Confirmation({
         <h2 className="text-lg font-semibold text-gray-800">Total</h2>
         <p>
           {discountedValue.toFixed(2)}
-          <span className="ml-1 text-gray-600"><Currency /></span>
+          <span className="ml-1 text-gray-600">
+            <Currency />
+          </span>
         </p>
       </div>
       <div className="flex items-center gap-6 mt-4">

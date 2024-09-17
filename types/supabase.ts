@@ -341,8 +341,8 @@ export type Database = {
       payments: {
         Row: {
           amount: number
+          auth_id: string | null
           business_id: string | null
-          charge_id: string | null
           client_id: string | null
           created_at: string
           discount_id: string | null
@@ -351,8 +351,8 @@ export type Database = {
         }
         Insert: {
           amount: number
+          auth_id?: string | null
           business_id?: string | null
-          charge_id?: string | null
           client_id?: string | null
           created_at?: string
           discount_id?: string | null
@@ -361,8 +361,8 @@ export type Database = {
         }
         Update: {
           amount?: number
+          auth_id?: string | null
           business_id?: string | null
-          charge_id?: string | null
           client_id?: string | null
           created_at?: string
           discount_id?: string | null

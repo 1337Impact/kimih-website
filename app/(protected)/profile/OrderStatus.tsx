@@ -10,7 +10,7 @@ const getPaymentStatus = async (tap_id: string) => {
   const { data, error } = await supabase
     .from("payments")
     .select("status")
-    .eq("charge_id", tap_id)
+    .eq("auth_id", tap_id)
     .single();
     console.log("Payment status data:", data);
   if (error) {

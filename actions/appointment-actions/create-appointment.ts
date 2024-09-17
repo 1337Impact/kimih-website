@@ -4,7 +4,8 @@ import { Selected } from "@/app/(public)/s/[business_id]/ServicesCard/types";
 import { createClient } from "@/utils/supabase/server";
 import { format } from "date-fns";
 import { sendAppointmentEmail } from "./send-email";
-import ACreateCharge from "../payment-actions/create-charge";
+import ACreateAuthorize from "../payment-actions/create-authorize";
+import { redirect } from "next/navigation";
 
 const getClientData = async () => {
   const supabase = createClient();
@@ -25,11 +26,21 @@ const getClientData = async () => {
   return userData;
 };
 
+const calculateCaptureAfter = (time: Date) => {
+  if (!time) return 0;
+  const now = new Date();
+  const diff = time.getTime() - now.getTime();
+  const hours = Math.floor(diff / 1000 / 60 / 60);
+  return hours > 48 ? hours - 48 : 1;
+};
+
 async function handlePayment({
   paymentAmount,
   discount,
   business_id,
   clientData,
+  tokenizedId,
+  appointmentTime,
 }: {
   paymentAmount: number;
   discount: {
@@ -38,12 +49,13 @@ async function handlePayment({
   };
   business_id: string;
   clientData: any;
+  tokenizedId: string;
+  appointmentTime: Date;
 }) {
   const supabase = createClient();
-  const discountedValue = paymentAmount * (1 - discount.value / 100);
 
-  const res = await ACreateCharge({
-    amount: discountedValue,
+  const res = await ACreateAuthorize({
+    amount: paymentAmount,
     currency: "AED",
     description: "Payment for services and memberships",
     reference: {
@@ -61,21 +73,26 @@ async function handlePayment({
       },
     },
     merchant: {
-      id: "1234", // TODO: get from business
+      id: "merchant_WCEQ1724103mCzR9uT80992",
     },
+    tokenizedId,
+    captureAfter: calculateCaptureAfter(appointmentTime),
   });
   if (res.error) {
     console.error("error creating charge", res.error);
-    return { data: null, error: res.error.message };
+    return {
+      data: null,
+      error: res.error.description || "Error creating Autorize",
+    };
   }
 
   const payment = await supabase
     .from("payments")
     .insert({
-      amount: discountedValue,
+      amount: paymentAmount,
       business_id: business_id,
       discount_id: discount.id || null,
-      charge_id: res.id,
+      auth_id: res.data.id,
     })
     .select("id")
     .single();
@@ -86,7 +103,7 @@ async function handlePayment({
   return {
     data: {
       payment_id: payment.data.id,
-      redirection_url: res.transaction.url,
+      redirection_url: res.data.transaction.url,
     },
     error: null,
   };
@@ -98,6 +115,7 @@ export default async function ACreateAppointment({
   team_member,
   time,
   discount,
+  tokenizedId,
 }: {
   business_id: string;
   services_memberships: Selected[];
@@ -107,6 +125,7 @@ export default async function ACreateAppointment({
     id: string;
     value: number;
   };
+  tokenizedId: string;
 }) {
   const supabase = createClient();
   const clientData = await getClientData();
@@ -118,13 +137,19 @@ export default async function ACreateAppointment({
     (acc, item) => acc + item.price * item.quantity,
     0
   );
+  const discountedValue = discount.value
+    ? paymentAmount * (1 - discount.value / 100)
+    : paymentAmount;
+  const serviceFee = discountedValue * 0.03;
 
   // tmp code
   const { data: payment, error: paymentError } = await handlePayment({
-    paymentAmount,
+    paymentAmount: discountedValue + serviceFee,
     discount,
     business_id,
     clientData,
+    tokenizedId,
+    appointmentTime: time,
   });
 
   if (paymentError) {
@@ -147,9 +172,7 @@ export default async function ACreateAppointment({
         scheduled_date: format(time, "yyyy-MM-dd'T'HH:mm:ss.SSS"),
         business_id: business_id,
         payment_id: payment?.payment_id,
-        price_paid: discount.value
-          ? service.price - (service.price * discount.value) / 100
-          : service.price,
+        price_paid: discountedValue + serviceFee,
       }))
     );
     if (error) {
@@ -172,9 +195,7 @@ export default async function ACreateAppointment({
         memberships_catalog_id: membership.id,
         business_id: business_id,
         payment_id: payment?.payment_id,
-        price_paid: discount.value
-          ? membership.price - (membership.price * discount.value) / 100
-          : membership.price,
+        price_paid: discountedValue + serviceFee,
       }))
     );
     if (error) {
@@ -182,6 +203,6 @@ export default async function ACreateAppointment({
       return { data: null, error: error.message };
     }
   }
-
-  return { data: payment, error: null };
+  console.log("Payment response:", payment);
+  redirect(payment?.redirection_url);
 }

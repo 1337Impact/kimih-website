@@ -16,7 +16,7 @@ export async function POST(req: Request) {
       const { data, error } = await supabase
         .from("payments")
         .delete()
-        .eq("charge_id", eventData.id);
+        .eq("auth_id", eventData.id);
       if (error) {
         console.error("Error updating payment status:", error);
       }
@@ -25,7 +25,7 @@ export async function POST(req: Request) {
       const { data, error } = await supabase
         .from("payments")
         .update({ status: eventData.status })
-        .eq("charge_id", eventData.id);
+        .eq("auth_id", eventData.id);
       if (error) {
         console.error("Error updating payment status:", error);
       }
