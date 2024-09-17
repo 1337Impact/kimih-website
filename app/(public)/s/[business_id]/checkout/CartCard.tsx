@@ -49,8 +49,10 @@ function CartContent({
   }, [discount, total]);
 
   useEffect(() => {
-    setServiceFee(discountedValue * 0.03);
-  }, [discountedValue]);
+    if (activeStep === 3) {
+      setServiceFee(discountedValue * 0.03);
+    }
+  }, [discountedValue, activeStep]);
 
   return (
     <>

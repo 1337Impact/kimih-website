@@ -66,6 +66,8 @@ export default function Page({ params }: { params: { business_id: string } }) {
         title: "Could not place order",
         description: "There was an error placing your order, please try again",
       });
+    } else {
+      localStorage.removeItem(params.business_id);
     }
   };
 

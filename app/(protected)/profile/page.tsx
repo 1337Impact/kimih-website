@@ -79,7 +79,7 @@ export default async function Page() {
 
   return (
     <div>
-      <OrderStatus />
+      {/* <OrderStatus /> */}
       <div className="grid grid-cols-7 gap-6">
         <div className="col-span-7 lg:col-span-3">
           <ProfileCard userData={userData} />
