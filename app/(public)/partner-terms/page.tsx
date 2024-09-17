@@ -13,18 +13,22 @@ export default function Page() {
           Welcome to Kimih Information Technology CO. L.L.C (“Kimih,” “we,”
           “us,” “our”). These Partner Terms (“Terms”) govern your use of our
           SaaS platform and marketplace services. By registering as a partner,
-          you agree to these Terms. If you do not agree, please do not use our
-          services.
+          you agree to these Terms. If you do not agree, please refrain from
+          using our services.
         </p>
       </section>
 
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">2. Services Provided</h2>
         <p className="text-gray-700">
-          Kimih provides a digital marketplace that connects buyers with beauty
-          and fashion service providers. Our platform facilitates service
-          booking and payment processing but does not handle physical card
-          terminals or in-person transactions.
+          Kimih offers a digital marketplace that connects buyers with beauty
+          and fashion service providers. Our platform enables service booking
+          and payment processing through a third- party payment gateway using an
+          Authorization Capture API. This API facilitates secure and efficient
+          transactions by authorizing payments temporarily and only capturing
+          the payment amount within 24 hours of the customer&apos;s appointment. This
+          ensures that transactions are processed accurately and helps prevent
+          chargebacks or disputes related to cancellations.
         </p>
       </section>
 
@@ -34,16 +38,18 @@ export default function Page() {
           <li>
             <strong>Transaction Fees:</strong> Kimih charges a transaction fee
             of 5% on each successful booking processed through our platform.
+            This fee is applied to the total service cost and is deducted prior
+            to disbursing funds to the partner.
           </li>
           <li>
             <strong>Additional Costs:</strong> Partners are responsible for any
-            fees imposed by third-party services, including Stripe fees for
-            payment processing and SMS fees for communication.
+            additional fees imposed by third-party services, including payment
+            processing fees and other related costs.
           </li>
           <li>
-            <strong>Fee Changes:</strong> Kimih may update the fees from time to
-            time. Partners will be notified of any changes with at least 30
-            days&apos; notice.
+            <strong>Fee Changes:</strong> Kimih reserves the right to adjust
+            fees. Partners will be notified of any fee changes at least 30 days
+            in advance via email or platform notifications.
           </li>
         </ul>
       </section>
@@ -55,16 +61,19 @@ export default function Page() {
         <ul className="list-disc list-inside text-gray-700 space-y-2">
           <li>
             <strong>Payment Processing:</strong> Payments for services are
-            processed through Stripe. Stripe handles all payment disputes,
-            refunds, and chargebacks. Partners must adhere to Stripe’s terms and
-            conditions for payment processing.
+            processed through a third-party payment gateway using our
+            Authorization Capture API. This API authorizes the payment amount
+            temporarily and captures it within 24 hours before the customer&apos;s
+            appointment. This method ensures that transactions are accurately
+            processed and helps in managing cancellations or adjustments
+            efficiently.
           </li>
           <li>
-            <strong>Dispute Resolution:</strong> Kimih does not resolve disputes
-            related to payment processing, service quality, or transactions
-            between the partner, the customer, and Stripe. Disputes related to
-            payments or service issues should be resolved directly between the
-            partner, the customer, and Stripe.
+            <strong>Dispute Resolution:</strong> Kimih does not mediate disputes
+            related to payment processing or service quality between partners,
+            customers, and the payment gateway. Disputes concerning payments or
+            service issues should be addressed directly with our customer
+            service team or resolved through the appropriate channels.
           </li>
         </ul>
       </section>
@@ -74,18 +83,21 @@ export default function Page() {
         <ul className="list-disc list-inside text-gray-700 space-y-2">
           <li>
             <strong>Compliance:</strong> Partners must comply with all
-            applicable laws and regulations and must not use the platform for
-            any illegal activities.
+            applicable laws, regulations, and industry standards. Use of the
+            platform for any illegal activities or unethical conduct is
+            prohibited.
           </li>
           <li>
             <strong>Content:</strong> Partners are responsible for ensuring that
             all content and services provided through the platform are accurate,
-            lawful, and do not infringe on any third-party rights.
+            lawful, and do not infringe on any third- party rights. Content must
+            be presented truthfully and in compliance with platform guidelines.
           </li>
           <li>
-            <strong>Accuracy:</strong> Partners must provide accurate and
-            up-to-date information regarding their services, availability, and
-            pricing.
+            <strong>Accuracy:</strong> Partners must keep their service
+            information, including availability, pricing, and descriptions,
+            accurate and up-to-date. Any changes must be promptly reflected on
+            the platform.
           </li>
         </ul>
       </section>
@@ -96,13 +108,16 @@ export default function Page() {
         </h2>
         <ul className="list-disc list-inside text-gray-700 space-y-2">
           <li>
-            <strong>Data Use:</strong> Partners agree to comply with our Privacy
-            Policy, which details how we collect, use, and protect personal
-            data.
+            <strong>Data Use:</strong> Partners agree to adhere to our Privacy
+            Policy, which outlines how we collect, use, and protect personal
+            data. Partners are responsible for handling customer data in
+            accordance with applicable data protection laws and regulations.
           </li>
           <li>
-            <strong>Security:</strong> Partners must implement reasonable
-            security measures to protect their account and data.
+            <strong>Security:</strong> Partners must implement reasonable and
+            appropriate security measures to protect their accounts and data.
+            This includes safeguarding login credentials and access to their
+            platform profiles.
           </li>
         </ul>
       </section>
@@ -114,7 +129,9 @@ export default function Page() {
           and their respective officers, directors, employees, and agents
           harmless from any claims, damages, losses, and expenses, including
           reasonable legal fees, arising out of or related to their use of the
-          platform or services.
+          platform or services. This includes any claims resulting from
+          violations of these Terms or related to the partner&apos;s services or
+          content.
         </p>
       </section>
 
@@ -126,12 +143,15 @@ export default function Page() {
           <li>
             <strong>Platform Use:</strong> Kimih is not liable for any indirect,
             incidental, special, consequential, or punitive damages resulting
-            from the use or inability to use the platform.
+            from the use or inability to use the platform. This includes, but is
+            not limited to, loss of profits, data, or business opportunities.
           </li>
           <li>
             <strong>Service Issues:</strong> Kimih is not responsible for issues
-            arising from services provided by partners, including any
-            dissatisfaction or disputes between the partner and the customer.
+            arising from services provided by partners, including
+            dissatisfaction, disputes, or losses experienced by customers.
+            Partners are responsible for addressing any service-related issues
+            directly with their customers.
           </li>
         </ul>
       </section>
@@ -139,9 +159,11 @@ export default function Page() {
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">9. Dispute Resolution</h2>
         <p className="text-gray-700">
-          Any disputes arising under these Terms shall first be attempted to be
-          resolved through mediation or arbitration. If such resolution is not
-          possible, disputes may be taken to the courts located in the UAE.
+          Any disputes arising under these Terms should first be attempted to be
+          resolved through informal negotiation. If such resolution is not
+          possible, disputes shall be settled through mediation or arbitration.
+          If mediation or arbitration does not resolve the dispute, it may be
+          escalated to the courts located in the UAE.
         </p>
       </section>
 
@@ -150,8 +172,8 @@ export default function Page() {
         <p className="text-gray-700">
           Kimih shall not be liable for any failure to perform its obligations
           under these Terms if such failure results from an event beyond its
-          reasonable control, including but not limited to natural disasters,
-          strikes, or government actions.
+          reasonable control. This includes but is not limited to natural
+          disasters, strikes, labor disputes, or government actions.
         </p>
       </section>
 
@@ -162,8 +184,9 @@ export default function Page() {
         <p className="text-gray-700">
           All intellectual property rights related to the platform and its
           content are owned by Kimih. Partners may not use, reproduce, or
-          distribute any of Kimih’s intellectual property without prior written
-          consent.
+          distribute any of Kimih&apos;s intellectual property without prior written
+          consent. Unauthorized use of Kimih&apos;s intellectual property may result
+          in legal action.
         </p>
       </section>
 
@@ -172,44 +195,47 @@ export default function Page() {
           12. Relationship of the Parties
         </h2>
         <p className="text-gray-700">
-          The relationship between Kimih and partners is that of an independent
-          contractor. Nothing in these Terms shall be construed as creating a
-          partnership, joint venture, or employment relationship.
+          The relationship between Kimih and partners is that of independent
+          contractors. Nothing in these Terms shall be construed as creating a
+          partnership, joint venture, or employment relationship between Kimih
+          and any partner.
         </p>
       </section>
 
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">13. Notices</h2>
         <p className="text-gray-700">
-          Any notices or communications under these Terms shall be sent via
-          email to the address provided by the partner or to info@kimih.com.
+          All notices or communications under these Terms shall be sent via
+          email to the address provided by the partner or to help@kimih.com.
           Notices sent via email shall be deemed effective upon receipt.
+          Partners are responsible for ensuring their contact information is
+          current and accurate.
         </p>
       </section>
 
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">14. Changes to Terms</h2>
         <p className="text-gray-700">
-          Kimih reserves the right to modify these Terms at any time. Partners
-          will be notified of any changes by posting the updated Terms on our
-          website. Continued use of the platform after such changes constitutes
-          acceptance of the new Terms.
+          Kimih reserves the right to modify these Terms at any time. Any
+          changes will be communicated to partners through email or platform
+          notifications. Continued use of the platform following such changes
+          constitutes acceptance of the updated Terms.
         </p>
       </section>
 
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">15. Governing Law</h2>
         <p className="text-gray-700">
-          These Terms are governed by the laws of the UAE. Any disputes arising
-          from these Terms shall be resolved in the courts located in the UAE.
+          These Terms are governed by and construed in accordance with the laws
+          of the UAE. Any legal disputes arising from these Terms shall be
+          resolved in the courts located in the UAE.
         </p>
       </section>
 
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">16. Contact Information</h2>
         <p className="text-gray-700">
-          For any questions or concerns regarding these Terms, please contact us
-          at:
+          If you have any questions or concerns about this please contact us at:
         </p>
         <ul className="text-gray-700 list-disc list-inside space-y-2 mt-2">
           <li className="font-semibold">
@@ -218,13 +244,13 @@ export default function Page() {
           <li className="font-semibold">
             Email:
             <a
-              href="mailto:info@kimih.com"
+              href="mailto:help@kimih.com"
               className="text-blue-600 hover:underline ml-2"
             >
-              info@kimih.com
+              help@kimih.com
             </a>
           </li>
-          <li className="font-semibold">Registration no: 2361735</li>
+          <li className="font-semibold">Registration No: 2361735</li>
           <li className="font-semibold">
             Address: Office 43-44, Building of Dubai Municipality,
           </li>

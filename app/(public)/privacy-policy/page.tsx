@@ -36,7 +36,12 @@ export default function Page() {
           </li>
           <li>
             <strong>Financial Information:</strong> Payment details, billing
-            address, and other financial data.
+            address, and other financial data.{" "}
+            <em>
+              Note: We do not hold or store KYC (Know Your Customer) or card
+              information directly. All payment transactions are handled
+              securely through our Authorization Capture API.
+            </em>
           </li>
           <li>
             <strong>Content Data:</strong> Information related to the content
@@ -175,10 +180,10 @@ export default function Page() {
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">Children&apos;s Privacy</h2>
         <p className="text-gray-700">
-          Our services are not intended for individuals under the age of 18. We
-          do not knowingly collect personal data from children under 18. If we
-          become aware that we have inadvertently collected such data, we will
-          take steps to delete it.
+          Our services are intended for individuals aged 16 and above. We do not
+          knowingly collect personal data from children under 16. If we become
+          aware that we have inadvertently collected such data, we will take
+          steps to delete it.
         </p>
       </section>
 
@@ -226,25 +231,30 @@ export default function Page() {
       </section>
 
       <section className="mb-6">
-        <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
+        <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
         <p className="text-gray-700">
-          If you have any questions or concerns about this Privacy Policy or our
-          data practices, please contact us at:
-          <br />
-          <strong>Kimih Information Technology CO. L.L.C</strong>
-          <br />
-          <a
-            href="mailto:info@kimih.com"
-            className="text-blue-600 hover:underline"
-          >
-            info@kimih.com
-          </a>
-          <br />
-          <strong>Registration no:</strong> 2361735
-          <br />
-          <strong>Address:</strong> Office 43-44, Building of Dubai
-          Municipality, United Arab Emirates
+          For any questions or concerns regarding these policies, please contact
+          us at:
         </p>
+        <ul className="text-gray-700 list-disc list-inside space-y-2 mt-2">
+          <li className="font-semibold">
+            Kimih Information Technology CO. L.L.C
+          </li>
+          <li className="font-semibold">
+            Email:
+            <a
+              href="mailto:help@kimih.com"
+              className="text-blue-600 hover:underline ml-2"
+            >
+              help@kimih.com
+            </a>
+          </li>
+          <li className="font-semibold">Registration no: 2361735</li>
+          <li className="font-semibold">
+            Address: Office 43-44, Building of Dubai Municipality,
+          </li>
+          <li className="font-semibold">United Arab Emirates</li>
+        </ul>
       </section>
     </main>
   );
