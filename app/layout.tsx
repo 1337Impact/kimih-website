@@ -6,8 +6,18 @@ import ReduxProvider from "@/store/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Kimih",
-  description: "First beauty & wellness platform in UAE",
+  title: {
+    default: "KIMIH",
+    template: "%s",
+  },
+  openGraph: {
+    title: "KIMIH",
+    description: "First beauty & wellness platform in UAE",
+    url: "https://kimih.com",
+    siteName: "Kimih",
+    type: "website",
+    images: "https://kimih.com/assets/images/yoga.png",
+  },
 };
 
 export default function RootLayout({
