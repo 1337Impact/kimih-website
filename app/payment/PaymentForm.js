@@ -19,30 +19,13 @@ const PaymentForm = () => {
       },
       transaction: {
         amount: 1,
-        currency: Currencies.SAR,
+        currency: "AED",
       },
       customer: {
         id: "",
-        name: [
-          {
-            lang: Locale.EN,
-            first: "Test",
-            last: "Test",
-            middle: "Test",
-          },
-        ],
-        nameOnCard: "Test",
-        editable: true,
-        contact: {
-          email: "test@gmail.com",
-          phone: {
-            countryCode: "971",
-            number: "52999944",
-          },
-        },
       },
       acceptance: {
-        supportedBrands: ["VISA", "MASTERCARD", "AMEX", "MADA"],
+        supportedBrands: ["VISA", "MASTERCARD", "AMERICAN_EXPRESS"],
         supportedCards: "ALL",
       },
       fields: {
@@ -51,7 +34,7 @@ const PaymentForm = () => {
       addons: {
         displayPaymentBrands: true,
         loader: true,
-        saveCard: true,
+        saveCard: false,
       },
       interface: {
         locale: Locale.EN,

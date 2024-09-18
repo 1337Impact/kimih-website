@@ -43,8 +43,8 @@ export default function Contact() {
         </h1>
         <p className="mt-1 text-gray-600">
           Get in touch or send us an email directly on{" "}
-          <span className="font-semibold text-gray-700 underline">
-            <a href="mailto:support@kimih.com">support@kimih.com</a>.
+          <span className="font-semibold text-gray-700 underline notranslate">
+            <a href="mailto:support@kimih.com">help@kimih.com</a>.
           </span>
         </p>
       </div>

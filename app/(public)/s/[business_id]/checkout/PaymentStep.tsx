@@ -5,39 +5,22 @@ const PaymentStep = ({ onSuccess }: { onSuccess: (data: any) => void }) => {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!window.CardSDK) return;
-    const { renderTapCard, Theme, Currencies, Direction, Edges, Locale } =
+    const { renderTapCard, Theme, Direction, Edges, Locale } =
       window.CardSDK;
     const { unmount } = renderTapCard("card-sdk-id", {
-      publicKey: "pk_test_X6Rs1Ale7vaK3gBNtFpwjzSW",
+      publicKey: process.env.NEXT_PUBLIC_TAP_PUBLIC_KEY,
       merchant: {
-        id: "merchant_WCEQ1724103mCzR9uT80992",
+        id: process.env.NEXT_PUBLIC_TAP_MERCHANT_KEY,
       },
       transaction: {
         amount: 1,
-        currency: Currencies.SAR,
+        currency: "AED",
       },
       customer: {
         id: "",
-        name: [
-          {
-            lang: Locale.EN,
-            first: "Test",
-            last: "Test",
-            middle: "Test",
-          },
-        ],
-        nameOnCard: "Test",
-        editable: true,
-        contact: {
-          email: "test@gmail.com",
-          phone: {
-            countryCode: "971",
-            number: "52999944",
-          },
-        },
       },
       acceptance: {
-        supportedBrands: ["VISA", "MASTERCARD", "AMEX", "MADA"],
+        supportedBrands: ["VISA", "MASTERCARD", "AMERICAN_EXPRESS"],
         supportedCards: "ALL",
       },
       fields: {
@@ -46,7 +29,7 @@ const PaymentStep = ({ onSuccess }: { onSuccess: (data: any) => void }) => {
       addons: {
         displayPaymentBrands: true,
         loader: true,
-        saveCard: true,
+        saveCard: false,
       },
       interface: {
         locale: Locale.EN,
