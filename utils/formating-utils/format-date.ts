@@ -75,12 +75,27 @@ export function getStartAndEndOfDate(date: Date) {
   return { startDate: formattedStartDate, endDate: formattedEndDate };
 }
 
+export function getPreviousDateAndVoid(inputDate: Date) {
+  const currentDate = new Date();
+  const maxDaysDifference = 6 * 24 * 60 * 60 * 1000;
 
-export function getPreviousDateString(date: Date): string {
-  const now = new Date();
-  const maxPastDate = subHours(now, 168);
-  
-  const previousDate = date < maxPastDate ? maxPastDate : date;
-  
-  return formatISO(previousDate, { representation: 'date' });
+  const inputTime = inputDate.getTime();
+  const previousDate = new Date(inputTime - 24 * 60 * 60 * 1000);
+  const currentNextDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+  const maxDate = new Date(currentDate.getTime() + maxDaysDifference);
+
+  const resultDate =
+    previousDate > maxDate
+      ? maxDate
+      : previousDate < currentNextDate
+      ? currentNextDate
+      : previousDate;
+
+  const diff = resultDate.getTime() - currentDate.getTime();
+  const hours = Math.floor(diff / 1000 / 60 / 60);
+
+  return {
+    previousDate: resultDate.toISOString().split("T")[0],
+    voidAfter: hours + 24,
+  };
 }

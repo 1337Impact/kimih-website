@@ -1,6 +1,9 @@
 {
-    "crons": [{
+  "crons": [
+    {
       "path": "/api/cron",
-      "schedule": "0 14 * * *"
-    }]
-  }
+      "schedule": "0 14 * * *",
+      "method": "POST"
+    }
+  ]
+}

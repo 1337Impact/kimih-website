@@ -3,7 +3,9 @@ import { Database } from "@/types/supabase";
 import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export const dynamic = "force-dynamic";
+
+export async function POST() {
   console.log("Cron Job: GET request received");
   const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,8 +14,9 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from("payments")
-    .select("*, business(currency)")
-    .eq("charge_date", new Date().toISOString().split("T")[0]);
+    .select("amount, auth_id, charge_date, business(currency)")
+    .eq("charge_date", new Date().toISOString().split("T")[0])
+    .eq("status", "AUTHORIZED");
 
   data?.forEach(async (payment) => {
     if (!payment.auth_id) {

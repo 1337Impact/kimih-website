@@ -2,11 +2,6 @@
 import { useEffect } from "react";
 
 const PaymentForm = () => {
-  const callbackFunc = (response) => {
-    console.log("Response:", response);
-    const msg = document.getElementById("msg");
-  };
-
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!window.CardSDK) return;
@@ -48,7 +43,7 @@ const PaymentForm = () => {
       // onValidInput: (data) => console.log("onValidInputChange", data),
       // onInvalidInput: (data) => console.log("onInvalidInput", data),
       // onError: (data) => console.log("onError", data),
-      onSuccess: (data) => console.log("onSuccess", data),
+      onSuccess: (data : any) => console.log("onSuccess", data),
     });
   }, []);
 

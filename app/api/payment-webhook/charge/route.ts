@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     );
     console.log("Charge Webhook event data:", eventData.id, eventData.status);
 
-    if (eventData.status === "DECLINED") {
+    if (eventData.status === "DECLINED" || eventData.status === "FAILED") {
       console.error("Payment is DECLINED, deleting payment...");
       const { data, error } = await supabase
         .from("payments")

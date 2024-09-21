@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { sendAppointmentEmail } from "./send-email";
 import ACreateAuthorize from "../payment-actions/create-authorize";
 import { redirect } from "next/navigation";
-import { getPreviousDateString } from "@/utils/formating-utils/format-date";
+import { getPreviousDateAndVoid } from "@/utils/formating-utils/format-date";
 
 const getClientData = async () => {
   const supabase = createClient();
@@ -25,14 +25,6 @@ const getClientData = async () => {
     return null;
   }
   return userData;
-};
-
-const calculateVoidAfter = (time: Date) => {
-  if (!time) return 0;
-  const now = new Date();
-  const diff = time.getTime() - now.getTime();
-  const hours = Math.floor(diff / 1000 / 60 / 60);
-  return hours + 24;
 };
 
 async function handlePayment({
@@ -54,6 +46,8 @@ async function handlePayment({
   appointmentTime: Date;
 }) {
   const supabase = createClient();
+  const calculateDate = getPreviousDateAndVoid(appointmentTime);
+  console.log("calculateDate", calculateDate);
 
   const res = await ACreateAuthorize({
     amount: paymentAmount,
@@ -79,7 +73,7 @@ async function handlePayment({
         "merchant_WCEQ1724103mCzR9uT80992",
     },
     tokenizedId,
-    voidAfter: calculateVoidAfter(appointmentTime),
+    voidAfter: calculateDate.voidAfter,
   });
   if (res.error) {
     console.error("error creating charge", res.error);
@@ -96,7 +90,7 @@ async function handlePayment({
       business_id: business_id,
       discount_id: discount.id || null,
       auth_id: res.data.id,
-      charge_date: getPreviousDateString(appointmentTime),
+      charge_date: calculateDate.previousDate,
     })
     .select("id")
     .single();
