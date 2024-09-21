@@ -50,12 +50,11 @@ export default function Page({ params }: { params: { business_id: string } }) {
   const handleCreateAppointment = async (data: any) => {
     // console.log("Success: ", data.id);
     setLoading(true);
-    if (!selectedProfessional || !selectedTime) return;
     const res = await ACreateAppointment({
       business_id: params.business_id,
       services_memberships: selectedServices,
       team_member: selectedProfessional!,
-      time: selectedTime!,
+      time: selectedTime || new Date(),
       discount: discount,
       tokenizedId: data.id,
     });
