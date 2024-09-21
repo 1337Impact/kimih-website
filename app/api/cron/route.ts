@@ -4,6 +4,7 @@ import { createClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 export async function GET() {
   console.log("Cron Job: GET request received");
