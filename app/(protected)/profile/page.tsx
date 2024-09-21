@@ -38,7 +38,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
       team_member_color: appointment.team_members?.color,
       business_id: appointment.business?.id,
       business_name: appointment.business?.name,
-      currency: appointment.business?.currency || ""
+      currency: appointment.business?.currency || "",
     };
   });
 };
@@ -64,7 +64,7 @@ const getMembershipsData = async (): Promise<Membership[]> => {
       payment_amount: appointment.payments?.amount,
       business_id: appointment.business?.id,
       business_name: appointment.business?.name,
-      currency: appointment.business?.currency || ""
+      currency: appointment.business?.currency || "",
     };
   });
 };
@@ -79,7 +79,7 @@ export default async function Page() {
 
   return (
     <div>
-      {/* <OrderStatus /> */}
+      <OrderStatus />
       <div className="grid grid-cols-7 gap-6">
         <div className="col-span-7 lg:col-span-3">
           <ProfileCard userData={userData} />

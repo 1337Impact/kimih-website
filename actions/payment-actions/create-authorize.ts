@@ -23,7 +23,7 @@ interface AuthorizeRequest {
     id: string;
   };
   tokenizedId: string;
-  captureAfter: number;
+  voidAfter: number;
 }
 
 export default async function ACreateAuthorize(data: AuthorizeRequest) {
@@ -49,14 +49,14 @@ export default async function ACreateAuthorize(data: AuthorizeRequest) {
         customer: data.customer,
         merchant: data.merchant,
         auto: {
-          type: "CAPTURE",
-          time: data.captureAfter < 168 ? data.captureAfter : 168,
+          type: "VOID",
+          time: data.voidAfter < 168 ? data.voidAfter : 168,
         },
         source: {
           id: data.tokenizedId, // Change to the actual source ID
         },
         post: {
-          url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook`,
+          url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook/auth`,
         },
         redirect: {
           url: `${process.env.NEXT_PUBLIC_URL}/profile`,

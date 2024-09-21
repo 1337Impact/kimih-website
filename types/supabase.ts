@@ -343,6 +343,8 @@ export type Database = {
           amount: number
           auth_id: string | null
           business_id: string | null
+          charge_date: string | null
+          charge_id: string | null
           client_id: string | null
           created_at: string
           discount_id: string | null
@@ -353,6 +355,8 @@ export type Database = {
           amount: number
           auth_id?: string | null
           business_id?: string | null
+          charge_date?: string | null
+          charge_id?: string | null
           client_id?: string | null
           created_at?: string
           discount_id?: string | null
@@ -363,6 +367,8 @@ export type Database = {
           amount?: number
           auth_id?: string | null
           business_id?: string | null
+          charge_date?: string | null
+          charge_id?: string | null
           client_id?: string | null
           created_at?: string
           discount_id?: string | null

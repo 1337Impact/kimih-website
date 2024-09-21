@@ -9,14 +9,14 @@ export async function POST(req: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE!
     );
-    console.log("Webhook event data:", eventData.id, eventData.status);
+    console.log("Charge Webhook event data:", eventData.id, eventData.status);
 
     if (eventData.status === "DECLINED") {
       console.error("Payment is DECLINED, deleting payment...");
       const { data, error } = await supabase
         .from("payments")
         .delete()
-        .eq("auth_id", eventData.id);
+        .eq("charge_id", eventData.id);
       if (error) {
         console.error("Error updating payment status:", error);
       }
@@ -24,8 +24,8 @@ export async function POST(req: Request) {
       console.log("Payment captured, updating payment status");
       const { data, error } = await supabase
         .from("payments")
-        .update({ status: eventData.status })
-        .eq("auth_id", eventData.id);
+        .update({ status: eventData.status, charge_id: eventData.id })
+        .eq("charge_id", eventData.id);
       if (error) {
         console.error("Error updating payment status:", error);
       }
@@ -34,7 +34,7 @@ export async function POST(req: Request) {
       const { data, error } = await supabase
         .from("payments")
         .update({ status: eventData.status })
-        .eq("auth_id", eventData.id);
+        .eq("charge_id", eventData.id);
       if (error) {
         console.error("Error updating payment status:", error);
       }

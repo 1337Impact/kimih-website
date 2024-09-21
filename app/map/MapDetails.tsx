@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import ImageSwiper from "../(public)/s/[business_id]/ImageSwiper";
 import TeamList from "./MapTeamList";
 import Link from "next/link";
+import { StarRating } from "../(public)/s/[business_id]/BusinessRating";
 
 const fetchDetailsData = async (business_id: string) => {
   const supabase = createClient();
@@ -25,10 +26,24 @@ const fetchDetailsData = async (business_id: string) => {
     .select("first_name, last_name, avatar_url")
     .eq("id", data?.owner_id)
     .single();
+
+  const { data: reviewData, count: reviewsCount } = await supabase
+    .from("reviews")
+    .select("rating", { count: "exact" })
+    .eq("business_id", business_id);
   if (!ownerData) return data;
   return {
     ...data,
     team_members: [{ ...ownerData, job_title: "Owner" }, ...data?.team_members],
+    rating: {
+      count: reviewsCount || 0,
+      average: reviewsCount
+        ? reviewData?.reduce(
+            (acc: number, curr: { rating: number }) => acc + curr.rating,
+            0
+          ) / reviewsCount
+        : 0,
+    },
   };
 };
 
@@ -63,16 +78,13 @@ export default function MapDetails() {
           {businessData.name}
         </h1>
         <h2 className="text-gray-500">{businessData.address}</h2>
-        <div className="mt-4 flex items-center">
-          <div className="flex gap-1">
-            {Array(5)
-              .fill("")
-              .map((_, index) => (
-                <FaStar key={index} className="text-xl text-gray-800" />
-              ))}
-          </div>
-          <span className="text-gray-800 ml-2">4.5</span>
-          <span className="text-gray-500 ml-2">(123)</span>
+        <div className="my-3 flex items-center">
+          <span className="text-xl">
+            <StarRating rating={businessData.rating.average} />
+          </span>
+          <span className="text-gray-500 ml-2">
+            ({businessData.rating.count})
+          </span>
         </div>
         <Link href={`/s/${businessData.id}`}>
           <button className="mt-6 text-xl text-white bg-gray-900 py-2 px-10 rounded-lg">

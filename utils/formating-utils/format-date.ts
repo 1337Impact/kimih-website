@@ -1,4 +1,4 @@
-import { format, startOfDay, endOfDay } from "date-fns";
+import { format, startOfDay, endOfDay, subHours, formatISO } from "date-fns";
 
 export default function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -73,4 +73,14 @@ export function getStartAndEndOfDate(date: Date) {
   const formattedEndDate = format(endDate, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
   return { startDate: formattedStartDate, endDate: formattedEndDate };
+}
+
+
+export function getPreviousDateString(date: Date): string {
+  const now = new Date();
+  const maxPastDate = subHours(now, 168);
+  
+  const previousDate = date < maxPastDate ? maxPastDate : date;
+  
+  return formatISO(previousDate, { representation: 'date' });
 }

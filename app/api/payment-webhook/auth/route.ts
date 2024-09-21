@@ -9,7 +9,7 @@ export async function POST(req: Request) {
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.SUPABASE_SERVICE_ROLE!
     );
-    console.log("Webhook event data:", eventData.id, eventData.status);
+    console.log("Auth Webhook event data:", eventData.id, eventData.status);
 
     if (eventData.status === "DECLINED") {
       console.error("Payment is DECLINED, deleting payment...");

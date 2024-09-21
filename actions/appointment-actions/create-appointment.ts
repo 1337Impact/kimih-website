@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { sendAppointmentEmail } from "./send-email";
 import ACreateAuthorize from "../payment-actions/create-authorize";
 import { redirect } from "next/navigation";
+import { getPreviousDateString } from "@/utils/formating-utils/format-date";
 
 const getClientData = async () => {
   const supabase = createClient();
@@ -26,12 +27,12 @@ const getClientData = async () => {
   return userData;
 };
 
-const calculateCaptureAfter = (time: Date) => {
+const calculateVoidAfter = (time: Date) => {
   if (!time) return 0;
   const now = new Date();
   const diff = time.getTime() - now.getTime();
   const hours = Math.floor(diff / 1000 / 60 / 60);
-  return hours > 24 ? hours - 24 : 1;
+  return hours + 24;
 };
 
 async function handlePayment({
@@ -73,10 +74,12 @@ async function handlePayment({
       },
     },
     merchant: {
-      id: "merchant_WCEQ1724103mCzR9uT80992",
+      id:
+        process.env.NEXT_PUBLIC_TAP_MERCHANT_KEY ||
+        "merchant_WCEQ1724103mCzR9uT80992",
     },
     tokenizedId,
-    captureAfter: calculateCaptureAfter(appointmentTime),
+    voidAfter: calculateVoidAfter(appointmentTime),
   });
   if (res.error) {
     console.error("error creating charge", res.error);
@@ -93,6 +96,7 @@ async function handlePayment({
       business_id: business_id,
       discount_id: discount.id || null,
       auth_id: res.data.id,
+      charge_date: getPreviousDateString(appointmentTime),
     })
     .select("id")
     .single();

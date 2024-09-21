@@ -13,7 +13,7 @@ export default function MapPopup({ business_id }: { business_id: string }) {
       const supabase = createClient();
       const { data, error } = await supabase
         .from("business")
-        .select("*")
+        .select("*, reviews(rating)")
         .eq("id", business_id)
         .single();
       if (!data) {
@@ -24,9 +24,14 @@ export default function MapPopup({ business_id }: { business_id: string }) {
         address: data.address || "No address provided",
         image: data?.images?.pop()!,
         url: `/s/${data.id}`,
-        reviews: {
-          number: 22,
-          stars: 4.5,
+        rating: {
+          count: data.reviews.length || 0,
+          average: data.reviews.length
+            ? data.reviews?.reduce(
+                (acc: number, curr: { rating: number }) => acc + curr.rating,
+                0
+              ) / data.reviews.length
+            : 0,
         },
       });
     };
@@ -56,11 +61,9 @@ export default function MapPopup({ business_id }: { business_id: string }) {
             <div className="flex items-center gap-2 mt-2">
               <span className="flex items-center gap-1 text-sm text-yellow-500">
                 <Star size={16} />
-                {data.reviews.stars}
+                {data.rating.average}
               </span>
-              <span className="text-sm text-gray-500">
-                ({data.reviews.number})
-              </span>
+              <span className="text-sm text-gray-500">({data.rating.count})</span>
             </div>
           </div>
         </div>

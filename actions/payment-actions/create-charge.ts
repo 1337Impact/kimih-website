@@ -4,25 +4,7 @@ import axios from "axios";
 interface ChargeRequest {
   amount: number;
   currency: string;
-  description: string;
-  reference: {
-    transaction: string;
-    order: string;
-  };
-  customer: {
-    first_name: string;
-    middle_name: string;
-    last_name: string;
-    email: string;
-    phone: {
-      country_code: string;
-      number: string;
-    };
-  };
-  merchant: {
-    id: string;
-  };
-  tokenizedId: string; // Optional field for tokenized ID
+  authId: string;
 }
 
 export default async function ACreateCharge(data: ChargeRequest) {
@@ -33,34 +15,11 @@ export default async function ACreateCharge(data: ChargeRequest) {
       {
         amount: data.amount,
         currency: data.currency,
-        customer_initiated: true,
-        threeDSecure: true,
-        save_card: false,
-        // payment_agreement: {
-        //   id: "sdfdsfdsfdfsdf", // Replace with your payment agreement ID
-        // },
-        description: data.description,
-        metadata: {
-          udf1: "Metadata 1",
-        },
-        reference: {
-          transaction: "txn_01",
-          order: "ord_01",
-        },
-        receipt: {
-          email: true,
-          sms: true,
-        },
-        customer: data.customer,
-        merchant: data.merchant,
         source: {
-          id: data.tokenizedId, // Change to the actual source ID
+          id: data.authId,
         },
         post: {
-          url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook`,
-        },
-        redirect: {
-          url: `${process.env.NEXT_PUBLIC_URL}/profile`,
+          url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook/charge`,
         },
       },
       {
@@ -75,23 +34,23 @@ export default async function ACreateCharge(data: ChargeRequest) {
     console.log("Charge Response:", response.data);
 
     // Return the API response data
-    return { data: response.data};
+    return { data: response.data };
   } catch (error: any) {
     if (error.response) {
       console.error("Charge Error (Response):", error.response.data);
       return {
-        error: error.response.data || "Error processing charge"
-      }
+        error: error.response.data || "Error processing charge",
+      };
     } else if (error.request) {
       console.error("Charge Error (No Response):", error.request);
       return {
-        error: "No response received from Tap Payments API"
-      }
+        error: "No response received from Tap Payments API",
+      };
     } else {
       console.error("Charge Error (Message):", error.message);
       return {
-        error: "Error processing charge"
-      }
+        error: "Error processing charge",
+      };
     }
   }
 }

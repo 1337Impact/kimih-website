@@ -12,7 +12,7 @@ const getPaymentStatus = async (tap_id: string) => {
     .select("status")
     .eq("auth_id", tap_id)
     .single();
-    console.log("Payment status data:", data);
+  console.log("Payment status data:", data);
   if (error) {
     console.error(error);
     return null;
@@ -29,7 +29,7 @@ export default function OrderStatus() {
     console.log("tap_id", tap_id);
     if (tap_id) {
       getPaymentStatus(tap_id).then((data) => {
-        if (data?.status === "CAPTURED") {
+        if (data?.status === "AUTHORIZED" || data?.status === "CAPTURED") {
           toast({
             title: "Payment successful",
             description: "Your payment has been successfully processed",
@@ -46,5 +46,5 @@ export default function OrderStatus() {
     }
   }, [searchParams, toast]);
 
-  return <div/>;
+  return <div />;
 }
