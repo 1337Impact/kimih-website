@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function POST() {
+export async function GET() {
   console.log("Cron Job: GET request received");
   const supabase = createClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
