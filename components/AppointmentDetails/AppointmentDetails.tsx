@@ -18,7 +18,7 @@ import BusinessMap from "./Map";
 import { FaMapMarked, FaPhone } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import AppointmentReview from "./AppointmentReview";
-import Currency from "../Currency";
+import { CancelAppointment } from "./CancelButton";
 
 type Appointment = {
   id: string;
@@ -26,6 +26,7 @@ type Appointment = {
   scheduled_date: string;
   created_at: string;
   price_paid: number | null;
+  status: string | null;
   payments: {
     amount: number;
     service_discounts: {
@@ -67,7 +68,7 @@ const getAppointmentsData = async (
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, price_paid, created_at, payments(amount, service_discounts(discount_value)), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id, currency), reviews(id, rating, comment, created_at)"
+      "id, ref, scheduled_date, price_paid, created_at, status, payments(amount, service_discounts(discount_value)), services(service_name, price, duration), team_members(first_name, last_name, color), business(id, name, address, cordinates, owner_id, currency), reviews(id, rating, comment, created_at)"
     )
     .eq("id", appointment_id)
     .single();
@@ -221,6 +222,16 @@ export default function AppointmentDetails({
               />
             </div>
           )}
+          {data?.status !== "CANCELED" && (
+            <div>
+              <CancelAppointment
+                scheduled_date={new Date(data?.scheduled_date!)}
+                appointment_id={data?.id!}
+              />
+            </div>
+          )}
+        </div>
+        <DrawerFooter>
           <div className="border border-stroke rounded-lg p-2">
             <div className="text-gray-800 flex items-center justify-between pt-2 border-b border-stroke">
               <h1>Service price:</h1>
@@ -246,12 +257,8 @@ export default function AppointmentDetails({
               </h2>
             </div>
           </div>
-        </div>
-        <DrawerFooter>
-          <DrawerClose>
-            <Button className="w-full" variant="outline">
-              Close
-            </Button>
+          <DrawerClose className="w-full border border-gray-300 rounded-md p-2 mt-2">
+            Close
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

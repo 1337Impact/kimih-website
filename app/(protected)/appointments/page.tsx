@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
-import ListAppointments, { Appointment } from "./ListAppointments";
+import ListAppointments from "./ListAppointments";
+import { Appointment } from "../components/AppointmentCard";
 
 const getUserData = async () => {
   const supabase = createClient();
@@ -18,7 +19,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name, currency)"
+      "id, ref, scheduled_date, created_at, status, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name, currency)"
     )
     .order("created_at", { ascending: false });
   if (error || !data) return [] as Appointment[];

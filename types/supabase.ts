@@ -204,6 +204,7 @@ export type Database = {
           payment_id: string | null
           price_paid: number
           ref: string
+          status: string
         }
         Insert: {
           business_id: string
@@ -215,6 +216,7 @@ export type Database = {
           payment_id?: string | null
           price_paid?: number
           ref?: string
+          status?: string
         }
         Update: {
           business_id?: string
@@ -226,6 +228,7 @@ export type Database = {
           payment_id?: string | null
           price_paid?: number
           ref?: string
+          status?: string
         }
         Relationships: [
           {

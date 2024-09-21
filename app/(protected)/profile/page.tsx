@@ -1,8 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
 import ProfileCard from "./ProfileCard";
-import ListAppointments, { Appointment } from "./ListAppointments";
-import ListMemberships, { Membership } from "./ListMemberships";
+import ListAppointments from "./ListAppointments";
+import ListMemberships from "./ListMemberships";
 import OrderStatus from "./OrderStatus";
+import { Appointment } from "../components/AppointmentCard";
+import { Membership } from "../components/MembershipCard";
 
 const getUserData = async () => {
   const supabase = createClient();
@@ -21,7 +23,7 @@ const getAppointmentsData = async (): Promise<Appointment[]> => {
   const { data, error } = await supabase
     .from("appointments")
     .select(
-      "id, ref, scheduled_date, created_at, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name, currency)"
+      "id, ref, scheduled_date, created_at, status, payments(amount), services(service_name, price, duration), team_members(first_name, last_name, email, color), business(id, name, currency)"
     )
     .order("created_at", { ascending: false })
     .limit(5);
@@ -48,7 +50,7 @@ const getMembershipsData = async (): Promise<Membership[]> => {
   const { data, error } = await supabase
     .from("memberships")
     .select(
-      "id, ref, created_at, memberships_catalog(membership_name, price, valid_for_days), payments(amount), business(id, name, currency)"
+      "id, ref, created_at, status, memberships_catalog(membership_name, price, valid_for_days), payments(amount), business(id, name, currency)"
     )
     .order("created_at", { ascending: false })
     .limit(5);
@@ -65,6 +67,7 @@ const getMembershipsData = async (): Promise<Membership[]> => {
       business_id: appointment.business?.id,
       business_name: appointment.business?.name,
       currency: appointment.business?.currency || "",
+      status: appointment.status,
     };
   });
 };
