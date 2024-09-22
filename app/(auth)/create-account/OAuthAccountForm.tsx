@@ -47,6 +47,10 @@ export default function OAuthAccountForm() {
       setData({ ...data, terms: !data.terms });
       return;
     }
+    if (e.target.id === "email") {
+      setData({ ...data, email: e.target.value.toLocaleLowerCase() });
+      return;
+    }
     setData({ ...data, [e.target.id]: e.target.value });
   };
 

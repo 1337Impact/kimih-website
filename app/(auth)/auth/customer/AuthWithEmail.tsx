@@ -20,6 +20,10 @@ export default function AuthWithEmail() {
   const [isExisting, setExisting] = useState(false);
 
   const handleChange = (e: any) => {
+    if (e.target.id === "email") {
+      setData({ ...data, email: e.target.value.toLocaleLowerCase() });
+      return;
+    }
     setData({ ...data, [e.target.id]: e.target.value });
   };
 
