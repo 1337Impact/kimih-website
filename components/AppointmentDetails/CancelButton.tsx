@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 import { IoWarning } from "react-icons/io5";
 
 function isMoreThan24Hours(date: Date): boolean {
@@ -29,6 +30,7 @@ export function CancelAppointment({
   scheduled_date: Date
 }) {
   const { toast } = useToast();
+  const router = useRouter();
 
   const handleCancelAppointment = async () => {
     const { error } = await ACancelAppointment(appointment_id);
@@ -38,13 +40,13 @@ export function CancelAppointment({
         description: "Failed to cancel appointment",
         variant: "destructive",
       });
-      return;
     } else {
       toast({
         title: "Success",
         description: "Appointment has been canceled successfully",
         variant: "success",
       });
+      router.refresh();
     }
   };
 

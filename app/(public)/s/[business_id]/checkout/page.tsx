@@ -14,10 +14,12 @@ import { RootState } from "@/store";
 import { getBusinessCurrency } from "./utils";
 import PaymentStep from "./PaymentStep";
 import Loader from "@/components/loading/loader";
+import { useRouter } from "next/navigation";
 
 export default function Page({ params }: { params: { business_id: string } }) {
   const steps = ["Services", "Professional", "Time", "Payment"];
   const { toast } = useToast();
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
@@ -48,7 +50,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
   }, [params.business_id, dispatch]);
 
   const handleCreateAppointment = async (data: any) => {
-    // console.log("Success: ", data.id);
+    console.log("Success: ", data.id);
     setLoading(true);
     const res = await ACreateAppointment({
       business_id: params.business_id,
@@ -67,6 +69,7 @@ export default function Page({ params }: { params: { business_id: string } }) {
       });
     } else {
       localStorage.removeItem(params.business_id);
+      res.data && router.push(res.data);
     }
   };
 

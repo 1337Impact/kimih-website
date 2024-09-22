@@ -15,7 +15,7 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from("payments")
-    .select("amount, auth_id, charge_date, business(currency)")
+    .select("amount, auth_id, charge_date, business(currency, tap_destination_id)")
     .eq("charge_date", new Date().toISOString().split("T")[0])
     .eq("status", "AUTHORIZED");
 
@@ -30,6 +30,7 @@ export async function GET() {
         amount: payment.amount,
         currency: payment.business?.currency || "AED",
         authId: payment.auth_id,
+        destinationId: payment.business?.tap_destination_id || null,
       });
       if (error) {
         console.error("Error updating payment status:", error);

@@ -5,10 +5,12 @@ interface ChargeRequest {
   amount: number;
   currency: string;
   authId: string;
+  destinationId: string | null;
 }
 
 export default async function ACreateCharge(data: ChargeRequest) {
   console.log("createCharge data:", data);
+  const paymentAmount = data.amount * 0.97;
   try {
     const response = await axios.post(
       "https://api.tap.company/v2/charges/",
@@ -17,6 +19,15 @@ export default async function ACreateCharge(data: ChargeRequest) {
         currency: data.currency,
         source: {
           id: data.authId,
+        },
+        destinations: data.destinationId && {
+          destination: [
+            {
+              id: data.destinationId,
+              amount: paymentAmount * 0.95,
+              currency: data.currency,
+            },
+          ],
         },
         post: {
           url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook/charge`,

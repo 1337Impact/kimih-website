@@ -152,7 +152,7 @@ export default async function ACreateAppointment({
 
   if (paymentError) {
     console.error("error inserting payment", paymentError);
-    return { data: null, error: paymentError };
+    return { data: null, error: "Payment Failed" };
   }
 
   const services = services_memberships.filter(
@@ -198,9 +198,9 @@ export default async function ACreateAppointment({
     );
     if (error) {
       console.error("error inserting memberships", error);
-      return { data: null, error: error.message };
+      return { data: null, error: "Failed to create appointment." };
     }
   }
   console.log("Payment response:", payment);
-  redirect(payment?.redirection_url);
+  return { data: payment?.redirection_url as string, error: null };
 }
