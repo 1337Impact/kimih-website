@@ -6,6 +6,10 @@ interface ChargeRequest {
   currency: string;
   authId: string;
   destinationId: string | null;
+  customer: {
+    first_name: string;
+    email: string;
+  };
 }
 
 export default async function ACreateCharge(data: ChargeRequest) {
@@ -20,6 +24,10 @@ export default async function ACreateCharge(data: ChargeRequest) {
         source: {
           id: data.authId,
         },
+        customer: {
+          first_name: data.customer.first_name,
+          email: data.customer.email,
+        },
         destinations: data.destinationId && {
           destination: [
             {
@@ -31,6 +39,9 @@ export default async function ACreateCharge(data: ChargeRequest) {
         },
         post: {
           url: `${process.env.NEXT_PUBLIC_URL}/api/payment-webhook/charge`,
+        },
+        redirect: {
+          url: `${process.env.NEXT_PUBLIC_URL}/profile`,
         },
       },
       {

@@ -91,6 +91,7 @@ async function handlePayment({
       discount_id: discount.id || null,
       auth_id: res.data.id,
       charge_date: calculateDate.previousDate,
+      client_id: clientData.id,
     })
     .select("id")
     .single();
