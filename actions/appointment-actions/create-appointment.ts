@@ -2,7 +2,6 @@
 import { TeamMember } from "@/app/(public)/s/[business_id]/checkout/SelectProfessional";
 import { Selected } from "@/app/(public)/s/[business_id]/ServicesCard/types";
 import { createClient } from "@/utils/supabase/server";
-import { format } from "date-fns";
 import { sendAppointmentEmail } from "./send-email";
 import ACreateAuthorize from "../payment-actions/create-authorize";
 import { redirect } from "next/navigation";
@@ -113,12 +112,14 @@ export default async function ACreateAppointment({
   services_memberships,
   team_member,
   time,
+  formatedDate,
   discount,
   tokenizedId,
 }: {
   business_id: string;
   services_memberships: Selected[];
   time: Date;
+  formatedDate: string;
   team_member: TeamMember;
   discount: {
     id: string;
@@ -168,7 +169,7 @@ export default async function ACreateAppointment({
       services.map((service) => ({
         services_id: service.id,
         team_member_id: team_member.id,
-        scheduled_date: format(time, "yyyy-MM-dd'T'HH:mm:ss.SSS"),
+        scheduled_date: formatedDate,
         business_id: business_id,
         payment_id: payment?.payment_id,
         price_paid: discountedValue + serviceFee,
@@ -181,7 +182,7 @@ export default async function ACreateAppointment({
     for (const service of services) {
       sendAppointmentEmail({
         workerEmail: team_member.email || "",
-        appointmentDate: time.toString(),
+        appointmentDate: formatedDate,
         serviceName: service.name,
         clientName: `${clientData.first_name} ${clientData.last_name}`,
       });

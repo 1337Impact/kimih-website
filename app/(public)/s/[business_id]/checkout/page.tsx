@@ -15,6 +15,7 @@ import { getBusinessCurrency } from "./utils";
 import PaymentStep from "./PaymentStep";
 import Loader from "@/components/loading/loader";
 import { useRouter } from "next/navigation";
+import { format } from "date-fns";
 
 export default function Page({ params }: { params: { business_id: string } }) {
   const steps = ["Services", "Professional", "Time", "Payment"];
@@ -57,6 +58,10 @@ export default function Page({ params }: { params: { business_id: string } }) {
       services_memberships: selectedServices,
       team_member: selectedProfessional!,
       time: selectedTime || new Date(),
+      formatedDate: format(
+        selectedTime || new Date(),
+        "yyyy-MM-dd'T'HH:mm:ss.SSS"
+      ),
       discount: discount,
       tokenizedId: data.id,
     });

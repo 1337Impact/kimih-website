@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function Page() {
+const PartnerTerms = () => {
   return (
-    <main className="container overflow-hidden max-w-[1300px] mx-auto px-4 flex flex-col pt-20 md:px-10 lg:px-20">
+    <div className="container overflow-hidden max-w-[1300px] mx-auto px-4 flex flex-col pt-20 md:px-10 lg:px-20">
       <h1 className="text-4xl font-bold text-center my-10 lg:my-16">
         Partner Terms for Kimih Information Technology CO. L.L.C
       </h1>
@@ -22,13 +22,13 @@ export default function Page() {
         <h2 className="text-2xl font-semibold mb-4">2. Services Provided</h2>
         <p className="text-gray-700">
           Kimih offers a digital marketplace that connects buyers with beauty
-          and fashion service providers. Our platform enables service booking
-          and payment processing through a third- party payment gateway using an
-          Authorization Capture API. This API facilitates secure and efficient
-          transactions by authorizing payments temporarily and only capturing
-          the payment amount within 24 hours of the customer&apos;s appointment. This
-          ensures that transactions are processed accurately and helps prevent
-          chargebacks or disputes related to cancellations.
+          and wellness service providers. Our platform enables service booking
+          and payment processing through a third-party payment gateway, Tap
+          Payments, using an Authorization Capture API. This API facilitates
+          secure and efficient transactions by authorizing payments temporarily
+          and only capturing the payment amount after the customer&apos;s
+          appointment. This ensures that transactions are processed accurately
+          and helps prevent chargebacks or disputes related to cancellations.
         </p>
       </section>
 
@@ -39,12 +39,8 @@ export default function Page() {
             <strong>Transaction Fees:</strong> Kimih charges a transaction fee
             of 5% on each successful booking processed through our platform.
             This fee is applied to the total service cost and is deducted prior
-            to disbursing funds to the partner.
-          </li>
-          <li>
-            <strong>Additional Costs:</strong> Partners are responsible for any
-            additional fees imposed by third-party services, including payment
-            processing fees and other related costs.
+            to disbursing funds to the partner. Tap Payments charges are also
+            paid by the customer.
           </li>
           <li>
             <strong>Fee Changes:</strong> Kimih reserves the right to adjust
@@ -61,19 +57,18 @@ export default function Page() {
         <ul className="list-disc list-inside text-gray-700 space-y-2">
           <li>
             <strong>Payment Processing:</strong> Payments for services are
-            processed through a third-party payment gateway using our
-            Authorization Capture API. This API authorizes the payment amount
-            temporarily and captures it within 24 hours before the customer&apos;s
-            appointment. This method ensures that transactions are accurately
-            processed and helps in managing cancellations or adjustments
-            efficiently.
+            processed through Tap Payments using our Authorization Capture API.
+            Payments are typically disbursed to partners within T+3 business
+            days after the transaction. The timeline depends on the partner&apos;s
+            bank.
           </li>
           <li>
-            <strong>Dispute Resolution:</strong> Kimih does not mediate disputes
-            related to payment processing or service quality between partners,
-            customers, and the payment gateway. Disputes concerning payments or
-            service issues should be addressed directly with our customer
-            service team or resolved through the appropriate channels.
+            <strong>Dispute and Chargeback Monitoring:</strong> Merchants are
+            responsible for resolving disputes and chargebacks with their
+            customers. Tap Payments monitors the chargeback ratio and requires
+            merchants to maintain a chargeback ratio below 3% per month.
+            Exceeding this threshold may result in penalties or termination of
+            services.
           </li>
         </ul>
       </section>
@@ -90,7 +85,7 @@ export default function Page() {
           <li>
             <strong>Content:</strong> Partners are responsible for ensuring that
             all content and services provided through the platform are accurate,
-            lawful, and do not infringe on any third- party rights. Content must
+            lawful, and do not infringe on any third-party rights. Content must
             be presented truthfully and in compliance with platform guidelines.
           </li>
           <li>
@@ -158,13 +153,19 @@ export default function Page() {
 
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">9. Dispute Resolution</h2>
-        <p className="text-gray-700">
-          Any disputes arising under these Terms should first be attempted to be
-          resolved through informal negotiation. If such resolution is not
-          possible, disputes shall be settled through mediation or arbitration.
-          If mediation or arbitration does not resolve the dispute, it may be
-          escalated to the courts located in the UAE.
-        </p>
+        <ul className="list-disc list-inside text-gray-700 space-y-2">
+          <li>
+            <strong>Response Time:</strong> Merchants must respond to any
+            dispute or chargeback inquiry within 7 working days, providing the
+            necessary evidence to resolve the issue.
+          </li>
+          <li>
+            <strong>Escalation:</strong> If disputes are not resolved promptly,
+            Kimih and Tap Payments reserve the right to take action, including
+            debiting the disputed amount from future payouts or terminating the
+            partnership if the chargeback ratio exceeds acceptable limits.
+          </li>
+        </ul>
       </section>
 
       <section className="mb-6">
@@ -234,9 +235,6 @@ export default function Page() {
 
       <section className="mb-6">
         <h2 className="text-2xl font-semibold mb-4">16. Contact Information</h2>
-        <p className="text-gray-700">
-          If you have any questions or concerns about this please contact us at:
-        </p>
         <ul className="text-gray-700 list-disc list-inside space-y-2 mt-2">
           <li className="font-semibold">
             Kimih Information Technology CO. L.L.C
@@ -257,6 +255,8 @@ export default function Page() {
           <li className="font-semibold">United Arab Emirates</li>
         </ul>
       </section>
-    </main>
+    </div>
   );
-}
+};
+
+export default PartnerTerms;
