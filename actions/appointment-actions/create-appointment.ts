@@ -126,7 +126,6 @@ export default async function ACreateAppointment({
   };
   tokenizedId: string;
 }) {
-  time.setHours(time.getHours() + 1);
   const supabase = createClient();
   const clientData = await getClientData();
   if (!clientData) {
