@@ -26,7 +26,7 @@ const SelectTime = ({
       setCombinedDateTime(null);
       setSelectedTime(null);
     }
-  }, [date, selectedTime, setCombinedDateTime]);
+  }, [date, selectedTime, setCombinedDateTime]);  
 
   useEffect(() => {
     if (date) {
