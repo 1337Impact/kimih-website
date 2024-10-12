@@ -112,12 +112,14 @@ export default async function Home() {
           </div>
           <div className="flex md:flex-col gap-10">
             <div>
-              <h1 className="text-3xl font-bold">30+</h1>
+              <h1 className="text-2xl font-bold">30+</h1>
               <p className="text-gray-600">features included</p>
             </div>
             <div>
-              <h1 className="text-3xl font-bold">80+ Countries</h1>
-              <p className="text-gray-600">Countries covered</p>
+              <h1 className="text-2xl font-bold">Free to use</h1>
+              <p className="text-gray-600 max-w-[200px]">
+                only 5% charge on each successful booking
+              </p>
             </div>
           </div>
         </div>
