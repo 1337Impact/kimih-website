@@ -84,7 +84,7 @@ export default async function Home() {
         <h1 className="text-center text-4xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20">
           #1 booking software with no subscription fees!
         </h1>
-        <Link href={"/signup"} className="mt-6">
+        <Link href={"/auth"} className="mt-6">
           <button className="text-lg uppercase text-white px-10 py-2 lg:py-3 bg-black hover:opacity-80 rounded-full">
             Get started for free
           </button>

@@ -4,7 +4,9 @@ import { FaCheck } from "react-icons/fa";
 
 export default function PricingCard() {
   return (
-    <div className={`${styles.card} w-[320px] md:w-[360px] bg-white p-6 rounded-lg shadow-lg`}>
+    <div
+      className={`${styles.card} w-[320px] md:w-[360px] bg-white p-6 rounded-lg shadow-lg`}
+    >
       <h1 className="text-3xl font-semibold">Popular</h1>
       <p className="mt-4 text-xl text-gray-500">What You&apos;ll Get</p>
       <ul className="mt-6 pb-4 border-b border-dashed border-gray-400 space-y-2">
@@ -32,7 +34,7 @@ export default function PricingCard() {
       <div className="mt-10 flex items-center text-lg">
         <h2 className="text-2xl">$0</h2>/<span className="text-lg">month</span>
       </div>
-      <Link href="/business/signup">
+      <Link href="/auth">
         <button className={`${styles.cardButton}`}>Select</button>
       </Link>
     </div>

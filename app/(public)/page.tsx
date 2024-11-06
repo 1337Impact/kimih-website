@@ -87,7 +87,7 @@ const getNewBusinessData = async () => {
         ? business.reviews?.reduce(
             (acc: number, curr: { rating: number }) => acc + curr.rating,
             0
-          ) / business.reviews.length 
+          ) / business.reviews.length
         : 0,
     },
   }));
@@ -116,7 +116,7 @@ const getRecommendedBusinessData = async () => {
         ? business.reviews?.reduce(
             (acc: number, curr: { rating: number }) => acc + curr.rating,
             0
-          ) / business.reviews.length 
+          ) / business.reviews.length
         : 0,
     },
   }));
@@ -124,20 +124,25 @@ const getRecommendedBusinessData = async () => {
 
 const clientReviews = [
   {
-    title: "Great service!",
-    description:
-      "I had a great experience at the salon. The staff was friendly and professional.",
+    title: "Best Salon for Men in Town!",
+    description: "Great experience and skilled barbers. Will return!",
     client_name: "Cameron Diaz",
-    client_address: "Springfield, IL",
+    client_address: "Al Nabba, Sharjah, UAE",
     client_image: "/assets/images/review-avatar-1.webp",
   },
   {
-    title: "The best saolon so far!",
-    description:
-      "I had a great experience at the salon. The staff was friendly and professional.",
+    title: "Excellent Service and Skilled Staff!",
+    description: "Attentive team and quality service. Highly recommended!",
     client_name: "John Doe",
-    client_address: "Dubai, UAE",
+    client_address: "Muhaisanah Fourth, Dubai, UAE",
     client_image: "/assets/images/review-avatar-2.webp",
+  },
+  {
+    title: "Go-To Salon for Men!",
+    description: "Consistently great service and friendly staff.",
+    client_name: "David Miller",
+    client_address: "Al Karama, Dubai, UAE",
+    client_image: "/assets/images/review-avatar-3.png",
   },
 ];
 
@@ -223,7 +228,7 @@ export default async function Home() {
           ))}
         </div>
       </section>
-      <section id="browse-by-city" className="mt-20 lg:mt-32">
+      <section id="browse-by-city" className="mt-20 lg:mt-32 w-full">
         <h1 className="text-2xl font-bold">Browse by City</h1>
         <ListCities />
       </section>
