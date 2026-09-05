@@ -44,7 +44,7 @@ const features = [
 
 export default function FeatureBento() {
   return (
-    <section id="why-kimih" className="w-full">
+    <section id="why-kimih" className="w-full scroll-mt-28">
       <BlurFade>
         <div className="mb-10 max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-themeVilot">

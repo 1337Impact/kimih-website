@@ -21,7 +21,7 @@ const steps = [
 
 export default function HowItWorks() {
   return (
-    <section id="how-it-works" className="w-full">
+    <section id="how-it-works" className="w-full scroll-mt-28">
       <BlurFade>
         <div className="mb-10 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-themeVilot">

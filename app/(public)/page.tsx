@@ -119,7 +119,7 @@ function BusinessGrid({
   businesses: BusinessCard[];
 }) {
   return (
-    <section id={id} className="w-full">
+    <section id={id} className="w-full scroll-mt-28">
       <BlurFade>
         <div className="mb-6 flex items-end justify-between gap-4">
           <h2 className="text-3xl font-bold text-black">{title}</h2>
@@ -181,7 +181,7 @@ export default async function Home() {
         />
       </div>
 
-      <section id="discover-kimih" className="relative mt-16 w-full xl:mt-24">
+      <section id="discover-kimih" className="relative mt-16 w-full scroll-mt-28 xl:mt-24">
         <BlurFade>
           <div className="flex items-center justify-between overflow-hidden rounded-[32px] border border-slate-200 bg-white/70 shadow-sm max-lg:flex-col max-lg:items-center">
             <div className="max-w-[520px] p-8 lg:pl-12 xl:p-14">
@@ -214,7 +214,7 @@ export default async function Home() {
         <ReviewMarquee reviews={clientReviews} />
       </div>
 
-      <section id="browse-by-city" className="mt-16 w-full lg:mt-24">
+      <section id="browse-by-city" className="mt-16 w-full scroll-mt-28 lg:mt-24">
         <BlurFade>
           <h2 className="text-3xl font-bold text-black">Browse by city</h2>
         </BlurFade>

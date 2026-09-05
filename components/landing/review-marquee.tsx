@@ -12,7 +12,7 @@ export type ClientReview = {
 
 export default function ReviewMarquee({ reviews }: { reviews: ClientReview[] }) {
   return (
-    <section id="reviews" className="w-full overflow-hidden">
+    <section id="reviews" className="w-full scroll-mt-28 overflow-hidden">
       <BlurFade>
         <div className="mb-8">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-themeVilot">

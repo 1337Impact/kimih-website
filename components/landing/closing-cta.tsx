@@ -4,7 +4,7 @@ import ShimmerButton from "./shimmer-button";
 
 export default function ClosingCta() {
   return (
-    <section id="get-started" className="w-full">
+    <section id="get-started" className="w-full scroll-mt-28">
       <BlurFade>
         <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-themeBlue via-[#7a3cf0] to-themeVilot px-6 py-14 text-white shadow-2xl md:px-12">
           <div
