@@ -93,7 +93,7 @@ const Map: React.FC<MapProps> = ({
         <ChangeView center={markerPosition} />
         <TileLayer
           attribution='&copy; <a href=""></a>'
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          url={`https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=${process.env.NEXT_PUBLIC_CARTO_API_KEY}`}
         />
         {showMarker && (
           <Marker icon={positionIcon} position={markerPosition}>
