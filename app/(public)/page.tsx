@@ -1,125 +1,88 @@
 import Image from "next/image";
-import styles from "./styles.module.css";
-import BookNowCard from "@/components/book-now-card";
 import SalonCard from "@/components/salon-card";
-import ReviewCard from "@/components/review-card";
 import ListCities from "@/components/list-cities";
 import { createClient } from "@/utils/supabase/server";
+import LandingHero from "@/components/landing/landing-hero";
+import CategoryMarquee from "@/components/landing/category-marquee";
+import FeatureBento from "@/components/landing/feature-bento";
+import HowItWorks from "@/components/landing/how-it-works";
+import ReviewMarquee from "@/components/landing/review-marquee";
+import ClosingCta from "@/components/landing/closing-cta";
+import BlurFade from "@/components/landing/blur-fade";
 
-const tempData = [
-  {
-    image:
-      "https://ehlgujkybojechhxspiy.supabase.co/storage/v1/object/public/business-images/barber.png?t=2024-08-16T18%3A04%3A16.944Z",
-    title: "Cozy Coffee Shop",
-    address: "123 Main Street, Springfield",
-    url: "#",
-    reviews: {
-      number: 123,
-      stars: 4.5,
-    },
-  },
-  {
-    image:
-      "https://ehlgujkybojechhxspiy.supabase.co/storage/v1/object/public/business-images/eyebrow.png?t=2024-08-16T18%3A04%3A44.585Z",
-    title: "The Artisanal Bakery",
-    address: "456 Baker's Lane, Metropolis",
-    url: "#",
-    reviews: {
-      number: 123,
-      stars: 4.5,
-    },
-  },
-  {
-    image:
-      "https://ehlgujkybojechhxspiy.supabase.co/storage/v1/object/public/business-images/fitness.png?t=2024-08-16T18%3A04%3A54.872Z",
-    title: "Urban Yoga Studio",
-    address: "789 Yoga Blvd, Gotham",
-    url: "#",
-    reviews: {
-      number: 123,
-      stars: 4.5,
-    },
-  },
-  {
-    image:
-      "https://ehlgujkybojechhxspiy.supabase.co/storage/v1/object/public/business-images/hair.png?t=2024-08-16T18%3A05%3A03.528Z",
-    title: "Gourmet Restaurant",
-    address: "321 Fine Dining St, Star City",
-    url: "https://gourmetrestaurant.com",
-    reviews: {
-      number: 123,
-      stars: 4.5,
-    },
-  },
-  {
-    image:
-      "https://ehlgujkybojechhxspiy.supabase.co/storage/v1/object/public/business-images/makeup.png?t=2024-08-16T18%3A05%3A51.922Z",
-    title: "Tech Hub Coworking",
-    address: "987 Silicon Avenue, Techville",
-    url: "https://techhubcoworking.com",
-    reviews: {
-      number: 123,
-      stars: 4.5,
-    },
-  },
-];
+type BusinessCard = {
+  title: string;
+  address: string;
+  image: string;
+  url: string;
+  rating: {
+    count: number;
+    average: number;
+  };
+};
 
-const getNewBusinessData = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("business")
-    .select("id, name, address, images, reviews(rating)")
-    .eq("published", true)
-    .order("created_at", { ascending: false })
-    .limit(10);
-  if (error) {
-    console.error(error);
-    return [];
-  }
-  return data.map((business) => ({
+const mapBusinesses = (
+  data: {
+    id: string;
+    name: string;
+    address: string | null;
+    images: string[] | null;
+    reviews: { rating: number }[];
+  }[]
+): BusinessCard[] =>
+  data.map((business) => ({
     title: business.name,
     address: business.address || "No address provided",
-    image: business?.images?.pop()!,
+    image: business.images?.[0] || "/assets/images/yoga.png",
     url: `/s/${business.id}`,
     rating: {
       count: business.reviews.length || 0,
       average: business.reviews.length
-        ? business.reviews?.reduce(
+        ? business.reviews.reduce(
             (acc: number, curr: { rating: number }) => acc + curr.rating,
             0
           ) / business.reviews.length
         : 0,
     },
   }));
+
+const getNewBusinessData = async () => {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("business")
+      .select("id, name, address, images, reviews(rating)")
+      .eq("published", true)
+      .order("created_at", { ascending: false })
+      .limit(10);
+    if (error || !data) {
+      console.error(error);
+      return [];
+    }
+    return mapBusinesses(data);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 };
 
 const getRecommendedBusinessData = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("business")
-    .select("id, name, address, images, reviews(rating)")
-    // .order("reviews(rating)", { ascending: false })
-    .eq("published", true)
-    .limit(10);
-  if (error) {
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("business")
+      .select("id, name, address, images, reviews(rating)")
+      .eq("published", true)
+      .limit(10);
+    if (error || !data) {
+      console.error(error);
+      return [];
+    }
+    return mapBusinesses(data);
+  } catch (error) {
     console.error(error);
     return [];
   }
-  return data.map((business) => ({
-    title: business.name,
-    address: business.address || "No address provided",
-    image: business?.images?.pop()!,
-    url: `/s/${business.id}`,
-    rating: {
-      count: business.reviews.length || 0,
-      average: business.reviews.length
-        ? business.reviews?.reduce(
-            (acc: number, curr: { rating: number }) => acc + curr.rating,
-            0
-          ) / business.reviews.length
-        : 0,
-    },
-  }));
 };
 
 const clientReviews = [
@@ -146,92 +109,121 @@ const clientReviews = [
   },
 ];
 
-export default async function Home() {
-  const newbusinessData = await getNewBusinessData();
-  const recommendedBusinessData = await getRecommendedBusinessData();
+function BusinessGrid({
+  id,
+  title,
+  businesses,
+}: {
+  id: string;
+  title: string;
+  businesses: BusinessCard[];
+}) {
   return (
-    <main className="container overflow-hidden max-w-[1300px] mx-auto px-4 md:px-6 flex min-h-screen flex-col items-center pt-20">
-      <div className={styles.background} />
-      <section
-        id="main"
-        className="w-full min-h-[70vh] flex flex-col items-center justify-center"
-      >
-        <h1 className="text-center text-3xl md:text-4xl lg:text-6xl font-bold text-black mt-10 lg:mt-20">
-          Book beauty and wellness services
-        </h1>
-        <div className="w-full px-3 md:px-10 mt-6 md:mt-14 lg:mt-28">
-          <BookNowCard />
+    <section id={id} className="w-full">
+      <BlurFade>
+        <div className="mb-6 flex items-end justify-between gap-4">
+          <h2 className="text-3xl font-bold text-black">{title}</h2>
+          <a
+            href="/map"
+            className="text-sm font-semibold text-themeVilot hover:underline"
+          >
+            View map
+          </a>
         </div>
-      </section>
-      <section id="recommended-services" className="mt-20 lg:mt-32">
-        <h1 className="text-2xl font-bold">Recommended</h1>
-        <div className="w-full mt-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {recommendedBusinessData.map((salon) => (
-            <SalonCard key={salon.title} {...salon} />
+      </BlurFade>
+      {businesses.length === 0 ? (
+        <div className="rounded-3xl border border-dashed border-slate-300 bg-white/70 px-6 py-12 text-center text-slate-500">
+          New venues are joining Kimih every week. Search the map to explore
+          nearby salons and spas.
+        </div>
+      ) : (
+        <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {businesses.map((salon, index) => (
+            <BlurFade key={`${salon.title}-${index}`} delay={index * 60}>
+              <SalonCard {...salon} />
+            </BlurFade>
           ))}
         </div>
-      </section>
-      <section id="new-to-kimih-services" className="mt-20">
-        <h1 className="text-2xl font-bold">New to Kimih</h1>
-        <div className="w-full mt-6 grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {newbusinessData.map((salon) => (
-            <SalonCard key={salon.title} {...salon} />
-          ))}
-        </div>
-      </section>
-      <section id="discover-kimih" className="relative mt-20 xl:mt-32">
-        <div
-          className={`${styles.discoverKimih} flex max-lg:flex-col max-lg:items-center justify-between`}
-        >
-          <div className="max-w-[520px] lg:mt-20 lg:pl-10 xl:mt-32 xl:pl-14">
-            <h1 className="text-3xl font-bold">
-              Discover Kimih: Your Beauty & Wellness Hub
-            </h1>
-            <p className="text-lg mt-3">
-              Kimih is the first platform of its kind in the Middle East,
-              offering seamless booking for local beauty and wellness services.
-              With an easy-to-use interface, Kimih connects you with top-rated
-              professionals in your area, making self-care more accessible than
-              ever. Experience the convenience of Kimih today!
-            </p>
+      )}
+    </section>
+  );
+}
+
+export default async function Home() {
+  const [newbusinessData, recommendedBusinessData] = await Promise.all([
+    getNewBusinessData(),
+    getRecommendedBusinessData(),
+  ]);
+
+  return (
+    <main className="relative mx-auto flex min-h-screen w-full max-w-[1300px] flex-col items-center overflow-hidden px-4 pb-16 pt-20 md:px-6">
+      <LandingHero />
+
+      <CategoryMarquee />
+
+      <div className="mt-16 w-full lg:mt-24">
+        <FeatureBento />
+      </div>
+
+      <div className="mt-16 w-full lg:mt-24">
+        <BusinessGrid
+          id="recommended-services"
+          title="Recommended"
+          businesses={recommendedBusinessData}
+        />
+      </div>
+
+      <div className="mt-16 w-full">
+        <BusinessGrid
+          id="new-to-kimih-services"
+          title="New to Kimih"
+          businesses={newbusinessData}
+        />
+      </div>
+
+      <section id="discover-kimih" className="relative mt-16 w-full xl:mt-24">
+        <BlurFade>
+          <div className="flex items-center justify-between overflow-hidden rounded-[32px] border border-slate-200 bg-white/70 shadow-sm max-lg:flex-col max-lg:items-center">
+            <div className="max-w-[520px] p-8 lg:pl-12 xl:p-14">
+              <h2 className="text-3xl font-bold text-black md:text-4xl">
+                Discover Kimih: your beauty & wellness hub
+              </h2>
+              <p className="mt-4 text-lg text-slate-600">
+                Kimih is the first platform of its kind in the Middle East,
+                offering seamless booking for local beauty and wellness services.
+                Connect with top-rated professionals in your area and make
+                self-care easier than ever.
+              </p>
+            </div>
+            <Image
+              className="max-md:scale-105 md:w-1/2"
+              src="/assets/images/image-with-many-photos-and-phone.png"
+              alt="Kimih app collage with salon photos and a phone"
+              width={1600}
+              height={900}
+            />
           </div>
-          <Image
-            className="max-md:scale-105 md:w-1/2"
-            src="/assets/images/image-with-many-photos-and-phone.png"
-            alt="image-with-many-photos-and-phone"
-            width={1600}
-            height={900}
-          />
-        </div>
+        </BlurFade>
       </section>
-      <section id="how-it-works" className="mt-20 md:w-[95%] xl:mt-40">
-        <h1 className="text-3xl text-black text-center font-bold">
-          Getting Started
-        </h1>
-        <div className="relative flex flex-col gap-8 justify-center items-center w-full mt-8 px-6 md:px-10 lg:px-32 py-10 md:py-14 rounded-3xl shadow-lg">
-          <div className="rounded-xl w-full">
-            <iframe
-              className="m-auto w-full aspect-video rounded-2xl hover-scale"
-              src="https://www.youtube.com/embed/yFKRYzQ1ZRg"
-              title="Busy Life? Book Beauty &amp; Wellness in Seconds with Kimih!"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            ></iframe>
-          </div>
-          <div className="absolute w-full -z-10 h-full bg-landing-yoga bg-cover blur-[3px] rounded-3xl" />
-        </div>
-      </section>
-      <section id="reviews" className="mt-20 lg:mt-32">
-        <h1 className="text-2xl text-black font-semibold">Client Reviews</h1>
-        <div className="w-full mt-6 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
-          {clientReviews.map((review) => (
-            <ReviewCard key={review.title} {...review} />
-          ))}
-        </div>
-      </section>
-      <section id="browse-by-city" className="mt-20 lg:mt-32 w-full">
-        <h1 className="text-2xl font-bold">Browse by City</h1>
+
+      <div className="mt-16 w-full md:w-[95%] xl:mt-24">
+        <HowItWorks />
+      </div>
+
+      <div className="mt-16 w-full lg:mt-24">
+        <ReviewMarquee reviews={clientReviews} />
+      </div>
+
+      <section id="browse-by-city" className="mt-16 w-full lg:mt-24">
+        <BlurFade>
+          <h2 className="text-3xl font-bold text-black">Browse by city</h2>
+        </BlurFade>
         <ListCities />
       </section>
+
+      <div className="mt-16 w-full lg:mt-24">
+        <ClosingCta />
+      </div>
     </main>
   );
 }

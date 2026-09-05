@@ -82,6 +82,13 @@
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html :is([data-animate], .animate-marquee, .animate-aurora, .animate-shimmer, .animate-gradient-x, .animate-shine, .animate-border-spin, .animate-fade-up, .animate-pulse-glow) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 
 /* google translation */
 

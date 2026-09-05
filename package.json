@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:landing-animations": "node --test scripts/test-landing-animations.mjs"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
