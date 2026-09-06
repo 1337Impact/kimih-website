@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.css";
-import { SwiperBusinessReview } from "@/components/review-card";
+import SwiperBusinessReview from "@/components/review-card/swiper-business-review";
 import Link from "next/link";
 import BusinessFeatureCard from "@/components/business-feature-card";
 import { FaCheck } from "react-icons/fa";

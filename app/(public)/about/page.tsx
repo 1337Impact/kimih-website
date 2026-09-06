@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.css";
-import { SwiperBusinessReview } from "@/components/review-card";
+import SwiperBusinessReview from "@/components/review-card/swiper-business-review";
 
 const partnersReviews = [
   {

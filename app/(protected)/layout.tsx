@@ -1,18 +1,15 @@
 "use client";
 import Navbar from "@/components/protected/navbar/navbar";
-import { Inter } from "next/font/google";
 import { UserProvider } from "../context/UserContext";
 import { Toaster } from "@/components/ui/toaster";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function RootLayout({
+export default function ProtectedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className={inter.className}>
+    <div>
       <UserProvider>
         <Toaster />
         <Navbar />

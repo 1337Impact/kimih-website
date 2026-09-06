@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Rubik } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/store/Provider";
 
-const inter = Inter({ subsets: ["latin"] });
+const rubik = Rubik({
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
     default: "KIMIH",
     template: "%s",
   },
+  description: "First beauty & wellness platform in UAE",
   openGraph: {
     title: "KIMIH",
     description: "First beauty & wellness platform in UAE",
@@ -27,10 +31,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head className="notranslate">
-        <script src="https://tap-sdks.b-cdn.net/card/1.0.2/index.js" async />
-      </head>
-      <body suppressHydrationWarning={true} className={inter.className}>
+      <head className="notranslate" />
+      <body suppressHydrationWarning={true} className={rubik.className}>
         <ReduxProvider>{children}</ReduxProvider>
       </body>
     </html>

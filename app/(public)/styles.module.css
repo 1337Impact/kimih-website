@@ -9,9 +9,8 @@
   background-position: bottom;
   background-size: cover;
   background-image: url("/assets/background.svg");
-  filter: drop-shadow(5px 2px 15px #000);
-  filter: blur(100px);
-  opacity: 0.4;
+  filter: blur(40px);
+  opacity: 0.35;
 }
 
 .discoverKimih {

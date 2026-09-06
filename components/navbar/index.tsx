@@ -1,10 +1,9 @@
 "use client";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./navbar.module.css";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { createClient } from "@/utils/supabase/client";
 import { getUserData, UserData } from "@/lib/getUserData";
 import UserDropdownMenu from "../protected/user-dropdown/user-dropdown";
 import LanguageSwitcher from "./language-switcher";
@@ -53,13 +52,14 @@ export default function Navbar() {
       <div className="relative flex h-full w-full items-center justify-between px-4 max-w-[1300px] mx-auto">
         <Link href="/#" className="flex items-center gap-1">
           <Image
-            width="300"
-            height="300"
+            width={36}
+            height={36}
             alt="logo"
             src="/logo.svg"
+            priority
             className="h-9 w-9"
           />
-          <h1 className="notranslate text-xl font-bold text-black">Kimih</h1>
+          <span className="notranslate text-xl font-bold text-black">Kimih</span>
         </Link>
         <nav
           className={`${
