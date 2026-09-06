@@ -1,10 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface TeamMember {
-  first_name: string;
-  last_name: string;
+  first_name?: string | null;
+  last_name?: string | null;
   job_title: string | null | undefined;
   avatar_url: string | null | undefined;
+}
+
+function getInitials(firstName?: string | null, lastName?: string | null) {
+  const initials = `${firstName?.trim()?.[0] ?? ""}${
+    lastName?.trim()?.[0] ?? ""
+  }`.toUpperCase();
+  return initials || "?";
 }
 
 export default function TeamList({
@@ -27,13 +34,11 @@ export default function TeamList({
               >
                 <Avatar className="w-24 h-24 cursor-pointer">
                   <AvatarImage
-                    src={member?.avatar_url!}
-                    alt={member.first_name}
+                    src={member.avatar_url ?? undefined}
+                    alt={`${member.first_name ?? ""} ${member.last_name ?? ""}`.trim()}
                   />
                   <AvatarFallback className="font-bold text-3xl text-violet-400">
-                    {`${member?.first_name![0]}${
-                      member?.last_name![0]
-                    }`.toUpperCase()}
+                    {getInitials(member.first_name, member.last_name)}
                   </AvatarFallback>
                 </Avatar>
                 <h3 className="mt-2 mb-1 text-lg font-bold tracking-tight text-gray-800 ">

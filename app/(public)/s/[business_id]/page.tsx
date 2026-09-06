@@ -27,11 +27,6 @@ const getBusinessData = async (business_id: string) => {
     console.error(error);
     return null;
   }
-  const { data: ownerData } = await supabase
-    .from("profiles")
-    .select("first_name, last_name, avatar_url")
-    .eq("id", data?.owner_id)
-    .single();
 
   const { data: reviewData, count: reviewsCount } = await supabase
     .from("reviews")
@@ -39,10 +34,7 @@ const getBusinessData = async (business_id: string) => {
     .eq("business_id", business_id);
   return {
     ...data,
-    team_members: [
-      { ...ownerData!, job_title: "Owner" },
-      ...data?.team_members,
-    ],
+    team_members: data.team_members ?? [],
     rating: {
       count: reviewsCount || 0,
       average: reviewsCount
@@ -171,7 +163,7 @@ export default async function SalonPage({
         />
       </section>
       <div>
-        {businessData.team_members && (
+        {businessData.team_members.length > 0 && (
           <TeamList teamMembers={businessData.team_members} />
         )}
       </div>

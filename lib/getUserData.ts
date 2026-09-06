@@ -1,17 +1,7 @@
+import { Tables } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/client";
 
-export interface UserData {
-  avatar_url: string | null;
-  created_at: string | null;
-  email: string | null;
-  first_name: string | null;
-  id: string;
-  isCompleted: boolean;
-  last_name: string | null;
-  phone: string | null;
-  role: string | null;
-  updated_at: string | null;
-}
+export type UserData = Tables<"profiles">;
  
 export const getUserData = async () => {
   const supabase = createClient();

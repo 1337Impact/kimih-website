@@ -10,7 +10,7 @@ interface CheckoutData {
     id: string;
     first_name: string;
     last_name: string;
-    email: string | null;
+    email: string;
     job_title: string | null | undefined;
     avatar_url: string | null | undefined;
   } | null;
