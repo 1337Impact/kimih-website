@@ -3,12 +3,14 @@ import Image from "next/image";
 import AuthWithEmail from "./AuthWithEmail";
 import { createClient } from "@/utils/supabase/client";
 
+const getOAuthRedirectTo = () => `${window.location.origin}/auth/callback`;
+
 const loginWithFacebook = async () => {
   const supabase = createClient();
   const data = await supabase.auth.signInWithOAuth({
     provider: "facebook",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/callback`,
+      redirectTo: getOAuthRedirectTo(),
     },
   });
 };
@@ -18,7 +20,7 @@ const loginWithGoogle = async () => {
   const data = await supabase.auth.signInWithOAuth({
     provider: "google",
     options: {
-      redirectTo: `${process.env.NEXT_PUBLIC_URL}/auth/callback`,
+      redirectTo: getOAuthRedirectTo(),
     },
   });
 };
