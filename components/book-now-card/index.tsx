@@ -1,7 +1,5 @@
 "use client";
 import {
-  AlignJustify,
-  BookIcon,
   Calendar,
   Clock3,
   MapPin,
@@ -69,44 +67,6 @@ const servicesList = [
   {
     id: 14,
     name: "Dental",
-  },
-];
-
-const tempData = [
-  {
-    image: "https://via.placeholder.com/150",
-    title: "Cozy Coffee Shop",
-    address: "123 Main Street, Springfield",
-    url: "https://cozycoffeeshop.com",
-    reviews: 123,
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    title: "The Artisanal Bakery",
-    address: "456 Baker's Lane, Metropolis",
-    url: "https://artisanalbakery.com",
-    reviews: 89,
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    title: "Urban Yoga Studio",
-    address: "789 Yoga Blvd, Gotham",
-    url: "https://urbanyoga.com",
-    reviews: 200,
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    title: "Gourmet Restaurant",
-    address: "321 Fine Dining St, Star City",
-    url: "https://gourmetrestaurant.com",
-    reviews: 45,
-  },
-  {
-    image: "https://via.placeholder.com/150",
-    title: "Tech Hub Coworking",
-    address: "987 Silicon Avenue, Techville",
-    url: "https://techhubcoworking.com",
-    reviews: 78,
   },
 ];
 

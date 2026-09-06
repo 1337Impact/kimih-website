@@ -26,6 +26,7 @@ export default function SalonCard({
           alt={title}
           width={600}
           height={400}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 25vw"
           className="w-full aspect-[3/2] object-cover rounded-t-lg"
         />
         <div className="p-2">

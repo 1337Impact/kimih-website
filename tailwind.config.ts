@@ -25,7 +25,8 @@ const config = {
       backgroundImage: {
         "bg-gradiant":
           "linear-gradient(180deg, transparent 0%, transparent 50%,  rgba(58, 55, 236, .5) 75%, #DD3FEB 100%)",
-        "landing-yoga": "url('/assets/images/yoga.png')",
+        "landing-yoga":
+          "linear-gradient(135deg, rgba(58, 55, 236, 0.25) 0%, rgba(221, 63, 235, 0.2) 100%)",
       },
       colors: {
         themeBlue: "#3A37EC",

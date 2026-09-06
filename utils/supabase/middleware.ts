@@ -5,6 +5,15 @@ import { NextResponse, type NextRequest } from "next/server";
 const protectedRoutes = ["/profile", "/appointments", "/checkout"];
 
 export async function updateSession(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  const hasAuthCookie = request.cookies
+    .getAll()
+    .some((cookie) => cookie.name.startsWith("sb-") && cookie.value);
+
+  if (!hasAuthCookie && !protectedRoutes.some((route) => pathname.includes(route))) {
+    return NextResponse.next();
+  }
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -44,7 +53,6 @@ export async function updateSession(request: NextRequest) {
   const { data: userData } = await supabase.auth.getUser();
   const user = userData.user;
   const url = request.nextUrl.clone();
-  const pathname = request.nextUrl.pathname;
 
   // Handle user not logged in
   if (!user && protectedRoutes.some(route => pathname.includes(route))) {

@@ -1,20 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import { FaChevronUp } from "react-icons/fa";
+import { ChevronUp } from "lucide-react";
 
 export default function ScrollToTop() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        setShow(true);
-      } else {
-        setShow(false);
-      }
-    });
-    () => window.removeEventListener("scroll", () => {});
-  });
+    const onScroll = () => {
+      setShow(window.scrollY > 300);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   function scrollToTop() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
@@ -28,7 +26,7 @@ export default function ScrollToTop() {
       aria-label="Back to top"
       onClick={scrollToTop}
     >
-      <FaChevronUp />
+      <ChevronUp />
     </button>
   );
 }

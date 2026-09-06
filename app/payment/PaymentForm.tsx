@@ -1,11 +1,13 @@
 "use client";
-import { useEffect } from "react";
+import { useCallback, useRef } from "react";
+import Script from "next/script";
 
 const PaymentForm = () => {
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!window.CardSDK) return;
-    const { renderTapCard, Theme, Currencies, Direction, Edges, Locale } =
+  const unmountRef = useRef<(() => void) | undefined>();
+
+  const initCard = useCallback(() => {
+    if (typeof window === "undefined" || !window.CardSDK) return;
+    const { renderTapCard, Theme, Direction, Edges, Locale } =
       window.CardSDK;
     const { unmount } = renderTapCard("card-sdk-id", {
       publicKey: "pk_test_X6Rs1Ale7vaK3gBNtFpwjzSW",
@@ -37,22 +39,22 @@ const PaymentForm = () => {
         edges: Edges.CURVED,
         direction: Direction.LTR,
       },
-      // onReady: () => console.log("onReady"),
-      // onFocus: () => console.log("onFocus"),
-      // onBinIdentification: (data) => console.log("onBinIdentification", data),
-      // onValidInput: (data) => console.log("onValidInputChange", data),
-      // onInvalidInput: (data) => console.log("onInvalidInput", data),
-      // onError: (data) => console.log("onError", data),
-      onSuccess: (data : any) => console.log("onSuccess", data),
+      onSuccess: (data: any) => console.log("onSuccess", data),
     });
+    unmountRef.current = unmount;
   }, []);
 
   const handleSubmit = () => {
-    const res = window.CardSDK.tokenize();
+    window.CardSDK.tokenize();
   };
 
   return (
     <div>
+      <Script
+        src="https://tap-sdks.b-cdn.net/card/1.0.2/index.js"
+        strategy="afterInteractive"
+        onLoad={initCard}
+      />
       <div id="card-sdk-id"></div>
       <p id="msg"></p>
       <button onClick={handleSubmit}>Submit</button>

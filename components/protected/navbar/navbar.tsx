@@ -1,13 +1,13 @@
 "use client";
 import { createClient } from "@/utils/supabase/client";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import UserDropdownMenu from "../user-dropdown/user-dropdown";
 import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@/app/context/UserContext";
 import { useDispatch } from "react-redux";
 import { setLanguage } from "@/store/languageSlice";
+import { getStoredLanguage, loadGoogleTranslate } from "@/lib/load-google-translate";
 
 const getUserData = async () => {
   const supabase = createClient();
@@ -26,36 +26,14 @@ export default function Navbar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const language = localStorage.getItem("language");
+    const language = getStoredLanguage();
     if (language) {
       dispatch(setLanguage(language));
     }
-  }, [dispatch]);
-
-  useEffect(() => {
-    const addGoogleTranslateScript = () => {
-      const addScript = document.createElement("script");
-      addScript.src =
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      document.body.appendChild(addScript);
-
-      // @ts-ignore
-      window.googleTranslateElementInit = () => {
-        // @ts-ignore
-        new window.google.translate.TranslateElement(
-          { pageLanguage: "en" },
-          "google_translate_element"
-        );
-      };
-    };
-    if (
-      !document.querySelector(
-        'script[src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"]'
-      )
-    ) {
-      addGoogleTranslateScript();
+    if (language && language !== "en") {
+      loadGoogleTranslate();
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     getUserData().then((data) => {
